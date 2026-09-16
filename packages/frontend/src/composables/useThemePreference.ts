@@ -5,9 +5,10 @@ export type UiTheme = 'dark' | 'light'
 const STORAGE_KEY = 'hsr-team-builder:ui-theme:v1'
 const theme = ref<UiTheme>('dark')
 
-const FADE_MS = 320
-/** 遮罩峰值透明度：能盖住跳变又不会完全糊住页面 */
-const PEAK_ALPHA = 0.72
+const GROW_MS = 380
+const FADE_MS = 280
+/** 峰值透明度：略厚重但不完全糊死，避免刺眼 */
+const PEAK_ALPHA = 0.88
 
 function isValid(value: unknown): value is UiTheme {
   return value === 'dark' || value === 'light'
@@ -45,25 +46,52 @@ function commitDom(t: UiTheme) {
   document.documentElement.style.colorScheme = t
 }
 
-/** 目标主题的半透明纱色：切浅用白纱，切深用黑纱 */
-function veilColor(t: UiTheme) {
-  return t === 'light' ? '255, 255, 255' : '8, 10, 18'
+function veilRgb(t: UiTheme) {
+  return t === 'light' ? '248, 250, 252' : '10, 12, 22'
 }
 
-let fading = false
+function originFromEvent(e?: MouseEvent | TouchEvent | { clientX: number; clientY: number }) {
+  if (!e || typeof window === 'undefined') {
+    return { x: window.innerWidth / 2, y: window.innerHeight * 0.16 }
+  }
+  if ('changedTouches' in e && e.changedTouches?.[0]) {
+    const t = e.changedTouches[0]
+    return { x: t.clientX, y: t.clientY }
+  }
+  const ev = e as MouseEvent
+  if (typeof ev.clientX === 'number' && typeof ev.clientY === 'number' && (ev.clientX || ev.clientY)) {
+    return { x: ev.clientX, y: ev.clientY }
+  }
+  return { x: window.innerWidth / 2, y: window.innerHeight * 0.16 }
+}
 
-function playVeil(t: UiTheme) {
-  if (fading || typeof document === 'undefined') return
-  fading = true
+function coverSize(x: number, y: number) {
+  const w = window.innerWidth
+  const h = window.innerHeight
+  const r = Math.max(Math.hypot(x, y), Math.hypot(w - x, y), Math.hypot(x, h - y), Math.hypot(w - x, h - y))
+  return Math.ceil(r * 2) + 8
+}
 
-  const rgb = veilColor(t)
+let animating = false
+
+/**
+ * 从点击点扩出半透明圆纱 → 盖满后换主题 → 圆纱淡出。
+ * 圆扩 + 软淡化结合，避免整屏硬闪或纯圆硬切。
+ */
+function playCircleVeil(t: UiTheme, origin: { x: number; y: number }) {
+  if (animating || typeof document === 'undefined') return
+  animating = true
+
+  const size = coverSize(origin.x, origin.y)
   const veil = document.createElement('div')
   veil.className = 'theme-veil'
   veil.setAttribute('aria-hidden', 'true')
-  veil.style.backgroundColor = `rgba(${rgb}, ${PEAK_ALPHA})`
+  veil.style.left = `${origin.x}px`
+  veil.style.top = `${origin.y}px`
+  veil.style.background = `radial-gradient(circle closest-side, rgba(${veilRgb(t)}, ${PEAK_ALPHA}) 70%, rgba(${veilRgb(t)}, ${PEAK_ALPHA * 0.72}) 100%)`
+  veil.style.setProperty('--theme-veil-size', `${size}px`)
   document.body.appendChild(veil)
 
-  // 下一帧再触发淡入
   requestAnimationFrame(() => {
     veil.classList.add('is-active')
     window.setTimeout(() => {
@@ -71,32 +99,32 @@ function playVeil(t: UiTheme) {
       veil.classList.add('is-out')
       window.setTimeout(() => {
         veil.remove()
-        fading = false
+        animating = false
       }, FADE_MS)
-    }, FADE_MS)
+    }, GROW_MS)
   })
 }
 
-function applyDom(t: UiTheme, animate = false) {
+function applyDom(t: UiTheme, origin?: { x: number; y: number }) {
   if (typeof document === 'undefined') return
-  if (!animate || prefersReducedMotion()) {
+  if (!origin || prefersReducedMotion()) {
     commitDom(t)
     return
   }
-  playVeil(t)
+  playCircleVeil(t, origin)
 }
 
 let booted = false
-let pendingAnimate = false
+let pendingOrigin: { x: number; y: number } | null = null
 
 function ensureBooted() {
   if (booted || typeof window === 'undefined') return
   theme.value = detectInitial()
   applyDom(theme.value)
   watch(theme, (t) => {
-    const animate = pendingAnimate
-    pendingAnimate = false
-    applyDom(t, animate)
+    const origin = pendingOrigin ?? null
+    pendingOrigin = null
+    applyDom(t, origin)
   })
   booted = true
 }
@@ -116,17 +144,17 @@ export function useThemePreference() {
     }
   }
 
-  const setTheme = (next: UiTheme, animate = true) => {
+  const setTheme = (next: UiTheme, origin?: { x: number; y: number }) => {
     if (next === theme.value) return
     persist(next)
-    pendingAnimate = animate
+    pendingOrigin = origin ?? null
     theme.value = next
   }
 
-  const toggleTheme = () => {
+  const toggleTheme = (e?: MouseEvent | TouchEvent) => {
     const next: UiTheme = theme.value === 'dark' ? 'light' : 'dark'
     persist(next)
-    pendingAnimate = true
+    pendingOrigin = originFromEvent(e)
     theme.value = next
   }
 

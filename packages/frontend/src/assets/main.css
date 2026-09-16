@@ -62,27 +62,39 @@ body {
   min-height: 100vh;
 }
 
-/* 主题切换：全屏半透明纱淡入 → 换主题 → 淡出（白↔黑，非整页覆盖） */
+/* 主题切换：从按钮圆形扩半透明纱 → 换主题 → 纱淡出 */
 .theme-veil {
   position: fixed;
-  inset: 0;
   z-index: 2147483647;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity;
+  opacity: 1;
+  will-change: width, height, opacity;
+  transition:
+    width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-veil.is-active {
-  opacity: 1;
+  width: var(--theme-veil-size, 300vmax);
+  height: var(--theme-veil-size, 300vmax);
 }
 
 .theme-veil.is-out {
   opacity: 0;
+  transition:
+    width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.28s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-veil {
+  .theme-veil,
+  .theme-veil.is-active,
+  .theme-veil.is-out {
     transition: none !important;
   }
 }
