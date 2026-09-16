@@ -5,10 +5,10 @@ export type UiTheme = 'dark' | 'light'
 const STORAGE_KEY = 'hsr-team-builder:ui-theme:v1'
 const theme = ref<UiTheme>('dark')
 
-const GROW_MS = 380
-const FADE_MS = 280
-/** 峰值透明度：略厚重但不完全糊死，避免刺眼 */
-const PEAK_ALPHA = 0.88
+const GROW_MS = 360
+const FADE_MS = 260
+/** 峰值透明度：够盖住跳变又不至于糊成纯色刷屏 */
+const PEAK_ALPHA = 0.55
 
 function isValid(value: unknown): value is UiTheme {
   return value === 'dark' || value === 'light'
@@ -68,18 +68,24 @@ function originFromEvent(e?: MouseEvent | TouchEvent | { clientX: number; client
 function coverSize(x: number, y: number) {
   const w = window.innerWidth
   const h = window.innerHeight
-  const r = Math.max(Math.hypot(x, y), Math.hypot(w - x, y), Math.hypot(x, h - y), Math.hypot(w - x, h - y))
+  const r = Math.max(
+    Math.hypot(x, y),
+    Math.hypot(w - x, y),
+    Math.hypot(x, h - y),
+    Math.hypot(w - x, h - y),
+  )
   return Math.ceil(r * 2) + 8
 }
 
 let animating = false
+/** 动画期间再次切换：只记目标主题，盖满后提交，避免 DOM 与 ref 脱节 */
+let queuedTheme: UiTheme | null = null
 
-/**
- * 从点击点扩出半透明圆纱 → 盖满后换主题 → 圆纱淡出。
- * 圆扩 + 软淡化结合，避免整屏硬闪或纯圆硬切。
- */
 function playCircleVeil(t: UiTheme, origin: { x: number; y: number }) {
-  if (animating || typeof document === 'undefined') return
+  if (animating) {
+    queuedTheme = t
+    return
+  }
   animating = true
 
   const size = coverSize(origin.x, origin.y)
@@ -88,18 +94,34 @@ function playCircleVeil(t: UiTheme, origin: { x: number; y: number }) {
   veil.setAttribute('aria-hidden', 'true')
   veil.style.left = `${origin.x}px`
   veil.style.top = `${origin.y}px`
-  veil.style.background = `radial-gradient(circle closest-side, rgba(${veilRgb(t)}, ${PEAK_ALPHA}) 70%, rgba(${veilRgb(t)}, ${PEAK_ALPHA * 0.72}) 100%)`
+  veil.style.background = `radial-gradient(
+    circle closest-side,
+    rgba(${veilRgb(t)}, ${PEAK_ALPHA}) 62%,
+    rgba(${veilRgb(t)}, ${PEAK_ALPHA * 0.35}) 100%
+  )`
   veil.style.setProperty('--theme-veil-size', `${size}px`)
   document.body.appendChild(veil)
 
   requestAnimationFrame(() => {
     veil.classList.add('is-active')
     window.setTimeout(() => {
-      commitDom(t)
+      const target = queuedTheme ?? t
+      queuedTheme = null
+      commitDom(target)
+      veil.style.backgroundColor = `radial-gradient(
+        circle closest-side,
+        rgba(${veilRgb(target)}, ${PEAK_ALPHA}) 62%,
+        rgba(${veilRgb(target)}, ${PEAK_ALPHA * 0.35}) 100%
+      )`
       veil.classList.add('is-out')
       window.setTimeout(() => {
         veil.remove()
         animating = false
+        if (queuedTheme) {
+          const next = queuedTheme
+          queuedTheme = null
+          commitDom(next)
+        }
       }, FADE_MS)
     }, GROW_MS)
   })

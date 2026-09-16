@@ -59,22 +59,26 @@
         overflow-x: hidden;
         overscroll-behavior: none;
       }
+      html[data-theme='light'] {
+        background: #eef3f9;
+      }
       body {
         background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
         background-attachment: fixed;
-        color: white;
+        color: #ffffff;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         min-height: 100vh;
         overflow-x: hidden;
         overscroll-behavior: none;
         position: relative;
       }
+      /* 浅色：深色文字，避免 index 内联白字压过后续样式 */
+      html[data-theme='light'] body {
+        background: #eef3f9;
+        color: #0f172a;
+      }
       #app {
         min-height: 100vh;
-      }
-      /* Ensure good contrast for all text elements */
-      body, p, div, span, h1, h2, h3, h4, h5, h6 {
-        color: white;
       }
       .bg-dark {
         background-color: rgba(15, 15, 35, 0.9) !important;
@@ -85,14 +89,10 @@
       .text-primary {
         color: #00d4ff !important;
       }
-      /* Specific high contrast for buttons and interactive elements */
-      .btn {
-        color: white !important;
-      }
       .btn-primary {
         background-color: #00d4ff !important;
         border-color: #00d4ff !important;
-        color: #0f0f23 !important; /* Dark text on bright background */
+        color: #0f0f23 !important;
       }
       .btn-outline-primary {
         color: #00d4ff !important;

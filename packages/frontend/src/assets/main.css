@@ -25,17 +25,40 @@ html {
   scrollbar-color: #00d4ff #1a1a2e;
 }
 
+html[data-theme='light'] {
+  background: #eef3f9;
+  scrollbar-color: #64748b #e2e8f0;
+}
+
 body {
   padding: 0;
   background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
   background-attachment: fixed;
-  color: white;
+  color: #f5f7fb;
   font-family: 'Poppins', system-ui, sans-serif;
   min-height: 100vh;
   height: 100%;
   overflow-x: hidden;
   overscroll-behavior: none;
   position: relative;
+}
+
+html[data-theme='light'] body {
+  background:
+    radial-gradient(1100px 480px at 10% -10%, rgba(147, 197, 253, 0.28), transparent 55%),
+    radial-gradient(900px 420px at 95% 0%, rgba(196, 181, 253, 0.18), transparent 48%),
+    linear-gradient(180deg, #f1f6fc 0%, #f8fafc 45%, #eef3f9 100%) !important;
+  background-attachment: fixed !important;
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] code {
+  color: #0c4a6e;
+  background: #e2e8f0;
+}
+
+html[data-theme='light'] ::selection {
+  background: rgba(3, 105, 161, 0.2);
 }
 
 /* Global Browser Scrollbar Styling */
@@ -62,33 +85,30 @@ body {
   min-height: 100vh;
 }
 
-/* 主题切换：从按钮圆形扩半透明纱 → 换主题 → 纱淡出 */
+/* 主题切换：按钮处圆形半透明纱扩满 → 换主题 → 纱淡出（scale，不改布局） */
 .theme-veil {
   position: fixed;
   z-index: 2147483647;
-  width: 0;
-  height: 0;
+  width: var(--theme-veil-size, 300vmax);
+  height: var(--theme-veil-size, 300vmax);
+  margin-left: calc(var(--theme-veil-size, 300vmax) / -2);
+  margin-top: calc(var(--theme-veil-size, 300vmax) / -2);
   border-radius: 50%;
-  transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 1;
-  will-change: width, height, opacity;
+  transform: scale(0);
+  will-change: transform, opacity;
   transition:
-    width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    transform 0.36s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.26s ease;
 }
 
 .theme-veil.is-active {
-  width: var(--theme-veil-size, 300vmax);
-  height: var(--theme-veil-size, 300vmax);
+  transform: scale(1);
 }
 
 .theme-veil.is-out {
   opacity: 0;
-  transition:
-    width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.28s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
