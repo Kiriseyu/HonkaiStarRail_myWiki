@@ -1,15 +1,15 @@
 {
   "meta": {
-    "version": "4.4.1 扫除风暴 / 4.5 仙客天狼",
+    "version": "4.4.1 扫除风暴 / 4.5 军团再临·仙客天狼",
     "period": "BWIKI 近期深渊总览 2026-09-15；Prydwen MoC 2026-09-03",
     "updatedAt": "2026-09-16",
-    "disclaimer": "期数、记忆紊流/末法余烬/战意机制与首领名对照 BWIKI「近期深渊总览」与 Prydwen MoC；敌人明细以游戏内为准，机制标签为配队评分用归纳",
+    "disclaimer": "期数与机制对照 BWIKI 近期深渊总览/仲裁一览（2026-09）与 Prydwen AA 4.5.1 Return of the Legion；机制标签为配队评分归纳",
     "sources": [
       "https://wiki.biligame.com/sr/近期深渊总览",
       "https://wiki.biligame.com/sr/混沌回忆",
       "https://www.prydwen.gg/star-rail/memory-of-chaos"
     ],
-    "confidence": "MoC=第043期扫除风暴(4.4.1 Stormcleanse)已核对；PF=第026期立界开篇；AS=第020期仙客天狼；AA 仍为社区结构估计"
+    "confidence": "MoC/PF/AS/AA 四模式当期已核对：AA=第009期军团再临(4.5.1)"
   },
   "modes": {
     "moc": {
@@ -186,63 +186,93 @@
         }
       ]
     },
-    "aa": {
+        "aa": {
       "id": "aa",
       "label": "异相仲裁",
       "short": "AA",
-      "period": "第0XX期（结构估计）",
-      "round": "第0XX期 估计",
+      "period": "4.5.1 Return of the Legion",
+      "round": "第009期 军团再临",
       "buff": {
-        "title": "仲裁裁决·欢愉",
-        "desc": "需要三支互不重叠的队伍独立结算。我方施放欢愉技或追加攻击后，下一次终结技伤害提高15%（可叠 2 层）。",
-        "tags": ["三队", "不重叠", "欢愉", "终结技"]
+        "title": "裁决象限·军团再临",
+        "desc": "王棋关可选裁决象限：①美妙奇笑—欢愉度+40%，欢愉伤害全属性穿透+20%（施放欢愉技时翻倍）；②终结之吻—任意我方回合开始时全队固定回25%能量（全场1次），战技与终结技伤害+40%；③蜂群忆质—场上忆灵数1/2/3/4时全体增伤20%/25%/30%/50%。三骑士关需三支不重叠队伍，建议先通关骑士再打王棋。",
+        "tags": ["欢愉", "终结技", "记忆", "三队"]
       },
       "scoreLines": {
         "stars": [
-          { "stars": 3, "condition": "三队全部在时限内通关" },
-          { "stars": 2, "condition": "两队在时限内通关" },
-          { "stars": 1, "condition": "至少一队通关" }
+          { "stars": 3, "condition": "王棋/骑士均不超过2轮胜利" },
+          { "stars": 2, "condition": "不超过4轮胜利" },
+          { "stars": 1, "condition": "通关即可（骑士：没有角色倒地）" }
         ],
-        "target": "目标：三星（三队均达标）"
+        "target": "目标：三星（≤2 轮）；骑士三关合计星数最高计"
       },
-      "requiredMechanics": ["终结技", "生存"],
-      "weaknessPool": ["火", "量子", "物理", "虚数", "雷", "冰", "风"],
+      "requiredMechanics": ["生存", "终结技", "召唤"],
+      "weaknessPool": ["火", "量子", "虚数", "冰", "雷"],
       "nodes": [
         {
           "side": "队伍一",
           "enemies": [
             {
-              "name": "仲裁·铁骑",
-              "weaknesses": ["火", "物理", "虚数"],
-              "mechanics": ["高韧性", "冲锋"],
-              "hpNote": "欢愉/物理输出环境"
+              "name": "「灯塔」",
+              "weaknesses": ["火", "量子"],
+              "mechanics": ["刚毅", "鳞甲"],
+              "hpNote": "骑士一：不可削韧/击破伤害-50%，高频攻击破鳞甲；「灯塔」+蚕食者之影→可可利亚"
+            },
+            {
+              "name": "可可利亚",
+              "weaknesses": ["火", "量子"],
+              "mechanics": ["刚毅", "鳞甲", "阶段转换"],
+              "hpNote": "第二波首领；污染等级2（致命伤后回血，需压生命上限）"
             }
           ],
-          "weaknessPool": ["火", "物理", "虚数"]
+          "weaknessPool": ["火", "量子"]
         },
         {
           "side": "队伍二",
           "enemies": [
             {
-              "name": "仲裁·忆灵",
-              "weaknesses": ["量子", "冰", "雷"],
-              "mechanics": ["召唤", "锁弱点"],
-              "hpNote": "记忆召唤与量子队"
+              "name": "乐变化天人",
+              "weaknesses": ["虚数"],
+              "mechanics": ["破势"],
+              "hpNote": "骑士二：受击叠减伤/暴伤降低，追加攻击或阿哈时刻结束可减层；虚数直伤/追击环境"
+            },
+            {
+              "name": "火花大会@Official",
+              "weaknesses": ["虚数"],
+              "mechanics": ["破势", "阶段转换"],
+              "hpNote": "第二波首领；Welt/银狼LV.999/虚数追击高使用率"
             }
           ],
-          "weaknessPool": ["量子", "冰", "雷"]
+          "weaknessPool": ["虚数"]
         },
         {
           "side": "队伍三",
           "enemies": [
             {
-              "name": "仲裁·星骸",
-              "weaknesses": ["风", "量子", "雷"],
-              "mechanics": ["DoT 压力", "阶段转换"],
-              "hpNote": "海瑟音/卡芙卡等 DoT 可用"
+              "name": "摇滚狂徒",
+              "weaknesses": ["冰", "量子"],
+              "mechanics": ["合势"],
+              "hpNote": "骑士三：受伤-60%，在场目标>4时每多1人降20%；记忆召唤能压减伤"
+            },
+            {
+              "name": "至黑之剑，盗火行者",
+              "weaknesses": ["冰", "量子"],
+              "mechanics": ["合势", "阶段转换"],
+              "hpNote": "第二波首领；遐蝶/三月七•长夜/昔涟/阿格莱亚记忆队适配"
             }
           ],
-          "weaknessPool": ["风", "量子", "雷"]
+          "weaknessPool": ["冰", "量子"]
+        },
+        {
+          "side": "王棋",
+          "enemies": [
+            {
+              "name": "反造物主，流溢之恨",
+              "weaknesses": ["冰", "雷", "量子"],
+              "mechanics": ["血嗜", "鳞甲", "污染等级2"],
+              "hpNote": "回合开始全队掉血可致命，需藿藿/风堇等治疗；鳞甲靠多段攻击剥离；裁决象限3利好多忆灵"
+            }
+          ],
+          "weaknessPool": ["冰", "雷", "量子"]
         }
       ]
     }

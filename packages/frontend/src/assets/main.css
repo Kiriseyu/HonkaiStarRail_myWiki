@@ -62,30 +62,54 @@ body {
   min-height: 100vh;
 }
 
-/* 主题切换：圆形遮罩扩散（过渡中不改主题，避免布局叠影） */
-.theme-wipe-overlay {
-  position: fixed;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 2147483647;
-  will-change: width, height, opacity;
-  transition:
-    width 0.48s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.48s cubic-bezier(0.4, 0, 0.2, 1);
+/* 主题切换：从按钮位置圆形展开真实页面（非纯色遮罩） */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  will-change: clip-path;
 }
 
-.theme-wipe-overlay.is-active {
-  width: var(--theme-wipe-size, 300vmax);
-  height: var(--theme-wipe-size, 300vmax);
+::view-transition-old(root) {
+  z-index: 2147483646;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483647;
+  animation: theme-circle-wipe 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes theme-circle-wipe {
+  from {
+    clip-path: circle(0px at var(--theme-wipe-x, 50%) var(--theme-wipe-y, 16%));
+  }
+  to {
+    clip-path: circle(var(--theme-wipe-r, 150vmax) at var(--theme-wipe-x, 50%) var(--theme-wipe-y, 16%));
+  }
+}
+
+/* 无 View Transitions 时的短淡入淡出（同样不是纯色刷屏） */
+html.theme-fade {
+  animation: theme-fade 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes theme-fade {
+  from {
+    opacity: 0.72;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-wipe-overlay,
-  .theme-wipe-overlay.is-active {
-    transition: none !important;
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  html.theme-fade {
+    animation: none !important;
   }
 }
 /* Desktop padding - 50px left and right on screens >= 768px */
