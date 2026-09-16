@@ -16,7 +16,7 @@
 
   max-width: 1280px;
   margin: 0 auto;
-  padding: 8px 12px 40px;
+  padding: 12px 16px 40px;
   color: var(--eg-ink);
 }
 
@@ -40,8 +40,6 @@ html[data-theme='light'] .endgame-page {
   --eg-select: #ffffff;
   --eg-metric: rgba(255, 255, 255, 0.72);
   background: transparent;
-  max-width: 1320px;
-  padding: 16px 18px 48px;
 }
 
 html[data-theme='light'] .eg-card {
@@ -88,10 +86,6 @@ html[data-theme='light'] .eg-buff-box {
   border-color: rgba(3, 105, 161, 0.28);
 }
 
-html[data-theme='light'] .eg-mode-tabs {
-  gap: 12px;
-}
-
 html[data-theme='light'] .eg-mode-tab {
   background: rgba(255, 255, 255, 0.82);
   color: var(--eg-ink-2);
@@ -126,12 +120,6 @@ html[data-theme='light'] .eg-hero h1 {
 html[data-theme='light'] .eg-footer {
   border-top-color: rgba(148, 163, 184, 0.35);
   color: #64748b;
-}
-
-html[data-theme='light'] .eg-hero {
-  align-items: center;
-  gap: 16px;
-  padding: 8px 4px 4px;
 }
 
 /* ç²¾è´ç½å¤©/é»å¤å¼å³ï¼ç§»æ¤ WpfGorgeousThemeSwitchï¼ */
@@ -988,7 +976,7 @@ html[data-theme='light'] .eg-resize-ne::before {
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-  /* 为右上角拖拽热区留出空白，避免挡住关闭按�?*/
+  /* 为右上角拖拽热区留出空白，避免挡住关闭按�?*/
   padding-right: 36px;
   position: relative;
   z-index: 7;
@@ -1100,7 +1088,7 @@ html[data-theme='light'] .eg-resize-ne::before {
   box-shadow: 0 0 0 1px var(--eg-accent), 0 22px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* 小高度（�?682×519）进一步压缩头像与间距，保证信息在框内滚动 */
+/* 小高度（�?682×519）进一步压缩头像与间距，保证信息在框内滚动 */
 .eg-roster-panel[style*='height'] .eg-roster-slot img {
   width: 42px;
   height: 42px;
@@ -1394,7 +1382,7 @@ html[data-theme='light'] .eg-roster-detail {
   font-size: 13px;
 }
 
-/* 笔记本桌面：略收窄但仍保持双�?*/
+/* 笔记本桌面：略收窄但仍保持双�?*/
 @media (min-width: 900px) and (max-width: 1200px) {
   .eg-roster-dock {
     width: min(960px, calc(100vw - 24px));
@@ -1415,7 +1403,7 @@ html[data-theme='light'] .eg-roster-detail {
   }
 }
 
-/* 移动端：底部全宽抽屉式（关闭拖拽缩放�?*/
+/* 移动端：底部全宽抽屉式（关闭拖拽缩放�?*/
 @media (max-width: 768px) {
   .eg-resize-handle {
     display: none;
@@ -1812,7 +1800,7 @@ html[data-theme='light'] code {
   background: #e2e8f0 !important;
 }
 
-/* ========== ����ɫ�������?========== */
+/* ========== ����ɫ�������?========== */
 .eg-guide-card {
   display: flex;
   flex-direction: column;

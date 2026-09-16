@@ -17,6 +17,7 @@
 
 html {
   background: #0f0f23;
+  scrollbar-gutter: stable;
   height: 100%;
   overflow-x: hidden;
   overscroll-behavior: none;
