@@ -179,12 +179,21 @@ npm run lint
 ## 文档
 
 - [docs/CHARACTER_ADDITIONS.md](docs/CHARACTER_ADDITIONS.md) — 新增角色清单与数据录入规范
-- [docs/UPLOAD_AND_DEPLOY_WORKFLOW.md](docs/UPLOAD_AND_DEPLOY_WORKFLOW.md) — 分支、构建与托管流程
+- [docs/FRONTEND_THEME_UI_STYLE.md](docs/FRONTEND_THEME_UI_STYLE.md) — 前端主题与界面说明
 
 ## 合规
 
-社区整理数据，以游戏内为准；本项目不代表官方，亦无官方实时接口声明。
+- 社区整理数据，以游戏内为准；本项目不代表官方，亦无官方实时接口声明。
+- 游戏内容、角色与相关商标归米哈游（miHoYo / HoYoverse）所有。
+- 关卡与构筑参考 BWIKI、Prydwen 等社区来源，仅作玩法参考，与上述站点无隶属关系。
 
-## 许可证
+## 许可证与归属
 
-[MIT](LICENSE) © 2025 Gilded
+本仓库代码基于 **Gilded** 的开源项目 [hsr-team-builder](https://github.com/)，按 [MIT License](LICENSE) 授权。
+
+```text
+MIT License
+Copyright (c) 2025 Gilded
+```
+
+在保留上述版权与许可文本的前提下，允许使用、修改与再分发。本 fork 的后续修改与部署不改变对原作者的署名义务。

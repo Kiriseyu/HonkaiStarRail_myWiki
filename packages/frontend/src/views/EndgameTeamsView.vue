@@ -331,6 +331,9 @@ function avatarFor(id: string) {
       <div style="margin-top: 6px">
         更新于 {{ meta.updatedAt }} · 数据文件 packages/frontend/src/data/endgame/*
       </div>
+      <div style="margin-top: 8px">
+        代码基于 Gilded 的 MIT 项目 hsr-team-builder · © 2025 Gilded · 非官方粉丝工具
+      </div>
     </footer>
 
     <div class="eg-toast" :class="{ show: toastVisible }" role="status" aria-live="polite">

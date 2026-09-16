@@ -39,7 +39,7 @@ async function bootstrap() {
     'http://localhost:5174', // Added for Vite dev server
     'http://localhost:3000',
     'http://localhost:4173',
-    process.env.PRODUCTION_DOMAIN || 'https://hsr-team-builder.gilded.dev',
+    process.env.PRODUCTION_DOMAIN || 'https://honkaistarrail-mywiki.pages.dev',
   ]
   const isAllowedOrigin = (origin?: string) => !origin || allowedOrigins.includes(origin)
 
