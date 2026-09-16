@@ -5,6 +5,10 @@ export type UiTheme = 'dark' | 'light'
 const STORAGE_KEY = 'hsr-team-builder:ui-theme:v1'
 const theme = ref<UiTheme>('dark')
 
+const FADE_MS = 320
+/** 遮罩峰值透明度：能盖住跳变又不会完全糊住页面 */
+const PEAK_ALPHA = 0.72
+
 function isValid(value: unknown): value is UiTheme {
   return value === 'dark' || value === 'light'
 }
@@ -41,74 +45,58 @@ function commitDom(t: UiTheme) {
   document.documentElement.style.colorScheme = t
 }
 
-function wipeRadius(x: number, y: number) {
-  const w = window.innerWidth
-  const h = window.innerHeight
-  return Math.ceil(
-    Math.max(Math.hypot(x, y), Math.hypot(w - x, y), Math.hypot(x, h - y), Math.hypot(w - x, h - y)),
-  )
+/** 目标主题的半透明纱色：切浅用白纱，切深用黑纱 */
+function veilColor(t: UiTheme) {
+  return t === 'light' ? '255, 255, 255' : '8, 10, 18'
 }
 
-function setWipeVars(x: number, y: number) {
-  const root = document.documentElement
-  root.style.setProperty('--theme-wipe-x', `${x}px`)
-  root.style.setProperty('--theme-wipe-y', `${y}px`)
-  root.style.setProperty('--theme-wipe-r', `${wipeRadius(x, y)}px`)
+let fading = false
+
+function playVeil(t: UiTheme) {
+  if (fading || typeof document === 'undefined') return
+  fading = true
+
+  const rgb = veilColor(t)
+  const veil = document.createElement('div')
+  veil.className = 'theme-veil'
+  veil.setAttribute('aria-hidden', 'true')
+  veil.style.backgroundColor = `rgba(${rgb}, ${PEAK_ALPHA})`
+  document.body.appendChild(veil)
+
+  // 下一帧再触发淡入
+  requestAnimationFrame(() => {
+    veil.classList.add('is-active')
+    window.setTimeout(() => {
+      commitDom(t)
+      veil.classList.add('is-out')
+      window.setTimeout(() => {
+        veil.remove()
+        fading = false
+      }, FADE_MS)
+    }, FADE_MS)
+  })
 }
 
-function originFromEvent(e?: MouseEvent | TouchEvent | { clientX: number; clientY: number }) {
-  if (!e || typeof window === 'undefined') {
-    return { x: window.innerWidth / 2, y: window.innerHeight * 0.16 }
-  }
-  if ('changedTouches' in e && e.changedTouches?.[0]) {
-    const t = e.changedTouches[0]
-    return { x: t.clientX, y: t.clientY }
-  }
-  const ev = e as MouseEvent
-  if (typeof ev.clientX === 'number' && typeof ev.clientY === 'number' && (ev.clientX || ev.clientY)) {
-    return { x: ev.clientX, y: ev.clientY }
-  }
-  return { x: window.innerWidth / 2, y: window.innerHeight * 0.16 }
-}
-
-function applyDom(t: UiTheme, origin?: { x: number; y: number }) {
+function applyDom(t: UiTheme, animate = false) {
   if (typeof document === 'undefined') return
-
-  if (!origin || prefersReducedMotion()) {
+  if (!animate || prefersReducedMotion()) {
     commitDom(t)
     return
   }
-
-  setWipeVars(origin.x, origin.y)
-
-  if (typeof document.startViewTransition === 'function') {
-    try {
-      document.startViewTransition(() => commitDom(t))
-      return
-    } catch {
-      /* fall through */
-    }
-  }
-
-  // 兜底：短交叉淡入，不用纯色大遮罩
-  commitDom(t)
-  document.documentElement.classList.add('theme-fade')
-  window.setTimeout(() => {
-    document.documentElement.classList.remove('theme-fade')
-  }, 380)
+  playVeil(t)
 }
 
 let booted = false
-let pendingOrigin: { x: number; y: number } | null = null
+let pendingAnimate = false
 
 function ensureBooted() {
   if (booted || typeof window === 'undefined') return
   theme.value = detectInitial()
   applyDom(theme.value)
   watch(theme, (t) => {
-    const origin = pendingOrigin ?? originFromEvent()
-    pendingOrigin = null
-    applyDom(t, origin)
+    const animate = pendingAnimate
+    pendingAnimate = false
+    applyDom(t, animate)
   })
   booted = true
 }
@@ -128,17 +116,17 @@ export function useThemePreference() {
     }
   }
 
-  const setTheme = (next: UiTheme, origin?: { x: number; y: number }) => {
+  const setTheme = (next: UiTheme, animate = true) => {
     if (next === theme.value) return
     persist(next)
-    pendingOrigin = origin ?? null
+    pendingAnimate = animate
     theme.value = next
   }
 
-  const toggleTheme = (e?: MouseEvent | TouchEvent) => {
+  const toggleTheme = () => {
     const next: UiTheme = theme.value === 'dark' ? 'light' : 'dark'
     persist(next)
-    pendingOrigin = originFromEvent(e)
+    pendingAnimate = true
     theme.value = next
   }
 

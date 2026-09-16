@@ -102,7 +102,7 @@ function avatarFor(id: string) {
             :aria-checked="theme === 'dark' ? 'true' : 'false'"
             :aria-label="theme === 'dark' ? '切换到浅色主题' : '切换到深色主题'"
             :title="theme === 'dark' ? '切换到浅色' : '切换到深色'"
-            @click="toggleTheme($event)"
+            @click="toggleTheme()"
           >
             <div class="eg-ts-stars" aria-hidden="true">
               <span></span><span></span><span></span><span></span>
