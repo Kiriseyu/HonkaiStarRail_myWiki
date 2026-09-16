@@ -2046,3 +2046,170 @@ html[data-theme='light'] .eg-guide-search input {
   flex-wrap: wrap;
   gap: 8px;
 }
+
+/* ========== 浅色：标题区/元信息强制深色字（含子 span，防止白底白字） ========== */
+html[data-theme='light'] .endgame-page,
+html[data-theme='light'] .eg-hero,
+html[data-theme='light'] .eg-hero h1,
+html[data-theme='light'] .eg-hero h1 *,
+html[data-theme='light'] .eg-hero p,
+html[data-theme='light'] .eg-hero p *,
+html[data-theme='light'] .eg-hero code {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .eg-hero p,
+html[data-theme='light'] .eg-hero p code,
+html[data-theme='light'] .eg-meta-pill,
+html[data-theme='light'] .eg-meta-pill span,
+html[data-theme='light'] .eg-theme-switch,
+html[data-theme='light'] .eg-theme-switch > span {
+  color: #334155 !important;
+}
+
+html[data-theme='light'] .eg-meta-pill {
+  background: #ffffff !important;
+  border-color: rgba(51, 65, 85, 0.28) !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+/* ========== 统一浅色文字安全网（全部 !important，防止任何白底白字） ========== */
+html[data-theme='light'] {
+  --eg-ink: #0f172a;
+  --eg-ink-2: #334155;
+  --eg-ink-3: #475569;
+  --eg-accent: #0369a1;
+  --eg-gold: #a16207;
+  --eg-green: #15803d;
+  --eg-orange: #c2410c;
+  --eg-red: #b91c1c;
+  --eg-panel: #ffffff;
+  --eg-select: #ffffff;
+  --eg-border: rgba(51, 65, 85, 0.28);
+}
+
+html[data-theme='light'] .endgame-page,
+html[data-theme='light'] .endgame-page h1,
+html[data-theme='light'] .endgame-page h2,
+html[data-theme='light'] .endgame-page h3,
+html[data-theme='light'] .endgame-page h4,
+html[data-theme='light'] .endgame-page strong,
+html[data-theme='light'] .endgame-page p,
+html[data-theme='light'] .endgame-page li,
+html[data-theme='light'] .endgame-page label,
+html[data-theme='light'] .endgame-page span,
+html[data-theme='light'] .endgame-page code,
+html[data-theme='light'] .endgame-page option,
+html[data-theme='light'] .endgame-page textarea,
+html[data-theme='light'] .endgame-page select,
+html[data-theme='light'] .endgame-page button,
+html[data-theme='light'] .eg-card,
+html[data-theme='light'] .eg-card *,
+html[data-theme='light'] .eg-team-card,
+html[data-theme='light'] .eg-team-card *,
+html[data-theme='light'] .eg-node,
+html[data-theme='light'] .eg-node *,
+html[data-theme='light'] .eg-slot,
+html[data-theme='light'] .eg-slot *,
+html[data-theme='light'] .eg-metric,
+html[data-theme='light'] .eg-metric *,
+html[data-theme='light'] .eg-buff-box,
+html[data-theme='light'] .eg-buff-box *,
+html[data-theme='light'] .eg-mode-tab,
+html[data-theme='light'] .eg-mode-tab *,
+html[data-theme='light'] .eg-toolbar,
+html[data-theme='light'] .eg-toolbar *,
+html[data-theme='light'] .eg-meta-pill,
+html[data-theme='light'] .eg-meta-pill *,
+html[data-theme='light'] .eg-theme-switch,
+html[data-theme='light'] .eg-theme-switch > span,
+html[data-theme='light'] .eg-hero,
+html[data-theme='light'] .eg-hero *,
+html[data-theme='light'] .eg-footer,
+html[data-theme='light'] .eg-footer *,
+html[data-theme='light'] .eg-toast,
+html[data-theme='light'] .eg-toast *,
+html[data-theme='light'] .eg-empty,
+html[data-theme='light'] .eg-score-lines,
+html[data-theme='light'] .eg-score-lines *,
+html[data-theme='light'] .eg-mechanic-line,
+html[data-theme='light'] .eg-team-notes,
+html[data-theme='light'] .eg-team-notes *,
+html[data-theme='light'] .eg-enemy,
+html[data-theme='light'] .eg-enemy *,
+html[data-theme='light'] .eg-section-title,
+html[data-theme='light'] .eg-section-title *,
+html[data-theme='light'] .eg-char-meta,
+html[data-theme='light'] .eg-char-meta *,
+html[data-theme='light'] .eg-penalty,
+html[data-theme='light'] .eg-share textarea,
+html[data-theme='light'] .eg-score-box .label,
+html[data-theme='light'] .eg-guide-hint,
+html[data-theme='light'] .eg-guide-list,
+html[data-theme='light'] .eg-guide-detail,
+html[data-theme='light'] .eg-guide-detail *,
+html[data-theme='light'] .eg-guide-head,
+html[data-theme='light'] .eg-guide-head *,
+html[data-theme='light'] .eg-guide-sec *,
+html[data-theme='light'] .eg-guide-lcs .lc .name,
+html[data-theme='light'] .eg-guide-lcs .lc .note,
+html[data-theme='light'] .eg-guide-empty,
+html[data-theme='light'] .eg-roster-team,
+html[data-theme='light'] .eg-roster-team *,
+html[data-theme='light'] .eg-roster-sub,
+html[data-theme='light'] .eg-roster-card,
+html[data-theme='light'] .eg-roster-card *,
+html[data-theme='light'] .eg-roster-slot,
+html[data-theme='light'] .eg-roster-slot *,
+html[data-theme='light'] .eg-roster-detail,
+html[data-theme='light'] .eg-roster-detail *,
+html[data-theme='light'] .eg-roster-score,
+html[data-theme='light'] .eg-roster-score *,
+html[data-theme='light'] .eg-roster-panel,
+html[data-theme='light'] .eg-roster-panel * {
+  color: #0f172a !important;
+}
+
+/* 次级说明文字略浅，仍保证对比 */
+html[data-theme='light'] .eg-hero p,
+html[data-theme='light'] .eg-meta-pill span,
+html[data-theme='light'] .eg-theme-switch > span,
+html[data-theme='light'] .eg-mechanic-line,
+html[data-theme='light'] .eg-team-notes,
+html[data-theme='light'] .eg-team-notes li,
+html[data-theme='light'] .eg-enemy .hp-note,
+html[data-theme='light'] .eg-score-box .label,
+html[data-theme='light'] .eg-metric .name,
+html[data-theme='light'] .eg-slot .role,
+html[data-theme='light'] .eg-char-meta .meta,
+html[data-theme='light'] .eg-mode-tab span,
+html[data-theme='light'] .eg-footer,
+html[data-theme='light'] .eg-empty,
+html[data-theme='light'] .eg-guide-hint,
+html[data-theme='light'] .eg-guide-lcs .lc .note,
+html[data-theme='light'] .eg-roster-sub,
+html[data-theme='light'] .eg-roster-team-label,
+html[data-theme='light'] .eg-roster-card-meta {
+  color: #475569 !important;
+}
+
+/* 语义色保留（徽章/标签等），避免被统一深色抹掉 */
+html[data-theme='light'] .eg-card h2 { color: #0369a1 !important; }
+html[data-theme='light'] .eg-card h3,
+html[data-theme='light'] .eg-section-title h3 { color: #0f172a !important; }
+html[data-theme='light'] .eg-buff-box .title { color: #0c4a6e !important; }
+html[data-theme='light'] .eg-tag { color: #1e293b !important; background: #f1f5f9 !important; border-color: rgba(51, 65, 85, 0.25) !important; }
+html[data-theme='light'] .eg-tag.element { color: #0c4a6e !important; background: #e0f2fe !important; border-color: #7dd3fc !important; }
+html[data-theme='light'] .eg-tag.weak { color: #854d0e !important; background: #fef9c3 !important; border-color: #fde047 !important; }
+html[data-theme='light'] .eg-tag.mech { color: #4c1d95 !important; background: #ede9fe !important; border-color: #c4b5fd !important; }
+html[data-theme='light'] .eg-badge { color: #0f172a !important; }
+html[data-theme='light'] .eg-badge.S { color: #854d0e !important; background: #fef3c7 !important; border-color: #f59e0b !important; }
+html[data-theme='light'] .eg-badge.A { color: #0c4a6e !important; background: #e0f2fe !important; border-color: #0ea5e9 !important; }
+html[data-theme='light'] .eg-badge.B { color: #14532d !important; background: #dcfce7 !important; border-color: #22c55e !important; }
+html[data-theme='light'] .eg-badge.C { color: #9a3412 !important; background: #ffedd5 !important; border-color: #f97316 !important; }
+html[data-theme='light'] .eg-badge.D { color: #7f1d1d !important; background: #fee2e2 !important; border-color: #ef4444 !important; }
+html[data-theme='light'] .eg-node .side { color: #a16207 !important; }
+html[data-theme='light'] .eg-penalty { color: #9a3412 !important; background: #fff7ed !important; border-color: #fdba74 !important; }
+html[data-theme='light'] .eg-toolbar button.primary { color: #0c4a6e !important; background: #e0f2fe !important; border-color: #38bdf8 !important; }
+html[data-theme='light'] .eg-mode-tab.active { color: #0f172a !important; background: #e0f2fe !important; border-color: #0284c7 !important; }
+html[data-theme='light'] code { color: #0c4a6e !important; background: #e2e8f0 !important; }

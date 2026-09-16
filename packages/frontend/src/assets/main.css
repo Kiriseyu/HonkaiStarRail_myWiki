@@ -272,7 +272,11 @@ html[data-theme='light'] ::selection {
 .btn-primary {
   background-color: #00d4ff !important;
   border-color: #00d4ff !important;
-  color: #ffffff !important;
+  color: #0f0f23 !important;
+}
+
+html[data-theme='light'] .btn-primary {
+  color: #0f172a !important;
 }
 
 .btn-primary:hover,
