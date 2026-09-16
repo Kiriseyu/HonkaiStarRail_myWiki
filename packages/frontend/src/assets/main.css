@@ -26,6 +26,7 @@ html {
 }
 
 body {
+  padding: 0;
   background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
   background-attachment: fixed;
   color: white;
@@ -61,33 +62,7 @@ body {
   min-height: 100vh;
 }
 
-/* 主题切换：从按钮位置圆形擦除（与开关滑块同节奏） */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-  will-change: clip-path;
-}
-
-::view-transition-old(root) {
-  z-index: 2147483646;
-}
-
-::view-transition-new(root) {
-  z-index: 2147483647;
-  animation: theme-circle-wipe 0.52s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-
-@keyframes theme-circle-wipe {
-  from {
-    clip-path: circle(0px at var(--theme-wipe-x, 50%) var(--theme-wipe-y, 16%));
-  }
-  to {
-    clip-path: circle(var(--theme-wipe-r, 150vmax) at var(--theme-wipe-x, 50%) var(--theme-wipe-y, 16%));
-  }
-}
-
-/* 无 View Transitions 时的圆形扩散遮罩 */
+/* 主题切换：圆形遮罩扩散（过渡中不改主题，避免布局叠影） */
 .theme-wipe-overlay {
   position: fixed;
   width: 0;
@@ -96,9 +71,10 @@ body {
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 2147483647;
+  will-change: width, height, opacity;
   transition:
-    width 0.52s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+    width 0.48s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.48s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .theme-wipe-overlay.is-active {
@@ -107,17 +83,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none !important;
-  }
-
   .theme-wipe-overlay,
   .theme-wipe-overlay.is-active {
     transition: none !important;
   }
 }
-
 /* Desktop padding - 50px left and right on screens >= 768px */
 @media (min-width: 768px) {
   .container-fluid {

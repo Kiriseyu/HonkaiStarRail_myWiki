@@ -5,7 +5,7 @@ export type UiTheme = 'dark' | 'light'
 const STORAGE_KEY = 'hsr-team-builder:ui-theme:v1'
 const theme = ref<UiTheme>('dark')
 
-const WIPE_MS = 520
+const WIPE_MS = 480
 
 function isValid(value: unknown): value is UiTheme {
   return value === 'dark' || value === 'light'
@@ -51,13 +51,6 @@ function wipeRadius(x: number, y: number) {
   )
 }
 
-function setWipeVars(x: number, y: number) {
-  const root = document.documentElement
-  root.style.setProperty('--theme-wipe-x', `${x}px`)
-  root.style.setProperty('--theme-wipe-y', `${y}px`)
-  root.style.setProperty('--theme-wipe-r', `${wipeRadius(x, y)}px`)
-}
-
 function originFromEvent(e?: MouseEvent | TouchEvent | { clientX: number; clientY: number }) {
   if (!e || typeof window === 'undefined') {
     return { x: window.innerWidth / 2, y: window.innerHeight * 0.16 }
@@ -67,18 +60,23 @@ function originFromEvent(e?: MouseEvent | TouchEvent | { clientX: number; client
     return { x: t.clientX, y: t.clientY }
   }
   const ev = e as MouseEvent
-  if (typeof ev.clientX === 'number' && typeof ev.clientY === 'number') {
-    // 0,0 多半是程序触发而非真实点击
-    if (ev.clientX || ev.clientY || ev.screenX || ev.screenY) {
-      return { x: ev.clientX, y: ev.clientY }
-    }
+  if (typeof ev.clientX === 'number' && typeof ev.clientY === 'number' && (ev.clientX || ev.clientY)) {
+    return { x: ev.clientX, y: ev.clientY }
   }
   return { x: window.innerWidth / 2, y: window.innerHeight * 0.16 }
 }
 
-/** 降级：从按钮点向外扩一层目标色圆形，盖满后再提交主题 */
+let wiping = false
+
+/**
+ * 用圆形遮罩从按钮扩满屏幕；盖住后再提交主题。
+ * 过渡期间不换 CSS 主题，避免两套布局叠影/位移。
+ */
 function playWipeOverlay(t: UiTheme, x: number, y: number) {
-  const size = wipeRadius(x, y) * 2 + 32
+  if (wiping) return
+  wiping = true
+
+  const size = wipeRadius(x, y) * 2 + 40
   const color = t === 'light' ? '#eef3f9' : '#0f0f23'
   const layer = document.createElement('div')
   layer.className = 'theme-wipe-overlay'
@@ -94,36 +92,28 @@ function playWipeOverlay(t: UiTheme, x: number, y: number) {
 
   window.setTimeout(() => {
     commitDom(t)
-    layer.remove()
+    // 盖住后立刻再淡出一层，避免色块硬切
+    layer.style.transition = 'opacity 0.16s ease'
+    layer.style.opacity = '0'
+    window.setTimeout(() => {
+      layer.remove()
+      wiping = false
+    }, 170)
   }, WIPE_MS)
 }
 
 function applyDom(t: UiTheme, origin?: { x: number; y: number }) {
   if (typeof document === 'undefined') return
-  const motionOk = Boolean(origin) && !prefersReducedMotion()
 
-  if (!motionOk) {
+  if (!origin || prefersReducedMotion()) {
     commitDom(t)
     return
   }
 
-  const { x, y } = origin!
-  setWipeVars(x, y)
-
-  if (typeof document.startViewTransition === 'function') {
-    try {
-      document.startViewTransition(() => commitDom(t))
-      return
-    } catch {
-      /* fall through */
-    }
-  }
-
-  playWipeOverlay(t, x, y)
+  playWipeOverlay(t, origin.x, origin.y)
 }
 
 let booted = false
-/** 一次变更只播一次擦除，避免 watch + 手动调用叠两层 */
 let pendingOrigin: { x: number; y: number } | null = null
 
 function ensureBooted() {

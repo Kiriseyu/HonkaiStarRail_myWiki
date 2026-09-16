@@ -110,12 +110,7 @@ html[data-theme='light'] .eg-toast {
   border-color: rgba(148, 163, 184, 0.4);
 }
 
-html[data-theme='light'] .eg-hero h1 {
-  background: linear-gradient(90deg, #0c4a6e, #1d4ed8 55%, #6d28d9);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+
 
 html[data-theme='light'] .eg-footer {
   border-top-color: rgba(148, 163, 184, 0.35);
@@ -364,14 +359,27 @@ html[data-theme='light'] .eg-footer {
   flex-wrap: wrap;
   gap: 14px 20px;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 18px;
   padding: 4px 2px 2px;
+}
+
+.eg-hero > :first-child {
+  flex: 1 1 min(100%, 520px);
+  min-width: 0;
+}
+
+.eg-hero > :last-child {
+  flex: 0 0 auto;
+  align-self: flex-start;
 }
 
 .eg-hero h1 {
   margin: 0 0 6px;
   font-size: 26px;
+  line-height: 1.25;
+  font-weight: 700;
+  min-height: 32px;
 }
 
 .eg-hero p {
@@ -383,6 +391,7 @@ html[data-theme='light'] .eg-footer {
 
 .eg-meta-pill {
   display: inline-flex;
+  white-space: nowrap;
   gap: 8px;
   flex-wrap: wrap;
   background: var(--eg-panel);
@@ -1543,12 +1552,7 @@ html[data-theme='light'] .eg-card h2 {
   color: #0369a1;
 }
 
-html[data-theme='light'] .eg-hero h1 {
-  color: #0f172a !important;
-  background: none !important;
-  -webkit-background-clip: initial !important;
-  background-clip: initial !important;
-}
+
 
 html[data-theme='light'] .eg-hero p,
 html[data-theme='light'] .eg-mechanic-line,
