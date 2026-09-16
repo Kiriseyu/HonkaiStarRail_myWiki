@@ -60,6 +60,49 @@ body {
   min-height: 100vh;
 }
 
+/* 主题切换过渡：仅在 .theme-animating 期间生效，避免常驻 transition 带来的卡顿 */
+html.theme-animating,
+html.theme-animating body,
+html.theme-animating #app,
+html.theme-animating *,
+html.theme-animating *::before,
+html.theme-animating *::after {
+  transition:
+    background-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    outline-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
+}
+
+/* 支持 View Transitions 的浏览器走整页交叉淡入淡出 */
+@supports (view-transition-name: root) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.38s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    mix-blend-mode: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-animating,
+  html.theme-animating *,
+  html.theme-animating *::before,
+  html.theme-animating *::after {
+    transition: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 /* Desktop padding - 50px left and right on screens >= 768px */
 @media (min-width: 768px) {
   .container-fluid {

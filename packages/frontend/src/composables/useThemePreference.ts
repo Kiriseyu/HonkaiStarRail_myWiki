@@ -28,10 +28,45 @@ function detectInitial(): UiTheme {
   return 'dark'
 }
 
-function applyDom(t: UiTheme) {
-  if (typeof document === 'undefined') return
+const THEME_ANIM_MS = 420
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
+}
+
+function commitDom(t: UiTheme) {
   document.documentElement.setAttribute('data-theme', t)
   document.documentElement.style.colorScheme = t
+}
+
+function applyDom(t: UiTheme, animate = false) {
+  if (typeof document === 'undefined') return
+  const root = document.documentElement
+  const motionOk = animate && !prefersReducedMotion()
+
+  if (motionOk && typeof document.startViewTransition === 'function') {
+    try {
+      document.startViewTransition(() => commitDom(t))
+      return
+    } catch {
+      /* fall through to CSS class transition */
+    }
+  }
+
+  if (motionOk) {
+    root.classList.add('theme-animating')
+    commitDom(t)
+    window.setTimeout(() => {
+      root.classList.remove('theme-animating')
+    }, THEME_ANIM_MS)
+    return
+  }
+
+  commitDom(t)
 }
 
 let booted = false
@@ -39,9 +74,10 @@ let booted = false
 function ensureBooted() {
   if (booted || typeof window === 'undefined') return
   theme.value = detectInitial()
-  applyDom(theme.value)
+  // 首次应用不播过渡，避免 FOUC
+  applyDom(theme.value, false)
   watch(theme, (t) => {
-    applyDom(t)
+    applyDom(t, true)
   })
   booted = true
 }

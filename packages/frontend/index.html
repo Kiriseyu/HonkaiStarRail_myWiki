@@ -23,6 +23,26 @@
     <!-- Images will be lazy loaded and cached by service worker -->
 
     <title>Honkai Star Rail Team Builder</title>
+    <script>
+      // 首屏同步写入主题，避免 Vue 挂载前的深浅色闪屏
+      ;(function () {
+        try {
+          var key = 'hsr-team-builder:ui-theme:v1'
+          var t = localStorage.getItem(key)
+          if (t !== 'dark' && t !== 'light') {
+            t =
+              window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
+          }
+          document.documentElement.setAttribute('data-theme', t)
+          document.documentElement.style.colorScheme = t
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark')
+          document.documentElement.style.colorScheme = 'dark'
+        }
+      })()
+    </script>
     <style>
       * {
         margin: 0;
