@@ -1,0 +1,2505 @@
+{
+  "meta": {
+    "note": "按 Prydwen 4.4/4.5 使用率重排的推荐模板；关卡弱点过滤后动态打分",
+    "updatedAt": "2026-09-16"
+  },
+  "templates": [
+    {
+      "id": "superbreak-fire",
+      "name": "萤火超击破队",
+      "system": "超击破",
+      "coreMechanic": "以流萤变身配合超击破与削韧窗口，在击破后打出爆发伤害。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一"
+      ],
+      "focusTags": [
+        "击破",
+        "超击破",
+        "对单"
+      ],
+      "notes": [
+        "流萤需保证击破特攻与速度阈值",
+        "生存位优先带解控或高频治疗"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "firefly",
+              "default": true
+            },
+            {
+              "id": "boothill"
+            },
+            {
+              "id": "rappa"
+            },
+            {
+              "id": "xueyi"
+            }
+          ]
+        },
+        {
+          "role": "击破辅助",
+          "candidates": [
+            {
+              "id": "rua-mei",
+              "default": true
+            },
+            {
+              "id": "harmony-trailblazer"
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "fugue"
+            }
+          ]
+        },
+        {
+          "role": "副C/辅助",
+          "candidates": [
+            {
+              "id": "harmony-trailblazer",
+              "default": true
+            },
+            {
+              "id": "tingyun"
+            },
+            {
+              "id": "asta"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "lingsha",
+              "default": true
+            },
+            {
+              "id": "gallagher"
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "hyacine"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acheron-dot",
+      "name": "黄泉虚无爆发队",
+      "system": "虚无叠层",
+      "coreMechanic": "多名虚无快速叠层，黄泉终结技无视弱点爆发。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍三"
+      ],
+      "focusTags": [
+        "爆发",
+        "对单",
+        "终结技"
+      ],
+      "notes": [
+        "椒丘/银狼保证 debuff 覆盖",
+        "生存位尽量选不抢 debuff 的角色"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "acheron",
+              "default": true
+            },
+            {
+              "id": "jingliu"
+            },
+            {
+              "id": "dan-heng-il"
+            }
+          ]
+        },
+        {
+          "role": "虚无协同",
+          "candidates": [
+            {
+              "id": "jiaoqiu",
+              "default": true
+            },
+            {
+              "id": "silver-wolf"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "虚无/辅助",
+          "candidates": [
+            {
+              "id": "pela",
+              "default": true
+            },
+            {
+              "id": "silver-wolf"
+            },
+            {
+              "id": "guinaifen"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "gallagher",
+              "default": true
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "lingsha"
+            },
+            {
+              "id": "huohuo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fua-hyper",
+      "name": "追击协奏队",
+      "system": "追加攻击",
+      "coreMechanic": "托帕/知更鸟协同追击，真理或飞霄作为主输出窗口。",
+      "modes": [
+        "moc",
+        "pf",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍二"
+      ],
+      "focusTags": [
+        "追加攻击",
+        "对单",
+        "爆发"
+      ],
+      "notes": [
+        "知更鸟大招对齐追击窗口",
+        "对群场景可换翡翠/大黑塔"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "feixiao",
+              "default": true
+            },
+            {
+              "id": "ratio"
+            },
+            {
+              "id": "topaz"
+            },
+            {
+              "id": "archer"
+            }
+          ]
+        },
+        {
+          "role": "追击协同",
+          "candidates": [
+            {
+              "id": "topaz",
+              "default": true
+            },
+            {
+              "id": "moze"
+            },
+            {
+              "id": "jade"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "robin",
+              "default": true
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "bronya"
+            },
+            {
+              "id": "tribbie"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "fu-xuan",
+              "default": true
+            },
+            {
+              "id": "gallagher"
+            },
+            {
+              "id": "lingsha"
+            },
+            {
+              "id": "hyacine"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dot-core",
+      "name": "卡芙卡 DoT 队",
+      "system": "DoT",
+      "coreMechanic": "卡芙卡引爆黑天鹅奥迹与持续伤害，在虚构/混沌清场。",
+      "modes": [
+        "moc",
+        "pf",
+        "aa"
+      ],
+      "suitableSides": [
+        "下半",
+        "队伍三",
+        "上半"
+      ],
+      "focusTags": [
+        "DoT",
+        "对群"
+      ],
+      "notes": [
+        "黑天鹅层数质量决定上限",
+        "控场多时带净化生存"
+      ],
+      "slots": [
+        {
+          "role": "引爆核心",
+          "candidates": [
+            {
+              "id": "kafka",
+              "default": true
+            },
+            {
+              "id": "guinaifen"
+            },
+            {
+              "id": "hysilens"
+            }
+          ]
+        },
+        {
+          "role": "DoT 副C",
+          "candidates": [
+            {
+              "id": "black-swan",
+              "default": true
+            },
+            {
+              "id": "sampo"
+            },
+            {
+              "id": "guinaifen"
+            },
+            {
+              "id": "hysilens"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "rua-mei",
+              "default": true
+            },
+            {
+              "id": "robin"
+            },
+            {
+              "id": "asta"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "huohuo",
+              "default": true
+            },
+            {
+              "id": "gallagher"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "summon-remembrance",
+      "name": "阿格莱亚召唤队",
+      "system": "召唤/记忆",
+      "coreMechanic": "阿格莱亚召唤物协同，星期日拉条充能加速循环。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一"
+      ],
+      "focusTags": [
+        "召唤",
+        "对单",
+        "终结技"
+      ],
+      "notes": [
+        "星期日专拐召唤体系",
+        "末日幻影击破窗口要卡好"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "aglaea",
+              "default": true
+            },
+            {
+              "id": "jing-yuan"
+            },
+            {
+              "id": "acheron"
+            },
+            {
+              "id": "castorice"
+            },
+            {
+              "id": "evernight"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sunday",
+              "default": true
+            },
+            {
+              "id": "bronya"
+            },
+            {
+              "id": "sparkle"
+            }
+          ]
+        },
+        {
+          "role": "副C/辅助",
+          "candidates": [
+            {
+              "id": "remembrance-trailblazer",
+              "default": true
+            },
+            {
+              "id": "tingyun"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "lingsha",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "hyacine"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hypercarry-bronya",
+      "name": "传统单核直伤队",
+      "system": "超级单核",
+      "coreMechanic": "布洛妮娅拉条+佩拉减防，服务镜流/饮月等直伤主C。",
+      "modes": [
+        "moc",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍三"
+      ],
+      "focusTags": [
+        "爆发",
+        "对单"
+      ],
+      "notes": [
+        "SP 循环紧张时换花火",
+        "生存压力大时符玄优先"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "jingliu",
+              "default": true
+            },
+            {
+              "id": "dan-heng-il"
+            },
+            {
+              "id": "mydei"
+            },
+            {
+              "id": "yunli"
+            },
+            {
+              "id": "phainon"
+            },
+            {
+              "id": "saber"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "bronya",
+              "default": true
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "tingyun"
+            },
+            {
+              "id": "cerydra"
+            }
+          ]
+        },
+        {
+          "role": "减益",
+          "candidates": [
+            {
+              "id": "pela",
+              "default": true
+            },
+            {
+              "id": "jiaoqiu"
+            },
+            {
+              "id": "silver-wolf"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "fu-xuan",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "gepard"
+            },
+            {
+              "id": "luocha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "counter-team",
+      "name": "云璃反击队",
+      "system": "反击",
+      "coreMechanic": "云璃受击反击，符玄分摊保证生存，适合高压对单。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍三"
+      ],
+      "focusTags": [
+        "反击",
+        "对单",
+        "生存"
+      ],
+      "notes": [
+        "敌人攻击越频繁收益越高",
+        "克拉拉为下位"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "yunli",
+              "default": true
+            },
+            {
+              "id": "clara"
+            },
+            {
+              "id": "mydei"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sparkle",
+              "default": true
+            },
+            {
+              "id": "bronya"
+            },
+            {
+              "id": "robin"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "pela",
+              "default": true
+            },
+            {
+              "id": "jiaoqiu"
+            },
+            {
+              "id": "tingyun"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "fu-xuan",
+              "default": true
+            },
+            {
+              "id": "gepard"
+            },
+            {
+              "id": "gallagher"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "castorice-remembrance",
+      "name": "遐蝶记忆队",
+      "system": "记忆召唤",
+      "coreMechanic": "遐蝶生命转伤+召唤物协同，星期日/刻律德菈拉条充能压缩循环。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一"
+      ],
+      "focusTags": [
+        "召唤",
+        "对单",
+        "爆发",
+        "终结技"
+      ],
+      "notes": [
+        "风堇优先保证生存与解控",
+        "末日幻影注意击破窗口对齐召唤物"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "castorice",
+              "default": true
+            },
+            {
+              "id": "aglaea"
+            },
+            {
+              "id": "evernight"
+            },
+            {
+              "id": "mydei"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sunday",
+              "default": true
+            },
+            {
+              "id": "cerydra"
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "bronya"
+            }
+          ]
+        },
+        {
+          "role": "副C/辅助",
+          "candidates": [
+            {
+              "id": "remembrance-trailblazer",
+              "default": true
+            },
+            {
+              "id": "cyrene"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "lingsha"
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phainon-hyper",
+      "name": "白厄单核爆发队",
+      "system": "超级单核",
+      "coreMechanic": "白厄物理爆发主C，刻律德菈/布洛妮娅对齐终结技窗口。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍三"
+      ],
+      "focusTags": [
+        "爆发",
+        "对单",
+        "终结技"
+      ],
+      "notes": [
+        "SP 与充能节奏是关键",
+        "高压局生存优先符玄/丹恒•腾荒"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "phainon",
+              "default": true
+            },
+            {
+              "id": "saber"
+            },
+            {
+              "id": "mydei"
+            },
+            {
+              "id": "dan-heng-il"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "cerydra",
+              "default": true
+            },
+            {
+              "id": "bronya"
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "cyrene"
+            }
+          ]
+        },
+        {
+          "role": "减益",
+          "candidates": [
+            {
+              "id": "cipher",
+              "default": true
+            },
+            {
+              "id": "pela"
+            },
+            {
+              "id": "jiaoqiu"
+            },
+            {
+              "id": "silver-wolf"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "dan-heng-pt",
+              "default": true
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "gepard"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anaxa-erudition",
+      "name": "那刻夏对群队",
+      "system": "智识对群",
+      "coreMechanic": "那刻夏+大黑塔/翡翠双智识清杂，虚构叙事与对群环境高效。",
+      "modes": [
+        "pf",
+        "moc",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍二"
+      ],
+      "focusTags": [
+        "对群",
+        "追加攻击",
+        "清杂"
+      ],
+      "notes": [
+        "小怪波次越多收益越高",
+        "可按弱点把翡翠换成姬子补火覆盖"
+      ],
+      "slots": [
+        {
+          "role": "对群主C",
+          "candidates": [
+            {
+              "id": "anaxa",
+              "default": true
+            },
+            {
+              "id": "the-herta"
+            },
+            {
+              "id": "jade"
+            },
+            {
+              "id": "himeko"
+            }
+          ]
+        },
+        {
+          "role": "对群副C",
+          "candidates": [
+            {
+              "id": "the-herta",
+              "default": true
+            },
+            {
+              "id": "jade"
+            },
+            {
+              "id": "herta"
+            },
+            {
+              "id": "qingque"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sparkle",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "robin"
+            },
+            {
+              "id": "cyrene"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "lingsha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hysilens-dot",
+      "name": "海瑟音 DoT 队",
+      "system": "DoT",
+      "coreMechanic": "海瑟音物理 DoT 核心，配合卡芙卡/忘归人类辅助扩大持续伤害窗口。",
+      "modes": [
+        "moc",
+        "pf",
+        "aa"
+      ],
+      "suitableSides": [
+        "下半",
+        "队伍三",
+        "上半"
+      ],
+      "focusTags": [
+        "DoT",
+        "对群"
+      ],
+      "notes": [
+        "与黑天鹅体系可互换主核",
+        "控场图优先带解控生存"
+      ],
+      "slots": [
+        {
+          "role": "DoT 核心",
+          "candidates": [
+            {
+              "id": "hysilens",
+              "default": true
+            },
+            {
+              "id": "black-swan"
+            },
+            {
+              "id": "kafka"
+            }
+          ]
+        },
+        {
+          "role": "DoT 协同",
+          "candidates": [
+            {
+              "id": "kafka",
+              "default": true
+            },
+            {
+              "id": "black-swan"
+            },
+            {
+              "id": "guinaifen"
+            },
+            {
+              "id": "sampo"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "rua-mei",
+              "default": true
+            },
+            {
+              "id": "robin"
+            },
+            {
+              "id": "asta"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "huohuo",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "gallagher"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fugue-superbreak",
+      "name": "忘归人超击破队",
+      "system": "超击破",
+      "coreMechanic": "忘归人提供击破/易伤窗口，配合流萤或乱破打出超击破爆发。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一"
+      ],
+      "focusTags": [
+        "击破",
+        "超击破",
+        "对单"
+      ],
+      "notes": [
+        "比阮梅队更偏火/虚无辅助轴",
+        "生存位可用风堇提容错"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "firefly",
+              "default": true
+            },
+            {
+              "id": "rappa"
+            },
+            {
+              "id": "boothill"
+            },
+            {
+              "id": "xueyi"
+            }
+          ]
+        },
+        {
+          "role": "击破辅助",
+          "candidates": [
+            {
+              "id": "fugue",
+              "default": true
+            },
+            {
+              "id": "rua-mei"
+            },
+            {
+              "id": "harmony-trailblazer"
+            }
+          ]
+        },
+        {
+          "role": "副C/辅助",
+          "candidates": [
+            {
+              "id": "harmony-trailblazer",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "asta"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "lingsha"
+            },
+            {
+              "id": "gallagher"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evernight-summon",
+      "name": "长夜月记忆队",
+      "system": "记忆召唤",
+      "coreMechanic": "长夜月冰记忆召唤副C/主C，星期日拉条强化召唤物循环。",
+      "modes": [
+        "moc",
+        "pf",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍二"
+      ],
+      "focusTags": [
+        "召唤",
+        "对单",
+        "记忆"
+      ],
+      "notes": [
+        "可与遐蝶互为上下位",
+        "对群环境可补那刻夏/大黑塔"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "evernight",
+              "default": true
+            },
+            {
+              "id": "aglaea"
+            },
+            {
+              "id": "castorice"
+            },
+            {
+              "id": "the-herta"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sunday",
+              "default": true
+            },
+            {
+              "id": "cerydra"
+            },
+            {
+              "id": "sparkle"
+            }
+          ]
+        },
+        {
+          "role": "副C/辅助",
+          "candidates": [
+            {
+              "id": "remembrance-trailblazer",
+              "default": true
+            },
+            {
+              "id": "cyrene"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "lingsha"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "saber-hyper",
+      "name": "Saber 爆发队",
+      "system": "超级单核",
+      "coreMechanic": "联动毁灭主风爆发，搭配刻律德菈/知更鸟压缩行动轴。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一"
+      ],
+      "focusTags": [
+        "爆发",
+        "对单",
+        "终结技"
+      ],
+      "notes": [
+        "风弱点环境优势明显",
+        "可与白厄按弱点二选一"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "saber",
+              "default": true
+            },
+            {
+              "id": "phainon"
+            },
+            {
+              "id": "blade"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "cerydra",
+              "default": true
+            },
+            {
+              "id": "robin"
+            },
+            {
+              "id": "bronya"
+            },
+            {
+              "id": "sparkle"
+            }
+          ]
+        },
+        {
+          "role": "副C/辅助",
+          "candidates": [
+            {
+              "id": "cipher",
+              "default": true
+            },
+            {
+              "id": "pela"
+            },
+            {
+              "id": "jiaoqiu"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "dan-heng-pt"
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "lingsha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "archer-fua",
+      "name": "Archer 追击队",
+      "system": "追加攻击",
+      "coreMechanic": "Archer量子巡猎对单追击，知更鸟/托帕协同抬爆发窗口。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二"
+      ],
+      "focusTags": [
+        "追加攻击",
+        "对单",
+        "爆发"
+      ],
+      "notes": [
+        "量子弱点环境更稳",
+        "缺托帕可用貊泽下位"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "archer",
+              "default": true
+            },
+            {
+              "id": "feixiao"
+            },
+            {
+              "id": "ratio"
+            },
+            {
+              "id": "seele"
+            }
+          ]
+        },
+        {
+          "role": "追击协同",
+          "candidates": [
+            {
+              "id": "topaz",
+              "default": true
+            },
+            {
+              "id": "moze"
+            },
+            {
+              "id": "jade"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "robin",
+              "default": true
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "bronya"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "fu-xuan",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "gallagher"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elation-variant",
+      "name": "欢愉追击队",
+      "system": "欢愉/追加攻击",
+      "coreMechanic": "开拓者•欢愉与火花/爻光等欢愉命途协同追击，适合对群与多波次环境。",
+      "modes": [
+        "moc",
+        "pf",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍二"
+      ],
+      "focusTags": [
+        "追加攻击",
+        "对群",
+        "终结技"
+      ],
+      "notes": [
+        "欢愉命途新体系，协同窗口对齐追击",
+        "对群环境可把爻光换成大黑塔补清杂"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "aventurine-waveflair"
+            },
+            {
+              "id": "sparxie",
+              "default": true
+            },
+            {
+              "id": "yao-guang"
+            },
+            {
+              "id": "himeko-nova"
+            },
+            {
+              "id": "the-herta"
+            }
+          ]
+        },
+        {
+          "role": "协同",
+          "candidates": [
+            {
+              "id": "robin-summeretto"
+            },
+            {
+              "id": "elation-trailblazer",
+              "default": true
+            },
+            {
+              "id": "evanescia"
+            },
+            {
+              "id": "robin"
+            }
+          ]
+        },
+        {
+          "role": "同谐/减益",
+          "candidates": [
+            {
+              "id": "robin-summeretto"
+            },
+            {
+              "id": "robin",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "cipher"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "aventurine",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "fu-xuan"
+            },
+            {
+              "id": "lingsha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gilgamesh-hyper",
+      "name": "吉尔伽美什爆发队",
+      "system": "超级单核",
+      "coreMechanic": "吉尔伽美什雷毁灭爆发，搭配刻律德菈/知更鸟压行动轴。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一"
+      ],
+      "focusTags": [
+        "爆发",
+        "对单",
+        "终结技"
+      ],
+      "notes": [
+        "雷弱点环境优势明显",
+        "可与遐蝶/白厄按弱点互换"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "gilgamesh",
+              "default": true
+            },
+            {
+              "id": "phainon"
+            },
+            {
+              "id": "castorice"
+            },
+            {
+              "id": "jing-yuan"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "cerydra",
+              "default": true
+            },
+            {
+              "id": "robin"
+            },
+            {
+              "id": "bronya"
+            },
+            {
+              "id": "sparkle"
+            }
+          ]
+        },
+        {
+          "role": "减益/副C",
+          "candidates": [
+            {
+              "id": "silver-wolf-lv-999",
+              "default": true
+            },
+            {
+              "id": "cipher"
+            },
+            {
+              "id": "jiaoqiu"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "aventurine",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "dan-heng-pt"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "summeretto-support",
+      "name": "知更鸟•晴歌通用增益队",
+      "system": "记忆辅助",
+      "coreMechanic": "晴歌召唤「晴空乐手」，给指定队友行动提前+回能，并提供无视防御等全队增益；我方行动越频繁收益越高。",
+      "modes": [
+        "moc",
+        "as",
+        "aa",
+        "pf"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二",
+        "队伍三"
+      ],
+      "focusTags": [
+        "拉条",
+        "充能",
+        "终结技",
+        "召唤"
+      ],
+      "notes": [
+        "适配高频行动队：欢愉/追击/记忆召唤",
+        "可替换原版知更鸟或星期日作为拉条位",
+        "生存位不抢行动时收益更稳"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "aventurine-waveflair",
+              "default": true
+            },
+            {
+              "id": "castorice"
+            },
+            {
+              "id": "feixiao"
+            },
+            {
+              "id": "the-herta"
+            }
+          ]
+        },
+        {
+          "role": "辅助核心",
+          "candidates": [
+            {
+              "id": "robin-summeretto",
+              "default": true
+            },
+            {
+              "id": "robin"
+            },
+            {
+              "id": "sunday"
+            },
+            {
+              "id": "cerydra"
+            }
+          ]
+        },
+        {
+          "role": "副C/减益",
+          "candidates": [
+            {
+              "id": "mortenax-blade",
+              "default": true
+            },
+            {
+              "id": "topaz"
+            },
+            {
+              "id": "cipher"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "aventurine"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meta-happy-sparxie",
+      "name": "火花欢愉主C队",
+      "system": "欢愉",
+      "coreMechanic": "火花主C + 爻光/千冶•刃协同追击与欢愉伤害，契合 4.4.1 涤荡环境；可单欢愉位挂砂金•戏浪。",
+      "modes": [
+        "moc",
+        "as",
+        "aa",
+        "pf"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二"
+      ],
+      "focusTags": [
+        "追加攻击",
+        "对群",
+        "对单",
+        "终结技"
+      ],
+      "notes": [
+        "Prydwen MoC 使用率前列体系",
+        "生存优先藿藿/风堇"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "sparxie",
+              "default": true
+            },
+            {
+              "id": "aventurine-waveflair"
+            },
+            {
+              "id": "yao-guang"
+            },
+            {
+              "id": "himeko-nova"
+            }
+          ]
+        },
+        {
+          "role": "协同",
+          "candidates": [
+            {
+              "id": "yao-guang",
+              "default": true
+            },
+            {
+              "id": "mortenax-blade"
+            },
+            {
+              "id": "elation-trailblazer"
+            },
+            {
+              "id": "silver-wolf-lv-999"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "sparkle",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "robin-summeretto"
+            },
+            {
+              "id": "huohuo"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "huohuo",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "dan-heng-pt"
+            },
+            {
+              "id": "lingsha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meta-mem-castorice",
+      "name": "遐蝶记忆主C队",
+      "system": "记忆召唤",
+      "coreMechanic": "遐蝶 / 三月七•长夜 / 昔涟 记忆召唤体系，风堇与星期日抬行动与回能，适配 4.5.1 末日幻影量子冰环境。",
+      "modes": [
+        "moc",
+        "as",
+        "aa",
+        "pf"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二"
+      ],
+      "focusTags": [
+        "召唤",
+        "对单",
+        "记忆",
+        "终结技"
+      ],
+      "notes": [
+        "AS 使用率：风堇/昔涟/遐蝶/三月七长夜均高",
+        "可按弱点在遐蝶与三月七长夜间二选一"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "castorice",
+              "default": true
+            },
+            {
+              "id": "march-7th-evernight"
+            },
+            {
+              "id": "cyrene"
+            },
+            {
+              "id": "aglaea"
+            }
+          ]
+        },
+        {
+          "role": "副C/忆灵",
+          "candidates": [
+            {
+              "id": "cyrene",
+              "default": true
+            },
+            {
+              "id": "march-7th-evernight"
+            },
+            {
+              "id": "remembrance-trailblazer"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sunday",
+              "default": true
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "robin-summeretto"
+            },
+            {
+              "id": "cerydra"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "lingsha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meta-archer-quantum",
+      "name": "Archer 量子主C队",
+      "system": "量子爆发",
+      "coreMechanic": "Archer 量子巡猎对单爆发，花火/银狼LV.999 适配 4.4 量子环境。",
+      "modes": [
+        "moc",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二"
+      ],
+      "focusTags": [
+        "对单",
+        "爆发",
+        "终结技"
+      ],
+      "notes": [
+        "MoC Archer 使用率约 40%",
+        "银狼LV.999 为当前高使用率虚无"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "archer",
+              "default": true
+            },
+            {
+              "id": "rin-tohsaka"
+            },
+            {
+              "id": "feixiao"
+            },
+            {
+              "id": "seele"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "sparkle",
+              "default": true
+            },
+            {
+              "id": "silver-wolf-lv-999"
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "cipher"
+            }
+          ]
+        },
+        {
+          "role": "副C/减益",
+          "candidates": [
+            {
+              "id": "silver-wolf-lv-999",
+              "default": true
+            },
+            {
+              "id": "the-dahlia"
+            },
+            {
+              "id": "pela"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "dan-heng-pt",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meta-dot-as",
+      "name": "海瑟音 DoT 队",
+      "system": "DoT",
+      "coreMechanic": "海瑟音/卡芙卡/黑天鹅 DoT，AS 4.5.1 使用率与均分双高。",
+      "modes": [
+        "as",
+        "moc",
+        "aa"
+      ],
+      "suitableSides": [
+        "下半",
+        "队伍三",
+        "上半"
+      ],
+      "focusTags": [
+        "DoT",
+        "对群",
+        "引爆"
+      ],
+      "notes": [
+        "AS 中 Kafka/Hysilens/Black Swan 出场率约 27-30%",
+        "阮·梅适配击破环境"
+      ],
+      "slots": [
+        {
+          "role": "DoT 核心",
+          "candidates": [
+            {
+              "id": "hysilens",
+              "default": true
+            },
+            {
+              "id": "kafka"
+            },
+            {
+              "id": "black-swan"
+            }
+          ]
+        },
+        {
+          "role": "DoT 协同",
+          "candidates": [
+            {
+              "id": "kafka",
+              "default": true
+            },
+            {
+              "id": "black-swan"
+            },
+            {
+              "id": "the-dahlia"
+            },
+            {
+              "id": "mortenax-blade"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "rua-mei",
+              "default": true
+            },
+            {
+              "id": "robin-summeretto"
+            },
+            {
+              "id": "asta"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "huohuo",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "gallagher"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meta-break-dhpt",
+      "name": "腾荒物理击破队",
+      "system": "击破/生存核",
+      "coreMechanic": "丹恒•腾荒作为物理高使用率存护/击破轴，配合忘归人与火花/流萤打出破韧窗口，契合天狼回响。",
+      "modes": [
+        "as",
+        "moc",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "队伍一",
+        "下半"
+      ],
+      "focusTags": [
+        "击破",
+        "削韧",
+        "生存",
+        "对单"
+      ],
+      "notes": [
+        "AS 使用率 70%+，当前顶级通用生存/击破位",
+        "可与流萤超击破队互换"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "firefly",
+              "default": true
+            },
+            {
+              "id": "sparxie"
+            },
+            {
+              "id": "rappa"
+            },
+            {
+              "id": "xueyi"
+            }
+          ]
+        },
+        {
+          "role": "击破辅助",
+          "candidates": [
+            {
+              "id": "fugue",
+              "default": true
+            },
+            {
+              "id": "rua-mei"
+            },
+            {
+              "id": "harmony-trailblazer"
+            }
+          ]
+        },
+        {
+          "role": "生存/副C",
+          "candidates": [
+            {
+              "id": "dan-heng-pt",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "harmony-trailblazer"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "sparkle",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "asta"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waveflair-fua",
+      "name": "砂金•戏浪欢愉追击队",
+      "system": "欢愉/追加攻击",
+      "coreMechanic": "砂金•戏浪靠全队攻击叠【热意】频繁打欢愉技；知更鸟•晴歌提供行动提前与无视防御。",
+      "modes": [
+        "moc",
+        "pf",
+        "as",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二"
+      ],
+      "focusTags": [
+        "追加攻击",
+        "对群",
+        "对单",
+        "爆发",
+        "终结技"
+      ],
+      "notes": [
+        "4.5 限定体系",
+        "与火花欢愉队按持有互换"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "aventurine-waveflair",
+              "default": true
+            },
+            {
+              "id": "sparxie"
+            },
+            {
+              "id": "yao-guang"
+            }
+          ]
+        },
+        {
+          "role": "协同输出",
+          "candidates": [
+            {
+              "id": "mortenax-blade",
+              "default": true
+            },
+            {
+              "id": "silver-wolf-lv-999"
+            },
+            {
+              "id": "elation-trailblazer"
+            },
+            {
+              "id": "evanescia"
+            }
+          ]
+        },
+        {
+          "role": "辅助",
+          "candidates": [
+            {
+              "id": "robin-summeretto",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "robin"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "dan-heng-pt"
+            },
+            {
+              "id": "lingsha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "robin-summeretto-support",
+      "name": "知更鸟•晴歌通用增益队",
+      "system": "记忆辅助",
+      "coreMechanic": "晴歌忆灵「晴空乐手」行动提前+回能+无视防御，适配高频欢愉/记忆队。",
+      "modes": [
+        "moc",
+        "as",
+        "aa",
+        "pf"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍一",
+        "队伍二",
+        "队伍三"
+      ],
+      "focusTags": [
+        "拉条",
+        "充能",
+        "终结技",
+        "召唤"
+      ],
+      "notes": [
+        "AS 使用率约 32%",
+        "可替换原版知更鸟/星期日拉条位"
+      ],
+      "slots": [
+        {
+          "role": "主C",
+          "candidates": [
+            {
+              "id": "castorice",
+              "default": true
+            },
+            {
+              "id": "aventurine-waveflair"
+            },
+            {
+              "id": "march-7th-evernight"
+            },
+            {
+              "id": "archer"
+            }
+          ]
+        },
+        {
+          "role": "辅助核心",
+          "candidates": [
+            {
+              "id": "robin-summeretto",
+              "default": true
+            },
+            {
+              "id": "sparkle"
+            },
+            {
+              "id": "sunday"
+            },
+            {
+              "id": "robin"
+            }
+          ]
+        },
+        {
+          "role": "副C",
+          "candidates": [
+            {
+              "id": "yao-guang",
+              "default": true
+            },
+            {
+              "id": "mortenax-blade"
+            },
+            {
+              "id": "cyrene"
+            },
+            {
+              "id": "tribbie"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "huohuo",
+              "default": true
+            },
+            {
+              "id": "hyacine"
+            },
+            {
+              "id": "dan-heng-pt"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "erudition-aoe",
+      "name": "那刻夏/大黑塔对群队",
+      "system": "智识对群",
+      "coreMechanic": "那刻夏与大黑塔双智识清杂，虚构叙事与对群环境。",
+      "modes": [
+        "pf",
+        "moc",
+        "aa"
+      ],
+      "suitableSides": [
+        "上半",
+        "下半",
+        "队伍二"
+      ],
+      "focusTags": [
+        "对群",
+        "追加攻击",
+        "清杂"
+      ],
+      "notes": [
+        "PF 结构队",
+        "可换成姬子•启行补火"
+      ],
+      "slots": [
+        {
+          "role": "对群主C",
+          "candidates": [
+            {
+              "id": "anaxa",
+              "default": true
+            },
+            {
+              "id": "the-herta"
+            },
+            {
+              "id": "himeko-nova"
+            },
+            {
+              "id": "rin-tohsaka"
+            }
+          ]
+        },
+        {
+          "role": "对群副C",
+          "candidates": [
+            {
+              "id": "the-herta",
+              "default": true
+            },
+            {
+              "id": "jade"
+            },
+            {
+              "id": "himeko-nova"
+            },
+            {
+              "id": "herta"
+            }
+          ]
+        },
+        {
+          "role": "同谐",
+          "candidates": [
+            {
+              "id": "sparkle",
+              "default": true
+            },
+            {
+              "id": "tribbie"
+            },
+            {
+              "id": "robin-summeretto"
+            }
+          ]
+        },
+        {
+          "role": "生存",
+          "candidates": [
+            {
+              "id": "hyacine",
+              "default": true
+            },
+            {
+              "id": "huohuo"
+            },
+            {
+              "id": "fu-xuan"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

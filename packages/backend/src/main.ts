@@ -1,0 +1,85 @@
+import { NestFactory } from '@nestjs/core'
+import { Logger, ValidationPipe } from '@nestjs/common'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { AppModule } from './app.module'
+import { validateRuntimeEnv } from './config/env'
+
+async function bootstrap() {
+  validateRuntimeEnv()
+  const app = await NestFactory.create(AppModule)
+  const logger = new Logger('Bootstrap')
+
+  // Security headers
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff')
+    res.setHeader('X-Frame-Options', 'DENY')
+    res.setHeader('X-XSS-Protection', '1; mode=block')
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+    res.setHeader('Content-Security-Policy', "default-src 'self'")
+    next()
+  })
+
+  // Enable global validation with strict security settings
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // Automatically transform payloads to DTO instances
+      whitelist: true, // Strip properties that don't have decorators
+      forbidNonWhitelisted: true, // Throw error if non-whitelisted properties are present
+      transformOptions: {
+        enableImplicitConversion: true, // Convert string numbers to actual numbers
+      },
+      forbidUnknownValues: true, // Disallow unknown objects
+      disableErrorMessages: process.env.NODE_ENV === 'production', // Hide detailed errors in production
+    }),
+  )
+
+  // Enable CORS with more restrictive settings
+  const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+    'http://localhost:5173',
+    'http://localhost:5174', // Added for Vite dev server
+    'http://localhost:3000',
+    'http://localhost:4173',
+    process.env.PRODUCTION_DOMAIN || 'https://hsr-team-builder.gilded.dev',
+  ]
+  const isAllowedOrigin = (origin?: string) => !origin || allowedOrigins.includes(origin)
+
+  app.use((req, res, next) => {
+    const origin = req.headers.origin
+
+    if (origin && !isAllowedOrigin(origin)) {
+      logger.warn(`Rejected CORS origin ${origin} for ${req.method} ${req.originalUrl || req.url}`)
+      return res.status(403).json({ statusCode: 403, message: 'CORS origin not allowed' })
+    }
+
+    next()
+  })
+
+  app.enableCors({
+    origin: (origin, callback) => {
+      return callback(null, isAllowedOrigin(origin))
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    credentials: true,
+    maxAge: 86400, // Cache preflight response for 24 hours
+  })
+
+  // Setup Swagger documentation
+  const config = new DocumentBuilder()
+    .setTitle('HSR Team Builder API')
+    .setDescription('API for Honkai Star Rail Team Builder application')
+    .setVersion('1.0')
+    .addBearerAuth({
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    })
+    .build()
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('swagger', app, document)
+
+  const port = process.env.PORT || 3001
+  await app.listen(port)
+  logger.log(`🚀 Backend server running on port ${port}`)
+  logger.log('📚 API Documentation available at /swagger')
+}
+bootstrap()

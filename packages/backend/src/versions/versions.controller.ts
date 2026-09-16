@@ -1,0 +1,221 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common'
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { VersionsService } from './versions.service'
+import {
+  ChangelogQueryDto,
+  CreateVersionDto,
+  ReplaceVersionDto,
+  UpdateVersionDto,
+} from '../dto/version.dto'
+
+@ApiTags('versions')
+@Controller('versions')
+export class VersionsController {
+  constructor(private readonly versionsService: VersionsService) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Post('seed')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Seed database with initial version data (requires authentication)' })
+  @ApiResponse({ status: 201, description: 'Database seeded successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  seedDatabase(): Promise<{ message: string; count: number }> {
+    return this.versionsService.seedVersions()
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('clear')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Clear all versions from database (requires authentication)' })
+  @ApiResponse({ status: 200, description: 'Database cleared successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  clearDatabase(): Promise<{ message: string; cleared: number }> {
+    return this.versionsService.clearVersions()
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'Get all versions' })
+  @ApiResponse({ status: 200, description: 'List of versions' })
+  findAll() {
+    return this.versionsService.findAll()
+  }
+
+  @Get('latest')
+  @ApiOperation({ summary: 'Get the latest stable version' })
+  @ApiResponse({ status: 200, description: 'Latest version details' })
+  @ApiResponse({ status: 404, description: 'No versions available' })
+  async getLatest() {
+    const latestVersion = await this.versionsService.getLatestVersion()
+
+    if (!latestVersion) {
+      throw new HttpException('No versions available', HttpStatus.NOT_FOUND)
+    }
+
+    return latestVersion
+  }
+
+  @Get('changelog')
+  @ApiOperation({ summary: 'Get recent versions for changelog' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of versions to return (max 20)',
+    example: '5',
+  })
+  @ApiQuery({
+    name: 'includePrerelease',
+    required: false,
+    description: 'Include prerelease versions',
+    example: 'false',
+  })
+  @ApiResponse({ status: 200, description: 'Changelog entries' })
+  getChangelog(@Query() query: ChangelogQueryDto) {
+    return this.versionsService.getChangelog(query)
+  }
+
+  @Get('roadmap')
+  @ApiOperation({ summary: 'Get roadmap items from all versions' })
+  @ApiResponse({ status: 200, description: 'Roadmap items from all versions' })
+  getRoadmap() {
+    return this.versionsService.getRoadmap()
+  }
+
+  @Get(':version')
+  @ApiOperation({ summary: 'Get version by version string' })
+  @ApiParam({ name: 'version', description: 'Version string (e.g., v2.6.2)' })
+  @ApiResponse({ status: 200, description: 'Version details, falling back to latest if missing' })
+  @ApiResponse({ status: 404, description: 'No versions available' })
+  async findOne(@Param('version') version: string) {
+    try {
+      const found = await this.versionsService.findOne(version)
+      return found
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        const latestVersion = await this.versionsService.getLatestVersion()
+
+        if (latestVersion) {
+          return latestVersion
+        }
+
+        throw new HttpException('No versions available', HttpStatus.NOT_FOUND)
+      }
+      throw error
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Create a new version (requires authentication)' })
+  @ApiBody({
+    description: 'Version data',
+    type: CreateVersionDto,
+  })
+  @ApiResponse({ status: 201, description: 'Version created successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 400, description: 'Version already exists' })
+  async create(@Body() createVersionDto: CreateVersionDto) {
+    try {
+      const created = await this.versionsService.create(createVersionDto)
+      return created
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('already exists')) {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST)
+      }
+      throw error
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':version')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Replace entire version by version string (requires authentication)' })
+  @ApiParam({ name: 'version', description: 'Version string (e.g., v2.6.2)' })
+  @ApiBody({
+    description: 'Complete version data to replace existing version',
+    type: ReplaceVersionDto,
+  })
+  @ApiResponse({ status: 200, description: 'Version replaced successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Version not found' })
+  async update(@Param('version') version: string, @Body() replaceVersionDto: ReplaceVersionDto) {
+    try {
+      const updated = await this.versionsService.replace(version, replaceVersionDto)
+      return updated
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        throw new HttpException(`Version ${version} not found`, HttpStatus.NOT_FOUND)
+      }
+      throw error
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':version')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Partially update version by version string (requires authentication)' })
+  @ApiParam({ name: 'version', description: 'Version string (e.g., v2.6.2)' })
+  @ApiBody({
+    description: 'Partial version data to update specific fields',
+    type: UpdateVersionDto,
+  })
+  @ApiResponse({ status: 200, description: 'Version updated successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Version not found' })
+  async partialUpdate(
+    @Param('version') version: string,
+    @Body() updateVersionDto: UpdateVersionDto,
+  ) {
+    try {
+      const updated = await this.versionsService.update(version, updateVersionDto)
+      return updated
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        throw new HttpException(`Version ${version} not found`, HttpStatus.NOT_FOUND)
+      }
+      throw error
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':version')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Delete version by version string (requires authentication)' })
+  @ApiParam({ name: 'version', description: 'Version string (e.g., v2.6.2)' })
+  @ApiResponse({ status: 200, description: 'Version deleted successfully' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Version not found' })
+  async remove(@Param('version') version: string): Promise<{ message: string }> {
+    try {
+      await this.versionsService.remove(version)
+      return { message: 'Version deleted successfully' }
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('not found')) {
+        throw new HttpException(`Version ${version} not found`, HttpStatus.NOT_FOUND)
+      }
+      throw error
+    }
+  }
+}

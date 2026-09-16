@@ -1,0 +1,49 @@
+{
+  "name": "hsr-team-builder-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @hsr-team-builder/frontend",
+    "dev:frontend": "npm run dev -w @hsr-team-builder/frontend",
+    "dev:backend": "npm run dev -w @hsr-team-builder/backend",
+    "dev:all": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "build": "npm run build -w @hsr-team-builder/frontend",
+    "build:frontend": "npm run build -w @hsr-team-builder/frontend",
+    "build:backend": "npm run build -w @hsr-team-builder/backend",
+    "build:all": "npm run build:backend && npm run build:frontend",
+    "preview": "npm run preview -w @hsr-team-builder/frontend",
+    "type-check": "npm run build -w @hsr-team-builder/shared && npm run type-check -w @hsr-team-builder/frontend && npm run type-check -w @hsr-team-builder/backend",
+    "lint": "npm run lint -w @hsr-team-builder/frontend && npm run lint -w @hsr-team-builder/backend",
+    "format": "npm run format -w @hsr-team-builder/frontend && npm run format -w @hsr-team-builder/backend"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "glob": "^11.1.0"
+  },
+  "overrides": {
+    "@isaacs/brace-expansion": "5.0.1",
+    "brace-expansion@1": "1.1.13",
+    "brace-expansion@2": "2.0.3",
+    "brace-expansion@5": "5.0.6",
+    "file-type": "21.3.4",
+    "flatted": "3.4.2",
+    "js-yaml": "4.1.1",
+    "lodash": "4.18.1",
+    "minimatch@3": "3.1.5",
+    "minimatch@5": "5.1.9",
+    "minimatch@9": "9.0.9",
+    "minimatch@10": "10.2.5",
+    "multer": "2.1.1",
+    "path-to-regexp@0.1": "0.1.13",
+    "picomatch@2": "2.3.2",
+    "picomatch@4": "4.0.4",
+    "qs": "6.15.2",
+    "rollup": "4.60.1",
+    "serialize-javascript": "7.0.5",
+    "webpack": "5.106.0"
+  }
+}

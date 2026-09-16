@@ -1,0 +1,155 @@
+import { useAvatarPreference } from '@/composables/useAvatarPreference'
+
+// Character ID to avatar mapping (based on Honkai Star Rail character IDs)
+export const characterAvatarMap: Record<string, string> = {
+  // Main characters (1000 series)
+  'dan-heng': '1002',
+  'march-7th': '1001',
+  himeko: '1003',
+  welt: '1004',
+  kafka: '1005b1',
+  'silver-wolf': '1006b1',
+  arlan: '1008',
+  asta: '1009',
+  herta: '1013',
+  bronya: '1101',
+  seele: '1102',
+  serval: '1103',
+  gepard: '1104',
+  natasha: '1105',
+  pela: '1106',
+  clara: '1107',
+  sampo: '1108',
+  hook: '1109',
+  lynx: '1110',
+  luka: '1111',
+  topaz: '1112',
+  qingque: '1201',
+  tingyun: '1202',
+  luocha: '1203',
+  'jing-yuan': '1204',
+  guinaifen: '1210',
+  yukong: '1207',
+  'fu-xuan': '1208',
+  yanqing: '1209',
+  'dan-heng-il': '1213',
+  jingliu: '1212b1',
+  huohuo: '1217',
+  argenti: '1302',
+  'rua-mei': '1303',
+  ratio: '1305',
+  'black-swan': '1307',
+  sparkle: '1306',
+  misha: '1312',
+  acheron: '1308',
+  aventurine: '1304',
+  gallagher: '1301',
+  robin: '1309',
+  boothill: '1315',
+  firefly: '1310',
+  jade: '1314',
+  jiaoqiu: '1218',
+  yunli: '1221',
+  'hunt-march-7th': '1224',
+  feixiao: '1220',
+  lingsha: '1222',
+  moze: '1223',
+  rappa: '1317',
+  sunday: '1313',
+  blade: '1205b1',
+  sushang: '1206',
+  bailu: '1211',
+  xueyi: '1214',
+  hanya: '1215',
+  cipher: '1406',
+  'remembrance-trailblazer': '8008',
+  tribbie: '1403',
+  fugue: '1225',
+  'the-herta': '1401',
+  aglaea: '1402',
+  anaxa: '1405',
+  castorice: '1407',
+  mydei: '1404',
+  phainon: '1408',
+  hyacine: '1409',
+  saber: '1014',
+  archer: '1015',
+  hysilens: '1410',
+  cerydra: '1412',
+  evernight: '1413',
+  'dan-heng-pt': '1414',
+  cyrene: '1415',
+  'the-dahlia': '1321',
+  sparxie: '1501',
+  'yao-guang': '1502',
+  ashveil: '1504',
+  evanescia: '1505',
+  'silver-wolf-lv-999': '1506',
+  'mortenax-blade': '1507',
+  'rin-tohsaka': '1508',
+  gilgamesh: '1509',
+  'himeko-nova': '1510',
+  'aventurine-waveflair': '1511',
+  'robin-summeretto': '1512',
+  'march-7th-evernight': '1513',
+  aha: '1514',
+  pearl: '1515',
+}
+
+export const trailblazerAssetPairs: Record<string, { caelus: string; stelle: string }> = {
+  // Odd IDs are Caelus, even IDs are Stelle. Ownership imports collapse both genders by path.
+  'destruction-trailblazer': { caelus: '8001', stelle: '8002' },
+  'preservation-trailblazer': { caelus: '8003', stelle: '8004' },
+  'fire-trailblazer': { caelus: '8003', stelle: '8004' },
+  'harmony-trailblazer': { caelus: '8005', stelle: '8006' },
+  'remembrance-trailblazer': { caelus: '8007', stelle: '8008' },
+  'elation-trailblazer': { caelus: '8009', stelle: '8010' },
+}
+
+const resolveAvatarAssetId = (characterId: string) => {
+  const trailblazerAssetPair = trailblazerAssetPairs[characterId]
+  if (trailblazerAssetPair) {
+    const { trailblazerAvatarVariant } = useAvatarPreference()
+    return trailblazerAssetPair[trailblazerAvatarVariant.value]
+  }
+
+  return characterAvatarMap[characterId]
+}
+
+export const getCharacterAvatarAssetIds = (characterId: string): string[] => {
+  const trailblazerAssetPair = trailblazerAssetPairs[characterId]
+  if (trailblazerAssetPair) {
+    return [trailblazerAssetPair.caelus, trailblazerAssetPair.stelle]
+  }
+
+  const avatarId = characterAvatarMap[characterId]
+  return avatarId ? [avatarId] : []
+}
+
+export const getCharacterAvatar = (characterId: string): string => {
+  const avatarId = resolveAvatarAssetId(characterId)
+  if (avatarId) {
+    return `/images/avatar/${avatarId}.webp`
+  }
+  return '/images/placeholder.svg' // fallback
+}
+
+// Get character image for the character detail panel (uses same mapping as avatars)
+export const getCharacterImage = (characterId: string): string => {
+  const imageId = resolveAvatarAssetId(characterId)
+  if (imageId) {
+    return `/images/previews/${imageId}.webp`
+  }
+  return '/images/placeholder.svg' // fallback
+}
+
+// Handle image loading errors silently
+export const handleImageError = (event: Event) => {
+  const img = event.target as HTMLImageElement
+  if (img.src !== '/images/placeholder.svg') {
+    img.src = '/images/placeholder.svg'
+  }
+  // Prevent console error logging
+  event.preventDefault()
+  event.stopPropagation()
+}

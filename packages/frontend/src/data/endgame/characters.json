@@ -1,0 +1,2647 @@
+{
+  "meta": {
+    "updatedAt": "2026-09-16",
+    "note": "含当前实装与已公开变体角色（Prydwen 交叉）；中文名以 BWIKI/社区为准",
+    "sources": [
+      "https://www.prydwen.gg/star-rail/memory-of-chaos",
+      "https://www.prydwen.gg/star-rail/apocalyptic-shadow"
+    ]
+  },
+  "characters": [
+    {
+      "id": "rua-mei",
+      "name": "阮·梅",
+      "element": "冰",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "击破",
+        "抗性穿透",
+        "效率"
+      ],
+      "strength": 97,
+      "replacements": [
+        {
+          "id": "harmony-trailblazer",
+          "role": "同体系下位",
+          "cost": "穿透与击破效率缺失"
+        },
+        {
+          "id": "bronya",
+          "role": "同属性不同角色",
+          "cost": "改为直伤拉条"
+        }
+      ]
+    },
+    {
+      "id": "bronya",
+      "name": "布洛妮娅",
+      "element": "风",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "拉条",
+        "爆伤",
+        "净化"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "cerydra",
+          "role": "同体系下位",
+          "cost": "近期同谐上位对照，拉条/充能结构不同"
+        },
+        {
+          "id": "sparkle",
+          "role": "同体系下位",
+          "cost": "产点逻辑不同，拉条手感变化"
+        },
+        {
+          "id": "tingyun",
+          "role": "同属性不同角色",
+          "cost": "改为充能增伤"
+        },
+        {
+          "id": "harmony-trailblazer",
+          "role": "跨体系替代",
+          "cost": "变为超击破核心"
+        }
+      ]
+    },
+    {
+      "id": "dan-heng-pt",
+      "name": "丹恒•腾荒",
+      "element": "物理",
+      "path": "存护",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "护盾",
+        "生存",
+        "净化"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "gepard",
+          "role": "同体系下位",
+          "cost": "护盾厚度与覆盖略低"
+        },
+        {
+          "id": "fu-xuan",
+          "role": "跨体系替代",
+          "cost": "改为分摊生存"
+        },
+        {
+          "id": "march-7th",
+          "role": "同属性不同角色",
+          "cost": "四星护盾下位"
+        }
+      ]
+    },
+    {
+      "id": "sparkle",
+      "name": "花火",
+      "element": "量子",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "拉条",
+        "爆伤",
+        "产点"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "bronya",
+          "role": "同体系下位",
+          "cost": "产点能力变化，拉条时机不同"
+        },
+        {
+          "id": "tingyun",
+          "role": "同属性不同角色",
+          "cost": "改为充能体系"
+        }
+      ]
+    },
+    {
+      "id": "huohuo",
+      "name": "藿藿",
+      "element": "风",
+      "path": "丰饶",
+      "rarity": 5,
+      "roles": [
+        "生存",
+        "辅助"
+      ],
+      "tags": [
+        "治疗",
+        "充能",
+        "净化"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "gallagher",
+          "role": "同体系下位",
+          "cost": "充能拐缺失"
+        },
+        {
+          "id": "lingsha",
+          "role": "同属性不同角色",
+          "cost": "改为召唤生存"
+        }
+      ]
+    },
+    {
+      "id": "aventurine-waveflair",
+      "name": "砂金•戏浪",
+      "element": "量子",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对群",
+        "对单",
+        "爆发",
+        "终结技",
+        "欢愉"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "sparxie",
+          "role": "同体系下位",
+          "cost": "欢愉对群下位，爆发窗口不同"
+        },
+        {
+          "id": "yao-guang",
+          "role": "同属性不同角色",
+          "cost": "改为欢愉辅助/副C"
+        },
+        {
+          "id": "silver-wolf-lv-999",
+          "role": "跨体系替代",
+          "cost": "改为欢愉增强普攻轴"
+        }
+      ]
+    },
+    {
+      "id": "yao-guang",
+      "name": "爻光",
+      "element": "物理",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对单",
+        "终结技"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "yunli",
+          "role": "同属性不同角色",
+          "cost": "改为反击毁灭"
+        },
+        {
+          "id": "feixiao",
+          "role": "跨体系替代",
+          "cost": "改为风巡猎爆发"
+        }
+      ]
+    },
+    {
+      "id": "robin",
+      "name": "知更鸟",
+      "element": "物理",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "全队拉条",
+        "协奏",
+        "追加攻击"
+      ],
+      "strength": 96,
+      "replacements": [
+        {
+          "id": "robin-summeretto",
+          "role": "同体系下位",
+          "cost": "SP记忆辅助上位；原版同谐协奏仍在"
+        },
+        {
+          "id": "sparkle",
+          "role": "同体系下位",
+          "cost": "协奏增益缺失"
+        },
+        {
+          "id": "rua-mei",
+          "role": "同属性不同角色",
+          "cost": "改为击破增益"
+        }
+      ]
+    },
+    {
+      "id": "feixiao",
+      "name": "飞霄",
+      "element": "风",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "追加攻击"
+      ],
+      "strength": 95,
+      "replacements": [
+        {
+          "id": "topaz",
+          "role": "同体系下位",
+          "cost": "伤害降低约 30%"
+        },
+        {
+          "id": "seele",
+          "role": "同属性不同角色",
+          "cost": "改为再动收割，爆发窗口不同"
+        }
+      ]
+    },
+    {
+      "id": "hyacine",
+      "name": "风堇",
+      "element": "风",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "治疗",
+        "召唤",
+        "解控",
+        "生存"
+      ],
+      "strength": 95,
+      "replacements": [
+        {
+          "id": "lingsha",
+          "role": "同体系下位",
+          "cost": "召唤治疗频率略低"
+        },
+        {
+          "id": "huohuo",
+          "role": "同属性不同角色",
+          "cost": "改为充能净化生存"
+        },
+        {
+          "id": "gallagher",
+          "role": "跨体系替代",
+          "cost": "四星击破生存下位"
+        }
+      ]
+    },
+    {
+      "id": "castorice",
+      "name": "遐蝶",
+      "element": "量子",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "生命转伤",
+        "召唤",
+        "对单",
+        "爆发",
+        "记忆"
+      ],
+      "strength": 95,
+      "replacements": [
+        {
+          "id": "aglaea",
+          "role": "同体系下位",
+          "cost": "伤害降低约 18%，召唤协同略弱"
+        },
+        {
+          "id": "evernight",
+          "role": "同属性不同角色",
+          "cost": "改为冰记忆副C/主C，爆发窗口不同"
+        },
+        {
+          "id": "mydei",
+          "role": "跨体系替代",
+          "cost": "失去召唤体系，改为虚数生命转伤"
+        }
+      ]
+    },
+    {
+      "id": "silver-wolf-lv-999",
+      "name": "银狼LV.999",
+      "element": "虚数",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "副C"
+      ],
+      "tags": [
+        "植入弱点",
+        "对单",
+        "终结技"
+      ],
+      "strength": 95,
+      "replacements": [
+        {
+          "id": "silver-wolf",
+          "role": "同体系下位",
+          "cost": "原版银狼，功能子集"
+        },
+        {
+          "id": "cipher",
+          "role": "跨体系替代",
+          "cost": "改为量子虚无减益"
+        }
+      ]
+    },
+    {
+      "id": "robin-summeretto",
+      "name": "知更鸟•晴歌",
+      "element": "风",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "拉条",
+        "充能",
+        "易伤",
+        "召唤",
+        "终结技",
+        "忆灵",
+        "生存"
+      ],
+      "strength": 95,
+      "replacements": [
+        {
+          "id": "robin",
+          "role": "同体系下位",
+          "cost": "原版知更鸟，全队行动提前但少忆灵/无视防御"
+        },
+        {
+          "id": "sunday",
+          "role": "同属性不同角色",
+          "cost": "改为召唤拉条充能"
+        },
+        {
+          "id": "cerydra",
+          "role": "跨体系替代",
+          "cost": "改为风同谐充能"
+        },
+        {
+          "id": "hyacine",
+          "role": "跨体系替代",
+          "cost": "改为风记忆生存"
+        }
+      ]
+    },
+    {
+      "id": "aha",
+      "name": "阿哈",
+      "element": "量子",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对群",
+        "终结技",
+        "欢愉"
+      ],
+      "strength": 95,
+      "replacements": [
+        {
+          "id": "sparxie",
+          "role": "同体系下位",
+          "cost": "火欢愉主C替代"
+        },
+        {
+          "id": "aventurine-waveflair",
+          "role": "跨体系替代",
+          "cost": "量子欢愉输出"
+        }
+      ]
+    },
+    {
+      "id": "fu-xuan",
+      "name": "符玄",
+      "element": "量子",
+      "path": "存护",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "分摊",
+        "暴击拐",
+        "减伤"
+      ],
+      "strength": 94,
+      "replacements": [
+        {
+          "id": "gallagher",
+          "role": "同体系下位",
+          "cost": "承伤逻辑变为治疗，暴击拐缺失"
+        },
+        {
+          "id": "march-7th",
+          "role": "同属性不同角色",
+          "cost": "四星护盾，压力上升"
+        }
+      ]
+    },
+    {
+      "id": "sparxie",
+      "name": "火花",
+      "element": "火",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "主C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对群",
+        "终结技"
+      ],
+      "strength": 94,
+      "replacements": [
+        {
+          "id": "himeko",
+          "role": "同属性不同角色",
+          "cost": "对群追击下位"
+        },
+        {
+          "id": "robin",
+          "role": "跨体系替代",
+          "cost": "改为协奏辅助"
+        }
+      ]
+    },
+    {
+      "id": "cerydra",
+      "name": "刻律德菈",
+      "element": "风",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "充能",
+        "增伤",
+        "拉条",
+        "对单"
+      ],
+      "strength": 94,
+      "replacements": [
+        {
+          "id": "bronya",
+          "role": "同体系下位",
+          "cost": "拉条手感与增伤结构不同"
+        },
+        {
+          "id": "sparkle",
+          "role": "跨体系替代",
+          "cost": "改为产点爆伤"
+        },
+        {
+          "id": "tingyun",
+          "role": "同属性不同角色",
+          "cost": "四星充能下位"
+        }
+      ]
+    },
+    {
+      "id": "march-7th-evernight",
+      "name": "三月七•长夜",
+      "element": "冰",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "召唤",
+        "对单",
+        "终结技",
+        "记忆",
+        "真实伤害"
+      ],
+      "strength": 94,
+      "replacements": [
+        {
+          "id": "castorice",
+          "role": "同体系下位",
+          "cost": "量子记忆主C上位对照"
+        },
+        {
+          "id": "cyrene",
+          "role": "同属性不同角色",
+          "cost": "昔涟冰记忆辅助/输出"
+        },
+        {
+          "id": "evernight",
+          "role": "同属性不同角色",
+          "cost": "长夜月记忆体系"
+        }
+      ]
+    },
+    {
+      "id": "cyrene",
+      "name": "昔涟",
+      "element": "冰",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "辅助"
+      ],
+      "tags": [
+        "召唤",
+        "真实伤害",
+        "记忆",
+        "对单"
+      ],
+      "strength": 94,
+      "replacements": [
+        {
+          "id": "sparkle",
+          "role": "同体系下位",
+          "cost": "产点与拉条不同"
+        },
+        {
+          "id": "bronya",
+          "role": "同属性不同角色",
+          "cost": "改为拉条净化"
+        },
+        {
+          "id": "cerydra",
+          "role": "跨体系替代",
+          "cost": "改为风充能同谐"
+        }
+      ]
+    },
+    {
+      "id": "archer",
+      "name": "Archer",
+      "element": "量子",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对单",
+        "爆发",
+        "追加攻击"
+      ],
+      "strength": 94,
+      "replacements": [
+        {
+          "id": "seele",
+          "role": "同体系下位",
+          "cost": "再动体系不同，总伤略降"
+        },
+        {
+          "id": "feixiao",
+          "role": "跨体系替代",
+          "cost": "改为风巡猎追击核心"
+        },
+        {
+          "id": "moze",
+          "role": "同属性不同角色",
+          "cost": "四星追击副C"
+        }
+      ]
+    },
+    {
+      "id": "hysilens",
+      "name": "海瑟音",
+      "element": "物理",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "核心",
+        "副C"
+      ],
+      "tags": [
+        "DoT",
+        "对群",
+        "引爆"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "black-swan",
+          "role": "同体系下位",
+          "cost": "奥迹层数质量下降"
+        },
+        {
+          "id": "kafka",
+          "role": "同属性不同角色",
+          "cost": "改为雷引爆核心"
+        },
+        {
+          "id": "guinaifen",
+          "role": "跨体系替代",
+          "cost": "四星火 DoT 下位"
+        }
+      ]
+    },
+    {
+      "id": "himeko-nova",
+      "name": "姬子•启行",
+      "element": "火",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "对群",
+        "追加攻击",
+        "智识"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "himeko",
+          "role": "同体系下位",
+          "cost": "原版姬子"
+        },
+        {
+          "id": "the-herta",
+          "role": "跨体系替代",
+          "cost": "改为冰智识对群"
+        }
+      ]
+    },
+    {
+      "id": "tribbie",
+      "name": "缇宝",
+      "element": "量子",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "易伤",
+        "对群",
+        "追加攻击"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "robin",
+          "role": "同体系下位",
+          "cost": "易伤与协同下降"
+        },
+        {
+          "id": "sparkle",
+          "role": "同属性不同角色",
+          "cost": "改为产点爆伤"
+        }
+      ]
+    },
+    {
+      "id": "mydei",
+      "name": "万敌",
+      "element": "虚数",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "生命转伤",
+        "对单",
+        "爆发"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "phainon",
+          "role": "同体系下位",
+          "cost": "物理毁灭新核"
+        },
+        {
+          "id": "jingliu",
+          "role": "同体系下位",
+          "cost": "伤害降低约 22%"
+        },
+        {
+          "id": "yunli",
+          "role": "同属性不同角色",
+          "cost": "改为反击体系"
+        }
+      ]
+    },
+    {
+      "id": "sunday",
+      "name": "星期日",
+      "element": "虚数",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "拉条",
+        "充能",
+        "召唤"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "bronya",
+          "role": "同体系下位",
+          "cost": "召唤协同缺失"
+        },
+        {
+          "id": "sparkle",
+          "role": "同属性不同角色",
+          "cost": "改为产点/爆伤"
+        }
+      ]
+    },
+    {
+      "id": "rin-tohsaka",
+      "name": "远坂凛",
+      "element": "量子",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对群",
+        "爆发",
+        "终结技"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "qingque",
+          "role": "同属性不同角色",
+          "cost": "四星量子智识"
+        },
+        {
+          "id": "jade",
+          "role": "跨体系替代",
+          "cost": "改为量子追击对群"
+        }
+      ]
+    },
+    {
+      "id": "yunli",
+      "name": "云璃",
+      "element": "物理",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "反击",
+        "对单",
+        "受击"
+      ],
+      "strength": 93,
+      "replacements": [
+        {
+          "id": "clara",
+          "role": "同体系下位",
+          "cost": "伤害降低约 28%"
+        },
+        {
+          "id": "mydei",
+          "role": "同属性不同角色",
+          "cost": "改为生命转伤爆发"
+        }
+      ]
+    },
+    {
+      "id": "the-dahlia",
+      "name": "大丽花",
+      "element": "火",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "辅助"
+      ],
+      "tags": [
+        "DoT",
+        "对群",
+        "易伤",
+        "灼烧"
+      ],
+      "strength": 92,
+      "replacements": [
+        {
+          "id": "jiaoqiu",
+          "role": "同体系下位",
+          "cost": "火虚无易伤下位"
+        },
+        {
+          "id": "guinaifen",
+          "role": "同属性不同角色",
+          "cost": "四星火 DoT"
+        }
+      ]
+    },
+    {
+      "id": "kafka",
+      "name": "卡芙卡",
+      "element": "雷",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "核心"
+      ],
+      "tags": [
+        "DoT",
+        "对群",
+        "引爆"
+      ],
+      "strength": 92,
+      "replacements": [
+        {
+          "id": "guinaifen",
+          "role": "同体系下位",
+          "cost": "引爆缺失，DoT 爆发下降约 35%"
+        },
+        {
+          "id": "black-swan",
+          "role": "同属性不同角色",
+          "cost": "改为奥迹单核"
+        }
+      ]
+    },
+    {
+      "id": "mortenax-blade",
+      "name": "千冶•刃",
+      "element": "火",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "核心"
+      ],
+      "tags": [
+        "DoT",
+        "对群",
+        "灼烧"
+      ],
+      "strength": 92,
+      "replacements": [
+        {
+          "id": "jiaoqiu",
+          "role": "同体系下位",
+          "cost": "火虚无易伤下位"
+        },
+        {
+          "id": "guinaifen",
+          "role": "同属性不同角色",
+          "cost": "四星火 DoT"
+        }
+      ]
+    },
+    {
+      "id": "evernight",
+      "name": "长夜月",
+      "element": "冰",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "生命转伤",
+        "召唤",
+        "对单",
+        "记忆"
+      ],
+      "strength": 92,
+      "replacements": [
+        {
+          "id": "castorice",
+          "role": "同体系下位",
+          "cost": "量子记忆主C 上位对照"
+        },
+        {
+          "id": "aglaea",
+          "role": "同属性不同角色",
+          "cost": "改为雷记忆召唤"
+        },
+        {
+          "id": "jingliu",
+          "role": "跨体系替代",
+          "cost": "改为冰毁灭直伤"
+        }
+      ]
+    },
+    {
+      "id": "ashveil",
+      "name": "阿什薇尔",
+      "element": "雷",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "辅助"
+      ],
+      "tags": [
+        "追加攻击",
+        "对单",
+        "减防",
+        "击破"
+      ],
+      "strength": 92,
+      "replacements": [
+        {
+          "id": "mortenax-blade",
+          "role": "同体系下位",
+          "cost": "火虚无协同替代"
+        },
+        {
+          "id": "cipher",
+          "role": "跨体系替代",
+          "cost": "量子虚无减益"
+        }
+      ]
+    },
+    {
+      "id": "black-swan",
+      "name": "黑天鹅",
+      "element": "风",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "核心"
+      ],
+      "tags": [
+        "DoT",
+        "对群",
+        "奥迹"
+      ],
+      "strength": 91,
+      "replacements": [
+        {
+          "id": "hysilens",
+          "role": "同体系下位",
+          "cost": "物理 DoT 新核，可替换奥迹轴"
+        },
+        {
+          "id": "sampo",
+          "role": "同体系下位",
+          "cost": "伤害降低约 30%"
+        },
+        {
+          "id": "guinaifen",
+          "role": "跨体系替代",
+          "cost": "DoT 覆盖与层数质量下降"
+        }
+      ]
+    },
+    {
+      "id": "jiaoqiu",
+      "name": "椒丘",
+      "element": "火",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "副C"
+      ],
+      "tags": [
+        "易伤",
+        "灼烧",
+        "对群"
+      ],
+      "strength": 91,
+      "replacements": [
+        {
+          "id": "pela",
+          "role": "同体系下位",
+          "cost": "易伤缺失，全队增伤下降"
+        },
+        {
+          "id": "silver-wolf",
+          "role": "同属性不同角色",
+          "cost": "改为单体上弱点"
+        }
+      ]
+    },
+    {
+      "id": "elation-trailblazer",
+      "name": "开拓者•欢愉",
+      "element": "雷",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "协奏",
+        "终结技"
+      ],
+      "strength": 91,
+      "replacements": [
+        {
+          "id": "harmony-trailblazer",
+          "role": "同体系下位",
+          "cost": "改为超击破同谐轴"
+        },
+        {
+          "id": "robin",
+          "role": "跨体系替代",
+          "cost": "升为协奏同谐"
+        }
+      ]
+    },
+    {
+      "id": "aventurine",
+      "name": "砂金",
+      "element": "虚数",
+      "path": "存护",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "护盾",
+        "追加攻击",
+        "生存"
+      ],
+      "strength": 91,
+      "replacements": [
+        {
+          "id": "aventurine-waveflair",
+          "role": "同体系下位",
+          "cost": "SP欢愉输出上位；原版为存护盾辅"
+        },
+        {
+          "id": "fu-xuan",
+          "role": "同体系下位",
+          "cost": "改为分摊生存"
+        },
+        {
+          "id": "gepard",
+          "role": "同属性不同角色",
+          "cost": "四星/五星盾对比"
+        }
+      ]
+    },
+    {
+      "id": "fugue",
+      "name": "忘归人",
+      "element": "火",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "击破"
+      ],
+      "tags": [
+        "击破",
+        "易伤",
+        "超击破",
+        "削韧"
+      ],
+      "strength": 91,
+      "replacements": [
+        {
+          "id": "rua-mei",
+          "role": "同体系下位",
+          "cost": "穿透与击破效率略低"
+        },
+        {
+          "id": "harmony-trailblazer",
+          "role": "同属性不同角色",
+          "cost": "改为超击破主拐"
+        },
+        {
+          "id": "jiaoqiu",
+          "role": "跨体系替代",
+          "cost": "改为易伤/灼烧通用辅"
+        }
+      ]
+    },
+    {
+      "id": "aglaea",
+      "name": "阿格莱雅",
+      "element": "雷",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "召唤",
+        "对单",
+        "记忆"
+      ],
+      "strength": 90,
+      "replacements": [
+        {
+          "id": "castorice",
+          "role": "同体系下位",
+          "cost": "近期记忆主C，伤害与召唤协同更强"
+        },
+        {
+          "id": "jing-yuan",
+          "role": "同体系下位",
+          "cost": "召唤频率与终结技协同下降"
+        },
+        {
+          "id": "acheron",
+          "role": "同属性不同角色",
+          "cost": "改为虚无叠层"
+        }
+      ]
+    },
+    {
+      "id": "gilgamesh",
+      "name": "吉尔伽美什",
+      "element": "雷",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "终结技"
+      ],
+      "strength": 90,
+      "replacements": [
+        {
+          "id": "jing-yuan",
+          "role": "同属性不同角色",
+          "cost": "改为雷智识神君"
+        },
+        {
+          "id": "phainon",
+          "role": "跨体系替代",
+          "cost": "改为物理毁灭爆发"
+        }
+      ]
+    },
+    {
+      "id": "harmony-trailblazer",
+      "name": "开拓者•同谐",
+      "element": "虚数",
+      "path": "同谐",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "超击破",
+        "击破"
+      ],
+      "strength": 90,
+      "replacements": [
+        {
+          "id": "rua-mei",
+          "role": "同体系下位",
+          "cost": "超击破核心缺失"
+        }
+      ]
+    },
+    {
+      "id": "firefly",
+      "name": "流萤",
+      "element": "火",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "击破"
+      ],
+      "tags": [
+        "击破",
+        "对单",
+        "超击破",
+        "变身"
+      ],
+      "strength": 90,
+      "replacements": [
+        {
+          "id": "fugue",
+          "role": "同体系下位",
+          "cost": "辅助侧换成忘归人击破轴"
+        },
+        {
+          "id": "boothill",
+          "role": "同体系下位",
+          "cost": "伤害降低约 25%，对群更弱"
+        },
+        {
+          "id": "rappa",
+          "role": "同属性不同角色",
+          "cost": "改为对群击破，单体上限略降"
+        },
+        {
+          "id": "xueyi",
+          "role": "跨体系替代",
+          "cost": "伤害降低约 45%，四星上限有限"
+        }
+      ]
+    },
+    {
+      "id": "saber",
+      "name": "Saber",
+      "element": "风",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "终结技"
+      ],
+      "strength": 90,
+      "replacements": [
+        {
+          "id": "blade",
+          "role": "同体系下位",
+          "cost": "伤害降低约 20%"
+        },
+        {
+          "id": "phainon",
+          "role": "跨体系替代",
+          "cost": "改为物理爆发主C"
+        },
+        {
+          "id": "feixiao",
+          "role": "同属性不同角色",
+          "cost": "改为巡猎追击爆发"
+        }
+      ]
+    },
+    {
+      "id": "phainon",
+      "name": "白厄",
+      "element": "物理",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "变身",
+        "终结技"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "mydei",
+          "role": "同体系下位",
+          "cost": "伤害降低约 15%，手感不同"
+        },
+        {
+          "id": "yunli",
+          "role": "同属性不同角色",
+          "cost": "改为反击体系"
+        },
+        {
+          "id": "dan-heng-il",
+          "role": "跨体系替代",
+          "cost": "SP 压力上升"
+        }
+      ]
+    },
+    {
+      "id": "the-herta",
+      "name": "大黑塔",
+      "element": "冰",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对群",
+        "追加攻击",
+        "智识"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "anaxa",
+          "role": "同体系下位",
+          "cost": "风智识对群，环境互补"
+        },
+        {
+          "id": "herta",
+          "role": "同体系下位",
+          "cost": "伤害降低约 35%"
+        },
+        {
+          "id": "jade",
+          "role": "同属性不同角色",
+          "cost": "改为量子对群"
+        }
+      ]
+    },
+    {
+      "id": "jade",
+      "name": "翡翠",
+      "element": "量子",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "主C"
+      ],
+      "tags": [
+        "对群",
+        "追加攻击"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "qingque",
+          "role": "同体系下位",
+          "cost": "伤害降低约 20%"
+        },
+        {
+          "id": "topaz",
+          "role": "同属性不同角色",
+          "cost": "对群清杂下降，对单追击上升"
+        }
+      ]
+    },
+    {
+      "id": "remembrance-trailblazer",
+      "name": "开拓者•记忆",
+      "element": "冰",
+      "path": "记忆",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "记忆",
+        "真实伤害",
+        "召唤"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "sunday",
+          "role": "跨体系替代",
+          "cost": "改为拉条充能"
+        }
+      ]
+    },
+    {
+      "id": "lingsha",
+      "name": "灵砂",
+      "element": "火",
+      "path": "丰饶",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "治疗",
+        "召唤",
+        "解控"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "hyacine",
+          "role": "同体系下位",
+          "cost": "记忆生存上位对照"
+        },
+        {
+          "id": "gallagher",
+          "role": "同体系下位",
+          "cost": "召唤与群体解控下降"
+        },
+        {
+          "id": "huohuo",
+          "role": "同属性不同角色",
+          "cost": "改为充能型生存"
+        }
+      ]
+    },
+    {
+      "id": "cipher",
+      "name": "赛飞儿",
+      "element": "量子",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "易伤",
+        "减防",
+        "对单",
+        "植入弱点"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "silver-wolf",
+          "role": "同体系下位",
+          "cost": "植入弱点稳定性略低"
+        },
+        {
+          "id": "pela",
+          "role": "同属性不同角色",
+          "cost": "改为减防下位"
+        },
+        {
+          "id": "jiaoqiu",
+          "role": "跨体系替代",
+          "cost": "改为火易伤辅助"
+        }
+      ]
+    },
+    {
+      "id": "silver-wolf",
+      "name": "银狼",
+      "element": "量子",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "削韧"
+      ],
+      "tags": [
+        "植入弱点",
+        "减防",
+        "对单"
+      ],
+      "strength": 89,
+      "replacements": [
+        {
+          "id": "pela",
+          "role": "同体系下位",
+          "cost": "失去弱点植入，泛用下降"
+        },
+        {
+          "id": "jiaoqiu",
+          "role": "同属性不同角色",
+          "cost": "改为易伤/灼烧辅助"
+        }
+      ]
+    },
+    {
+      "id": "evanescia",
+      "name": "绯英",
+      "element": "物理",
+      "path": "欢愉",
+      "rarity": 5,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对单"
+      ],
+      "strength": 88,
+      "replacements": [
+        {
+          "id": "moze",
+          "role": "同体系下位",
+          "cost": "四星追击下位"
+        },
+        {
+          "id": "topaz",
+          "role": "跨体系替代",
+          "cost": "升为追击协同"
+        }
+      ]
+    },
+    {
+      "id": "jing-yuan",
+      "name": "景元",
+      "element": "雷",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对群",
+        "神君"
+      ],
+      "strength": 88,
+      "replacements": [
+        {
+          "id": "himeko",
+          "role": "同体系下位",
+          "cost": "伤害降低约 22%"
+        },
+        {
+          "id": "aglaea",
+          "role": "同属性不同角色",
+          "cost": "改为召唤记忆体系"
+        }
+      ]
+    },
+    {
+      "id": "anaxa",
+      "name": "那刻夏",
+      "element": "风",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "对群",
+        "追加攻击",
+        "智识"
+      ],
+      "strength": 88,
+      "replacements": [
+        {
+          "id": "the-herta",
+          "role": "同体系下位",
+          "cost": "对群上限略降"
+        },
+        {
+          "id": "jade",
+          "role": "同属性不同角色",
+          "cost": "改为量子对群追击"
+        },
+        {
+          "id": "herta",
+          "role": "跨体系替代",
+          "cost": "四星黑塔清杂下位"
+        }
+      ]
+    },
+    {
+      "id": "welt",
+      "name": "瓦尔特",
+      "element": "虚数",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "副C"
+      ],
+      "tags": [
+        "减速",
+        "对单",
+        "终结技"
+      ],
+      "strength": 88,
+      "replacements": [
+        {
+          "id": "pela",
+          "role": "跨体系替代",
+          "cost": "改为纯减防辅助"
+        }
+      ]
+    },
+    {
+      "id": "ratio",
+      "name": "真理医生",
+      "element": "虚数",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对单",
+        "debuff"
+      ],
+      "strength": 88,
+      "replacements": [
+        {
+          "id": "moze",
+          "role": "同体系下位",
+          "cost": "伤害降低约 18%"
+        },
+        {
+          "id": "seele",
+          "role": "同属性不同角色",
+          "cost": "改为再动体系"
+        }
+      ]
+    },
+    {
+      "id": "pearl",
+      "name": "珍珠",
+      "element": "冰",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "辅助",
+        "副C"
+      ],
+      "tags": [
+        "减防",
+        "对单",
+        "击破"
+      ],
+      "strength": 88,
+      "replacements": [
+        {
+          "id": "pela",
+          "role": "同体系下位",
+          "cost": "冰虚无减防"
+        },
+        {
+          "id": "cipher",
+          "role": "跨体系替代",
+          "cost": "量子减益"
+        }
+      ]
+    },
+    {
+      "id": "luocha",
+      "name": "罗刹",
+      "element": "虚数",
+      "path": "丰饶",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "治疗",
+        "自动奶"
+      ],
+      "strength": 87,
+      "replacements": [
+        {
+          "id": "gallagher",
+          "role": "同体系下位",
+          "cost": "结界群奶缺失"
+        }
+      ]
+    },
+    {
+      "id": "topaz",
+      "name": "托帕&账账",
+      "element": "火",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对单",
+        "易伤",
+        "召唤"
+      ],
+      "strength": 87,
+      "replacements": [
+        {
+          "id": "ratio",
+          "role": "同体系下位",
+          "cost": "追击协同下降约 20%"
+        },
+        {
+          "id": "moze",
+          "role": "同属性不同角色",
+          "cost": "标记协同改为单体爆发"
+        }
+      ]
+    },
+    {
+      "id": "acheron",
+      "name": "黄泉",
+      "element": "雷",
+      "path": "虚无",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "终结技",
+        "无视弱点"
+      ],
+      "strength": 86,
+      "replacements": [
+        {
+          "id": "jingliu",
+          "role": "同体系下位",
+          "cost": "伤害降低约 20%，需叠层体系"
+        },
+        {
+          "id": "jing-yuan",
+          "role": "同属性不同角色",
+          "cost": "爆发窗口变长，行动值压力上升"
+        },
+        {
+          "id": "dan-heng-il",
+          "role": "跨体系替代",
+          "cost": "SP 消耗上升，需配花火"
+        }
+      ]
+    },
+    {
+      "id": "gallagher",
+      "name": "加拉赫",
+      "element": "火",
+      "path": "丰饶",
+      "rarity": 4,
+      "roles": [
+        "生存",
+        "击破"
+      ],
+      "tags": [
+        "治疗",
+        "击破",
+        "超击破"
+      ],
+      "strength": 86,
+      "replacements": [
+        {
+          "id": "lingsha",
+          "role": "同体系下位",
+          "cost": "召唤解控下降"
+        },
+        {
+          "id": "huohuo",
+          "role": "同属性不同角色",
+          "cost": "改为充能净化"
+        }
+      ]
+    },
+    {
+      "id": "blade",
+      "name": "刃",
+      "element": "风",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "生命转伤",
+        "对单",
+        "追加攻击"
+      ],
+      "strength": 86,
+      "replacements": [
+        {
+          "id": "clara",
+          "role": "同体系下位",
+          "cost": "伤害降低约 20%，依赖受击"
+        },
+        {
+          "id": "dan-heng",
+          "role": "同属性不同角色",
+          "cost": "改为低星直伤，泛用性下降"
+        }
+      ]
+    },
+    {
+      "id": "himeko",
+      "name": "姬子",
+      "element": "火",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "副C",
+        "主C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对群",
+        "击破"
+      ],
+      "strength": 85,
+      "replacements": [
+        {
+          "id": "the-herta",
+          "role": "同体系下位",
+          "cost": "升为顶级对群"
+        },
+        {
+          "id": "qingque",
+          "role": "同属性不同角色",
+          "cost": "追加频率与清杂能力下降"
+        }
+      ]
+    },
+    {
+      "id": "gepard",
+      "name": "杰帕德",
+      "element": "冰",
+      "path": "存护",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "护盾"
+      ],
+      "strength": 85,
+      "replacements": [
+        {
+          "id": "march-7th",
+          "role": "同体系下位",
+          "cost": "四星护盾，厚度下降"
+        },
+        {
+          "id": "fu-xuan",
+          "role": "同属性不同角色",
+          "cost": "改为分摊"
+        }
+      ]
+    },
+    {
+      "id": "bailu",
+      "name": "白露",
+      "element": "雷",
+      "path": "丰饶",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "治疗",
+        "复活"
+      ],
+      "strength": 84,
+      "replacements": [
+        {
+          "id": "gallagher",
+          "role": "同体系下位",
+          "cost": "复活缺失，击破协同下降"
+        }
+      ]
+    },
+    {
+      "id": "rappa",
+      "name": "乱破",
+      "element": "虚数",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "击破"
+      ],
+      "tags": [
+        "击破",
+        "对群",
+        "超击破"
+      ],
+      "strength": 84,
+      "replacements": [
+        {
+          "id": "firefly",
+          "role": "同体系下位",
+          "cost": "对单击破更强，群伤略降"
+        },
+        {
+          "id": "xueyi",
+          "role": "同属性不同角色",
+          "cost": "四星对群击破"
+        }
+      ]
+    },
+    {
+      "id": "argenti",
+      "name": "银枝",
+      "element": "物理",
+      "path": "智识",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对群",
+        "终结技",
+        "爆发"
+      ],
+      "strength": 84,
+      "replacements": [
+        {
+          "id": "the-herta",
+          "role": "同体系下位",
+          "cost": "对群上限略低"
+        },
+        {
+          "id": "yunli",
+          "role": "同属性不同角色",
+          "cost": "改为反击毁灭"
+        }
+      ]
+    },
+    {
+      "id": "tingyun",
+      "name": "停云",
+      "element": "雷",
+      "path": "同谐",
+      "rarity": 4,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "充能",
+        "增伤"
+      ],
+      "strength": 83,
+      "replacements": [
+        {
+          "id": "asta",
+          "role": "同体系下位",
+          "cost": "充能缺失，改为加速攻击"
+        },
+        {
+          "id": "bronya",
+          "role": "跨体系替代",
+          "cost": "升为拉条核心"
+        }
+      ]
+    },
+    {
+      "id": "dan-heng-il",
+      "name": "丹恒•饮月",
+      "element": "虚数",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "SP高耗"
+      ],
+      "strength": 82,
+      "replacements": [
+        {
+          "id": "ratio",
+          "role": "同体系下位",
+          "cost": "伤害降低约 18%，需 debuff 支持"
+        },
+        {
+          "id": "rappa",
+          "role": "同属性不同角色",
+          "cost": "改为对群击破"
+        }
+      ]
+    },
+    {
+      "id": "jingliu",
+      "name": "镜流",
+      "element": "冰",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "爆发",
+        "对单",
+        "生命转伤"
+      ],
+      "strength": 82,
+      "replacements": [
+        {
+          "id": "blade",
+          "role": "同体系下位",
+          "cost": "伤害降低约 15%，爆发窗口更长"
+        },
+        {
+          "id": "yanqing",
+          "role": "同属性不同角色",
+          "cost": "稳定性下降，暴击管理更难"
+        }
+      ]
+    },
+    {
+      "id": "clara",
+      "name": "克拉拉",
+      "element": "物理",
+      "path": "毁灭",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "副C"
+      ],
+      "tags": [
+        "反击",
+        "对单",
+        "受击"
+      ],
+      "strength": 82,
+      "replacements": [
+        {
+          "id": "xueyi",
+          "role": "跨体系替代",
+          "cost": "反击频率下降"
+        }
+      ]
+    },
+    {
+      "id": "pela",
+      "name": "佩拉",
+      "element": "冰",
+      "path": "虚无",
+      "rarity": 4,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "减防",
+        "对群"
+      ],
+      "strength": 81,
+      "replacements": [
+        {
+          "id": "jiaoqiu",
+          "role": "跨体系替代",
+          "cost": "减防变易伤，覆盖更广但层数不同"
+        }
+      ]
+    },
+    {
+      "id": "boothill",
+      "name": "波提欧",
+      "element": "物理",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "主C",
+        "击破"
+      ],
+      "tags": [
+        "击破",
+        "对单",
+        "超击破"
+      ],
+      "strength": 80,
+      "replacements": [
+        {
+          "id": "xueyi",
+          "role": "同体系下位",
+          "cost": "伤害降低约 30%"
+        },
+        {
+          "id": "sushang",
+          "role": "同属性不同角色",
+          "cost": "四星击破，上限明显下降"
+        }
+      ]
+    },
+    {
+      "id": "hanya",
+      "name": "寒鸦",
+      "element": "物理",
+      "path": "同谐",
+      "rarity": 4,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "增伤",
+        "产点",
+        "充能"
+      ],
+      "strength": 80,
+      "replacements": [
+        {
+          "id": "sparkle",
+          "role": "同体系下位",
+          "cost": "升为五星产点爆伤"
+        }
+      ]
+    },
+    {
+      "id": "herta",
+      "name": "黑塔",
+      "element": "冰",
+      "path": "智识",
+      "rarity": 4,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "对群",
+        "追加攻击"
+      ],
+      "strength": 80,
+      "replacements": [
+        {
+          "id": "the-herta",
+          "role": "同体系下位",
+          "cost": "升为五星对群主C"
+        }
+      ]
+    },
+    {
+      "id": "preservation-trailblazer",
+      "name": "开拓者•存护",
+      "element": "火",
+      "path": "存护",
+      "rarity": 5,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "护盾",
+        "击破"
+      ],
+      "strength": 80,
+      "replacements": [
+        {
+          "id": "gallagher",
+          "role": "跨体系替代",
+          "cost": "改为治疗位"
+        }
+      ]
+    },
+    {
+      "id": "moze",
+      "name": "貊泽",
+      "element": "虚数",
+      "path": "巡猎",
+      "rarity": 4,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "追加攻击",
+        "对单"
+      ],
+      "strength": 80,
+      "replacements": [
+        {
+          "id": "dan-heng",
+          "role": "同属性不同角色",
+          "cost": "追击协同消失"
+        }
+      ]
+    },
+    {
+      "id": "yanqing",
+      "name": "彦卿",
+      "element": "冰",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对单",
+        "暴击"
+      ],
+      "strength": 80,
+      "replacements": [
+        {
+          "id": "herta",
+          "role": "同属性不同角色",
+          "cost": "改为对群智识"
+        }
+      ]
+    },
+    {
+      "id": "xueyi",
+      "name": "雪衣",
+      "element": "量子",
+      "path": "毁灭",
+      "rarity": 4,
+      "roles": [
+        "主C",
+        "击破"
+      ],
+      "tags": [
+        "击破",
+        "对单",
+        "追加攻击"
+      ],
+      "strength": 79,
+      "replacements": [
+        {
+          "id": "firefly",
+          "role": "跨体系替代",
+          "cost": "升为顶级击破队"
+        }
+      ]
+    },
+    {
+      "id": "asta",
+      "name": "艾丝妲",
+      "element": "火",
+      "path": "同谐",
+      "rarity": 4,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "加速",
+        "攻击加成"
+      ],
+      "strength": 78,
+      "replacements": [
+        {
+          "id": "tingyun",
+          "role": "跨体系替代",
+          "cost": "改为单体充能"
+        }
+      ]
+    },
+    {
+      "id": "qingque",
+      "name": "青雀",
+      "element": "量子",
+      "path": "智识",
+      "rarity": 4,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对群",
+        "爆发",
+        "随机性"
+      ],
+      "strength": 78,
+      "replacements": [
+        {
+          "id": "jade",
+          "role": "同属性不同角色",
+          "cost": "稳定性上升但上限略降"
+        }
+      ]
+    },
+    {
+      "id": "seele",
+      "name": "希儿",
+      "element": "量子",
+      "path": "巡猎",
+      "rarity": 5,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "再动",
+        "对单",
+        "收割"
+      ],
+      "strength": 78,
+      "replacements": [
+        {
+          "id": "qingque",
+          "role": "同属性不同角色",
+          "cost": "改为对群智识"
+        }
+      ]
+    },
+    {
+      "id": "guinaifen",
+      "name": "桂乃芬",
+      "element": "火",
+      "path": "虚无",
+      "rarity": 4,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "DoT",
+        "对群"
+      ],
+      "strength": 77,
+      "replacements": [
+        {
+          "id": "sampo",
+          "role": "跨体系替代",
+          "cost": "属性换成风，灼烧变风化"
+        }
+      ]
+    },
+    {
+      "id": "yukong",
+      "name": "驭空",
+      "element": "虚数",
+      "path": "同谐",
+      "rarity": 4,
+      "roles": [
+        "辅助"
+      ],
+      "tags": [
+        "爆伤",
+        "对单"
+      ],
+      "strength": 77,
+      "replacements": [
+        {
+          "id": "bronya",
+          "role": "跨体系替代",
+          "cost": "升为拉条爆伤"
+        }
+      ]
+    },
+    {
+      "id": "lynx",
+      "name": "玲可",
+      "element": "量子",
+      "path": "丰饶",
+      "rarity": 4,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "治疗",
+        "解控",
+        "生存"
+      ],
+      "strength": 76,
+      "replacements": [
+        {
+          "id": "lingsha",
+          "role": "同体系下位",
+          "cost": "升为五星召唤生存"
+        }
+      ]
+    },
+    {
+      "id": "march-7th",
+      "name": "三月七",
+      "element": "冰",
+      "path": "存护",
+      "rarity": 4,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "护盾",
+        "反击"
+      ],
+      "strength": 76,
+      "replacements": [
+        {
+          "id": "gepard",
+          "role": "同体系下位",
+          "cost": "升为五星护盾"
+        }
+      ]
+    },
+    {
+      "id": "sampo",
+      "name": "桑博",
+      "element": "风",
+      "path": "虚无",
+      "rarity": 4,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "DoT",
+        "对群"
+      ],
+      "strength": 76,
+      "replacements": [
+        {
+          "id": "guinaifen",
+          "role": "跨体系替代",
+          "cost": "风 DoT 换火 DoT，环境适配变化"
+        }
+      ]
+    },
+    {
+      "id": "misha",
+      "name": "米沙",
+      "element": "冰",
+      "path": "毁灭",
+      "rarity": 4,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对群",
+        "终结技"
+      ],
+      "strength": 74,
+      "replacements": [
+        {
+          "id": "jingliu",
+          "role": "同属性不同角色",
+          "cost": "升为五星冰毁灭"
+        }
+      ]
+    },
+    {
+      "id": "sushang",
+      "name": "素裳",
+      "element": "物理",
+      "path": "巡猎",
+      "rarity": 4,
+      "roles": [
+        "主C",
+        "击破"
+      ],
+      "tags": [
+        "击破",
+        "对单"
+      ],
+      "strength": 74,
+      "replacements": [
+        {
+          "id": "boothill",
+          "role": "同体系下位",
+          "cost": "升为五星击破主C"
+        }
+      ]
+    },
+    {
+      "id": "luka",
+      "name": "卢卡",
+      "element": "物理",
+      "path": "虚无",
+      "rarity": 4,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "裂伤",
+        "对单"
+      ],
+      "strength": 73,
+      "replacements": [
+        {
+          "id": "jiaoqiu",
+          "role": "跨体系替代",
+          "cost": "升为五星火虚无"
+        }
+      ]
+    },
+    {
+      "id": "dan-heng",
+      "name": "丹恒",
+      "element": "风",
+      "path": "巡猎",
+      "rarity": 4,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对单"
+      ],
+      "strength": 72,
+      "replacements": [
+        {
+          "id": "feixiao",
+          "role": "同体系下位",
+          "cost": "升为五星爆发主C"
+        }
+      ]
+    },
+    {
+      "id": "serval",
+      "name": "希露瓦",
+      "element": "雷",
+      "path": "智识",
+      "rarity": 4,
+      "roles": [
+        "副C"
+      ],
+      "tags": [
+        "对群",
+        "触电"
+      ],
+      "strength": 72,
+      "replacements": [
+        {
+          "id": "herta",
+          "role": "同属性不同角色",
+          "cost": "改为冰对群"
+        }
+      ]
+    },
+    {
+      "id": "natasha",
+      "name": "娜塔莎",
+      "element": "物理",
+      "path": "丰饶",
+      "rarity": 4,
+      "roles": [
+        "生存"
+      ],
+      "tags": [
+        "治疗",
+        "净化",
+        "生存"
+      ],
+      "strength": 70,
+      "replacements": [
+        {
+          "id": "gallagher",
+          "role": "同体系下位",
+          "cost": "升为击破治疗上位"
+        }
+      ]
+    },
+    {
+      "id": "hook",
+      "name": "虎克",
+      "element": "火",
+      "path": "毁灭",
+      "rarity": 4,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对单",
+        "灼烧"
+      ],
+      "strength": 68,
+      "replacements": [
+        {
+          "id": "himeko",
+          "role": "跨体系替代",
+          "cost": "升为五星对群智识"
+        }
+      ]
+    },
+    {
+      "id": "arlan",
+      "name": "阿兰",
+      "element": "雷",
+      "path": "毁灭",
+      "rarity": 4,
+      "roles": [
+        "主C"
+      ],
+      "tags": [
+        "对单",
+        "生命转伤"
+      ],
+      "strength": 65,
+      "replacements": [
+        {
+          "id": "jing-yuan",
+          "role": "跨体系替代",
+          "cost": "升为五星雷智识"
+        }
+      ]
+    }
+  ]
+}
