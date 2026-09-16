@@ -60,46 +60,60 @@ body {
   min-height: 100vh;
 }
 
-/* 主题切换过渡：仅在 .theme-animating 期间生效，避免常驻 transition 带来的卡顿 */
-html.theme-animating,
-html.theme-animating body,
-html.theme-animating #app,
-html.theme-animating *,
-html.theme-animating *::before,
-html.theme-animating *::after {
-  transition:
-    background-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    outline-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    fill 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    stroke 0.42s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transition-delay: 0s !important;
+/* 主题切换：从按钮位置圆形擦除（与开关滑块同节奏） */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  will-change: clip-path;
 }
 
-/* 支持 View Transitions 的浏览器走整页交叉淡入淡出 */
-@supports (view-transition-name: root) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.38s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    mix-blend-mode: normal;
+::view-transition-old(root) {
+  z-index: 2147483646;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483647;
+  animation: theme-circle-wipe 0.52s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes theme-circle-wipe {
+  from {
+    clip-path: circle(0px at var(--theme-wipe-x, 50%) var(--theme-wipe-y, 16%));
   }
+  to {
+    clip-path: circle(var(--theme-wipe-r, 150vmax) at var(--theme-wipe-x, 50%) var(--theme-wipe-y, 16%));
+  }
+}
+
+/* 无 View Transitions 时的圆形扩散遮罩 */
+.theme-wipe-overlay {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition:
+    width 0.52s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-wipe-overlay.is-active {
+  width: var(--theme-wipe-size, 300vmax);
+  height: var(--theme-wipe-size, 300vmax);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.theme-animating,
-  html.theme-animating *,
-  html.theme-animating *::before,
-  html.theme-animating *::after {
-    transition: none !important;
-  }
-
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;
+  }
+
+  .theme-wipe-overlay,
+  .theme-wipe-overlay.is-active {
+    transition: none !important;
   }
 }
 

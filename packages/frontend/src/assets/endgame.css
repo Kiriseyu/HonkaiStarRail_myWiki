@@ -156,7 +156,7 @@ html[data-theme='light'] .eg-hero {
     inset 0 0 0 1.8px #7f93ad,
     0 4px 12px rgba(15, 23, 42, 0.22);
   overflow: hidden;
-  transition: background 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background 0.52s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
 }
 
@@ -175,8 +175,8 @@ html[data-theme='light'] .eg-hero {
   opacity: 0;
   transform: translateY(-36px);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+    opacity 0.52s ease,
+    transform 0.52s cubic-bezier(0.34, 1.2, 0.64, 1);
   pointer-events: none;
 }
 
@@ -213,8 +213,8 @@ html[data-theme='light'] .eg-hero {
   pointer-events: none;
   opacity: 1;
   transition:
-    opacity 0.45s ease,
-    transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
+    opacity 0.42s ease,
+    transform 0.52s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .eg-theme-switch-btn.is-dark .eg-ts-clouds {
@@ -300,7 +300,7 @@ html[data-theme='light'] .eg-hero {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  transition: transform 0.65s cubic-bezier(0.34, 1.2, 0.64, 1);
+  transition: transform 0.52s cubic-bezier(0.34, 1.2, 0.64, 1);
   box-shadow:
     0 2px 6px rgba(0, 0, 0, 0.35),
     0 0 0 2px rgba(255, 255, 255, 0.08);
@@ -317,8 +317,8 @@ html[data-theme='light'] .eg-hero {
   border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #ffe9a0, #f3c62b 55%, #e0a800 100%);
   transition:
-    opacity 0.35s ease,
-    transform 0.5s ease;
+    opacity 0.32s ease,
+    transform 0.52s ease;
 }
 
 .eg-theme-switch-btn.is-dark .eg-ts-sun {
@@ -334,8 +334,8 @@ html[data-theme='light'] .eg-hero {
   opacity: 0;
   transform: translateX(28px) scale(0.7);
   transition:
-    opacity 0.35s ease 0.15s,
-    transform 0.55s cubic-bezier(0.34, 1.2, 0.64, 1);
+    opacity 0.32s ease 0.1s,
+    transform 0.52s cubic-bezier(0.34, 1.2, 0.64, 1);
   overflow: hidden;
 }
 
@@ -988,7 +988,7 @@ html[data-theme='light'] .eg-resize-ne::before {
   align-items: flex-start;
   gap: 8px;
   flex-shrink: 0;
-  /* 为右上角拖拽热区留出空白，避免挡住关闭按钮 */
+  /* 为右上角拖拽热区留出空白，避免挡住关闭按�?*/
   padding-right: 36px;
   position: relative;
   z-index: 7;
@@ -1100,7 +1100,7 @@ html[data-theme='light'] .eg-resize-ne::before {
   box-shadow: 0 0 0 1px var(--eg-accent), 0 22px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* 小高度（如 682×519）进一步压缩头像与间距，保证信息在框内滚动 */
+/* 小高度（�?682×519）进一步压缩头像与间距，保证信息在框内滚动 */
 .eg-roster-panel[style*='height'] .eg-roster-slot img {
   width: 42px;
   height: 42px;
@@ -1394,7 +1394,7 @@ html[data-theme='light'] .eg-roster-detail {
   font-size: 13px;
 }
 
-/* 笔记本桌面：略收窄但仍保持双栏 */
+/* 笔记本桌面：略收窄但仍保持双�?*/
 @media (min-width: 900px) and (max-width: 1200px) {
   .eg-roster-dock {
     width: min(960px, calc(100vw - 24px));
@@ -1415,7 +1415,7 @@ html[data-theme='light'] .eg-roster-detail {
   }
 }
 
-/* 移动端：底部全宽抽屉式（关闭拖拽缩放） */
+/* 移动端：底部全宽抽屉式（关闭拖拽缩放�?*/
 @media (max-width: 768px) {
   .eg-resize-handle {
     display: none;
@@ -1812,7 +1812,7 @@ html[data-theme='light'] code {
   background: #e2e8f0 !important;
 }
 
-/* ========== ����ɫ������� ========== */
+/* ========== ����ɫ�������?========== */
 .eg-guide-card {
   display: flex;
   flex-direction: column;
