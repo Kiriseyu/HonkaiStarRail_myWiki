@@ -99,8 +99,8 @@ html[data-theme='light'] ::selection {
   transform: scale(0);
   will-change: transform, opacity;
   transition:
-    transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
-    opacity 0.1s ease;
+    transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.14s ease;
 }
 
 .theme-veil.is-active {
@@ -111,11 +111,94 @@ html[data-theme='light'] ::selection {
   opacity: 0;
 }
 
+/* 粒子容器：星星 / 白云，随光圈一起淡出 */
+.theme-veil-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.14s ease;
+}
+
+.theme-veil-fx.is-out {
+  opacity: 0;
+}
+
+/* 星星：菱形白点，与按钮 .eg-ts-stars 同风格，向外飘散闪烁 */
+.theme-veil-star {
+  position: absolute;
+  background: #fff;
+  border-radius: 1px;
+  opacity: 0;
+  transform: rotate(45deg);
+  will-change: transform, opacity;
+  animation: theme-star-fly forwards;
+}
+
+@keyframes theme-star-fly {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(0, 0) scale(0.4);
+  }
+  20% {
+    opacity: 0.95;
+    transform: rotate(45deg) translate(calc(var(--star-dx) * 0.15), calc(var(--star-dy) * 0.15)) scale(1);
+  }
+  60% {
+    opacity: 0.7;
+    transform: rotate(45deg) translate(calc(var(--star-dx) * 0.6), calc(var(--star-dy) * 0.6)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(var(--star-dx), var(--star-dy)) scale(0.5);
+  }
+}
+
+/* 白云：圆角白团，与按钮 .eg-ts-clouds 同风格，轻盈上浮消散 */
+.theme-veil-cloud {
+  position: absolute;
+  display: block;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #aeb9c9;
+  border-radius: 999px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65),
+    0 1px 2px rgba(15, 23, 42, 0.12);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: theme-cloud-float forwards;
+}
+
+@keyframes theme-cloud-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  25% {
+    opacity: 0.9;
+    transform: translate(calc(var(--cloud-dx) * 0.2), calc(var(--cloud-dy) * 0.2)) scale(1);
+  }
+  70% {
+    opacity: 0.6;
+    transform: translate(calc(var(--cloud-dx) * 0.7), calc(var(--cloud-dy) * 0.7)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--cloud-dx), var(--cloud-dy)) scale(0.8);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-veil,
   .theme-veil.is-active,
-  .theme-veil.is-out {
+  .theme-veil.is-out,
+  .theme-veil-fx,
+  .theme-veil-fx.is-out,
+  .theme-veil-star,
+  .theme-veil-cloud {
     transition: none !important;
+    animation: none !important;
   }
 }
 /* Desktop padding - 50px left and right on screens >= 768px */
