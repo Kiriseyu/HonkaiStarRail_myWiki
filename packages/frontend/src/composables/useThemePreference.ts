@@ -52,34 +52,35 @@ function commitDom(t: UiTheme) {
 }
 
 /**
- * 暮色日落/日出的径向渐变，从按钮处向外扩散。
- * 色板：暮空蓝 #1A2B4C · 过渡紫 #4A3B5C · 落日橙 #D94A26 · 草坪绿 #1E5E2F
+ * 从按钮处向外扩散的径向渐变，模拟天色流转。
  *
- * 浅色（日出）：中心是晨曦暖橙，向外过渡到紫、蓝，最外层透出晨光绿意。
- * 深色（日落）：中心是落日余晖，向外过渡到紫、蓝夜幕，外缘沉入夜色。
+ * 深色→浅色（月转日）：中心是月光白青冷色，向外渐入暖调晨光，最终铺开为白昼。
+ * 浅色→深色（日转暮）：中心是白昼亮色，向外经落日橙、过渡紫，沉入暮空蓝夜色。
  */
 function sunsetGradient(t: UiTheme) {
   if (t === 'light') {
-    // 日出：暖橙中心 → 紫 → 蓝 → 微绿晨光
+    // 月转日：白青冷月 → 暖杏过渡 → 晨光暖白 → 白昼
     return `radial-gradient(
       circle closest-side,
-      rgba(217, 74, 38, ${PEAK_ALPHA}) 0%,
-      rgba(217, 74, 38, ${PEAK_ALPHA * 0.92}) 18%,
-      rgba(74, 59, 92, ${PEAK_ALPHA * 0.88}) 42%,
-      rgba(26, 43, 76, ${PEAK_ALPHA * 0.92}) 68%,
-      rgba(30, 94, 47, ${PEAK_ALPHA * 0.72}) 88%,
-      rgba(26, 43, 76, ${PEAK_ALPHA * 0.85}) 100%
+      rgba(232, 244, 255, ${PEAK_ALPHA}) 0%,
+      rgba(192, 224, 240, ${PEAK_ALPHA * 0.95}) 14%,
+      rgba(214, 220, 200, ${PEAK_ALPHA * 0.9}) 32%,
+      rgba(245, 230, 192, ${PEAK_ALPHA * 0.92}) 52%,
+      rgba(255, 245, 224, ${PEAK_ALPHA * 0.95}) 72%,
+      rgba(248, 250, 252, ${PEAK_ALPHA * 0.9}) 88%,
+      rgba(238, 243, 249, ${PEAK_ALPHA * 0.85}) 100%
     )`
   }
-  // 日落：橙红中心 → 紫 → 暮蓝 → 深夜
+  // 日转暮夜：白昼亮色 → 落日橙 → 过渡紫 → 暮空蓝夜色
   return `radial-gradient(
     circle closest-side,
-    rgba(217, 74, 38, ${PEAK_ALPHA}) 0%,
-    rgba(217, 74, 38, ${PEAK_ALPHA * 0.9}) 16%,
-    rgba(74, 59, 92, ${PEAK_ALPHA * 0.9}) 40%,
-    rgba(26, 43, 76, ${PEAK_ALPHA * 0.94}) 66%,
-    rgba(30, 94, 47, ${PEAK_ALPHA * 0.55}) 86%,
-    rgba(26, 43, 76, ${PEAK_ALPHA * 0.88}) 100%
+    rgba(248, 250, 252, ${PEAK_ALPHA}) 0%,
+    rgba(232, 236, 240, ${PEAK_ALPHA * 0.95}) 14%,
+    rgba(217, 74, 38, ${PEAK_ALPHA * 0.9}) 34%,
+    rgba(74, 59, 92, ${PEAK_ALPHA * 0.92}) 54%,
+    rgba(26, 43, 76, ${PEAK_ALPHA * 0.94}) 74%,
+    rgba(18, 28, 50, ${PEAK_ALPHA * 0.9}) 90%,
+    rgba(10, 14, 26, ${PEAK_ALPHA * 0.85}) 100%
   )`
 }
 
