@@ -117,65 +117,120 @@ function rand(min: number, max: number) {
 }
 
 /**
- * 切暮色（→dark）：随光圈追出的星星粒子。
- * 菱形白点，与按钮 .eg-ts-stars 同风格，向外飘散并闪烁。
+ * 切暮色（→dark）：星星以按钮为圆心，点击瞬间放射闪出。
+ * left/top 直接定位到元素中心（减去半宽高），transform 只负责动画位移。
  */
-function spawnStars(origin: { x: number; y: number }, container: HTMLElement) {
-  const count = 14
+function spawnStars(origin: { x: number; y: number }, container: HTMLElement, maxR: number) {
+  const count = 22
+  const startR = rand(2, 8)
   for (let i = 0; i < count; i++) {
     const star = document.createElement('span')
     star.className = 'theme-veil-star'
     star.setAttribute('aria-hidden', 'true')
-    // 尺寸与按钮星星一致：2–5px 菱形
-    const size = rand(2, 5)
+    const size = rand(8, 16)
+    const half = size / 2
     const angle = rand(0, Math.PI * 2)
-    // 起点在按钮附近，终点向外扩散
-    const startR = rand(8, 28)
-    const endR = rand(60, 180)
-    const x0 = origin.x + Math.cos(angle) * startR
-    const y0 = origin.y + Math.sin(angle) * startR
-    const x1 = origin.x + Math.cos(angle) * endR
-    const y1 = origin.y + Math.sin(angle) * endR - rand(10, 40)
+    const dist = Math.sqrt(Math.random()) * maxR * 0.9
+    // 位移向量（从起点指向终点）
+    const dx = Math.cos(angle) * dist
+    const dy = Math.sin(angle) * dist
+    // 起点：按钮附近，left/top 减去半宽高使元素中心对准起点
+    const sx = origin.x + Math.cos(angle + rand(-0.1, 0.1)) * startR - half
+    const sy = origin.y + Math.sin(angle + rand(-0.1, 0.1)) * startR - half
     star.style.width = `${size}px`
     star.style.height = `${size}px`
-    star.style.left = `${x0}px`
-    star.style.top = `${y0}px`
-    star.style.setProperty('--star-dx', `${x1 - x0}px`)
-    star.style.setProperty('--star-dy', `${y1 - y0}px`)
-    star.style.animationDelay = `${rand(0, 120)}ms`
-    star.style.animationDuration = `${rand(320, 480)}ms`
+    star.style.left = `${sx}px`
+    star.style.top = `${sy}px`
+    star.style.opacity = '0'
     container.appendChild(star)
+
+    const delay = (dist / maxR) * 50 + rand(0, 30)
+    const duration = rand(300, 450)
+    star.animate(
+      [
+        {
+          opacity: 0,
+          transform: 'rotate(45deg) scale(0.2)',
+        },
+        {
+          opacity: 1,
+          transform: `rotate(45deg) translate(${dx * 0.12}px, ${dy * 0.12}px) scale(1.6)`,
+          offset: 0.15,
+        },
+        {
+          opacity: 0.9,
+          transform: `rotate(45deg) translate(${dx * 0.5}px, ${dy * 0.5}px) scale(1.2)`,
+          offset: 0.5,
+        },
+        {
+          opacity: 0,
+          transform: `rotate(45deg) translate(${dx}px, ${dy}px) scale(0.2)`,
+        },
+      ],
+      {
+        duration,
+        delay,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'forwards',
+      },
+    )
   }
 }
 
 /**
- * 切浅色（→light）：随光圈浮出的白云粒子。
- * 圆角白团，与按钮 .eg-ts-clouds 同风格，轻盈上浮消散。
+ * 切浅色（→light）：白云散布在光晕覆盖范围内，随光圈浮出并轻盈上飘。
  */
-function spawnClouds(origin: { x: number; y: number }, container: HTMLElement) {
-  const count = 8
+function spawnClouds(origin: { x: number; y: number }, container: HTMLElement, maxR: number) {
+  const count = 10
   for (let i = 0; i < count; i++) {
     const cloud = document.createElement('i')
     cloud.className = 'theme-veil-cloud'
     cloud.setAttribute('aria-hidden', 'true')
-    const w = rand(14, 32)
-    const h = rand(8, 14)
-    const angle = rand(-Math.PI * 0.85, -Math.PI * 0.15)
-    const startR = rand(12, 32)
-    const endR = rand(70, 160)
-    const x0 = origin.x + Math.cos(angle) * startR
-    const y0 = origin.y + Math.sin(angle) * startR
-    const x1 = origin.x + Math.cos(angle) * endR + rand(-20, 20)
-    const y1 = origin.y + Math.sin(angle) * endR - rand(20, 50)
+    const w = rand(40, 80)
+    const h = rand(18, 32)
+    const angle = rand(0, Math.PI * 2)
+    const dist = Math.sqrt(Math.random()) * maxR * 0.85
+    const x = origin.x + Math.cos(angle) * dist - w / 2
+    const y = origin.y + Math.sin(angle) * dist - h / 2
+    const dx = rand(-30, 30)
+    const dy = -rand(28, 60)
     cloud.style.width = `${w}px`
     cloud.style.height = `${h}px`
-    cloud.style.left = `${x0}px`
-    cloud.style.top = `${y0}px`
-    cloud.style.setProperty('--cloud-dx', `${x1 - x0}px`)
-    cloud.style.setProperty('--cloud-dy', `${y1 - y0}px`)
-    cloud.style.animationDelay = `${rand(0, 140)}ms`
-    cloud.style.animationDuration = `${rand(360, 520)}ms`
+    cloud.style.left = `${x}px`
+    cloud.style.top = `${y}px`
+    cloud.style.opacity = '0'
     container.appendChild(cloud)
+
+    const delay = (dist / maxR) * 50 + rand(0, 30)
+    const duration = rand(380, 560)
+    cloud.animate(
+      [
+        {
+          opacity: 0,
+          transform: 'scale(0.5)',
+        },
+        {
+          opacity: 0.9,
+          transform: `translate(${dx * 0.2}px, ${dy * 0.2}px) scale(1)`,
+          offset: 0.25,
+        },
+        {
+          opacity: 0.6,
+          transform: `translate(${dx * 0.65}px, ${dy * 0.65}px) scale(1)`,
+          offset: 0.65,
+        },
+        {
+          opacity: 0,
+          transform: `translate(${dx}px, ${dy}px) scale(0.75)`,
+        },
+      ],
+      {
+        duration,
+        delay,
+        easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+        fill: 'forwards',
+      },
+    )
   }
 }
 
@@ -191,15 +246,16 @@ function playSunsetBurst(t: UiTheme, origin: { x: number; y: number }) {
   animating = true
 
   const size = coverSize(origin.x, origin.y)
+  const maxR = size / 2
 
-  // 粒子层：星星或白云，随光圈一起淡出
+  // 粒子层：散布在光晕覆盖范围内，随光圈依次亮起
   const fx = document.createElement('div')
   fx.className = 'theme-veil-fx'
   fx.setAttribute('aria-hidden', 'true')
   if (t === 'dark') {
-    spawnStars(origin, fx)
+    spawnStars(origin, fx, maxR)
   } else {
-    spawnClouds(origin, fx)
+    spawnClouds(origin, fx, maxR)
   }
   document.body.appendChild(fx)
 
@@ -217,17 +273,22 @@ function playSunsetBurst(t: UiTheme, origin: { x: number; y: number }) {
   void veil.offsetHeight
   veil.classList.add('is-active')
 
-  // 扩到全屏时提交主题
+  // 粒子层独立存活：等所有星星/云动画播完再移除
+  // 最大 delay (~80ms) + 最大 duration (~560ms) + buffer
+  const fxLife = 800
+  window.setTimeout(() => {
+    fx.remove()
+  }, fxLife)
+
+  // 扩到全屏时提交主题（光晕层正常淡出）
   window.setTimeout(() => {
     const target = queuedTheme ?? t
     queuedTheme = null
     commitDom(target)
     veil.style.background = sunsetGradient(target)
     veil.classList.add('is-out')
-    fx.classList.add('is-out')
     window.setTimeout(() => {
       veil.remove()
-      fx.remove()
       animating = false
       if (queuedTheme) {
         const next = queuedTheme

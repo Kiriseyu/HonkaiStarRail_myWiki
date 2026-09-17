@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>暮光切换</title>
+<style>
+/* ── 基础 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  overscroll-behavior: none;
+  transition: background 0.01s, color 0.01s;
+}
+
+/* ── 主题变量 ── */
+html[data-theme="dark"] body {
+  background: linear-gradient(160deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background-attachment: fixed;
+  color: #e8eefc;
+}
+html[data-theme="light"] body {
+  background:
+    radial-gradient(900px 400px at 10% -10%, rgba(147,197,253,.22), transparent 55%),
+    radial-gradient(700px 350px at 95% 0%, rgba(196,181,253,.14), transparent 48%),
+    linear-gradient(180deg, #f1f6fc 0%, #f8fafc 50%, #eef3f9 100%);
+  background-attachment: fixed;
+  color: #0f172a;
+}
+
+/* ── 布局 ── */
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 20px) 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 顶栏 ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.logo span { opacity: .45; font-weight: 400; margin-left: 6px; font-size: 13px; }
+
+/* ── 主题切换按钮（复刻 endgame 风格） ── */
+.theme-switch { display: flex; align-items: center; gap: 10px; }
+.theme-label { font-size: 13px; opacity: .65; min-width: 28px; }
+
+.ts-btn {
+  position: relative;
+  width: 72px;
+  height: 34px;
+  border: 0;
+  padding: 0;
+  border-radius: 17px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #5a94cf, #3f7db8);
+  box-shadow:
+    inset 0 0 0 1.5px #7f93ad,
+    0 3px 10px rgba(15,23,42,.22);
+  overflow: hidden;
+  transition: background .4s cubic-bezier(.4,0,.2,1);
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.ts-btn.is-dark {
+  background: linear-gradient(180deg, #1c2740, #12192c);
+}
+
+/* 星星（深色态可见） */
+.ts-stars {
+  position: absolute; inset: 0; opacity: 0;
+  transform: translateY(-28px);
+  transition: opacity .4s ease, transform .4s cubic-bezier(.34,1.2,.64,1);
+  pointer-events: none;
+}
+.ts-btn.is-dark .ts-stars { opacity: 1; transform: translateY(0); }
+.ts-stars span {
+  position: absolute; background: #fff; border-radius: 1px;
+  opacity: .9; transform: rotate(45deg);
+}
+.ts-stars span:nth-child(1) { left:12%; top:28%; width:4px; height:4px; }
+.ts-stars span:nth-child(2) { left:28%; top:40%; width:3px; height:3px; }
+.ts-stars span:nth-child(3) { left:42%; top:22%; width:3px; height:3px; }
+.ts-stars span:nth-child(4) { left:55%; top:35%; width:2px; height:2px; }
+.ts-stars span:nth-child(5) { left:68%; top:20%; width:4px; height:4px; }
+.ts-stars span:nth-child(6) { left:78%; top:38%; width:3px; height:3px; }
+
+/* 云（浅色态可见） */
+.ts-clouds {
+  position: absolute; right:4px; top:0; bottom:0; width:32px;
+  pointer-events: none; opacity: 1;
+  transition: opacity .35s ease, transform .4s cubic-bezier(.34,1.2,.64,1);
+}
+.ts-btn.is-dark .ts-clouds { opacity: 0; transform: translateX(8px) scale(.9); }
+.ts-clouds i {
+  position: absolute; display: block;
+  background: rgba(255,255,255,.92);
+  border: 1px solid #aeb9c9;
+  border-radius: 999px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.65), 0 1px 2px rgba(15,23,42,.12);
+}
+.ts-clouds i:nth-child(1) { width:22px; height:10px; right:2px; top:10px; border-radius:10px; }
+.ts-clouds i:nth-child(2) { width:11px; height:11px; right:6px; top:5px; border-radius:50%; }
+.ts-clouds i:nth-child(3) { width:9px; height:9px; right:14px; top:6px; border-radius:50%; }
+.ts-clouds i:nth-child(4) { width:14px; height:6px; right:4px; top:20px; opacity:.7; border-radius:6px; }
+
+/* 拇指 */
+.ts-thumb {
+  position: absolute; top:2px; left:3px;
+  width:30px; height:30px; border-radius:50%;
+  transition: transform .4s cubic-bezier(.34,1.2,.64,1);
+  box-shadow: 0 2px 5px rgba(0,0,0,.3), 0 0 0 1.5px rgba(255,255,255,.08);
+  z-index: 2;
+}
+.ts-btn.is-dark .ts-thumb { transform: translateX(37px); }
+
+.ts-sun {
+  position: absolute; inset:2px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, #ffe9a0, #f3c62b 55%, #e0a800 100%);
+  transition: opacity .25s ease, transform .4s ease;
+}
+.ts-btn.is-dark .ts-sun { opacity:0; transform:scale(.55) rotate(40deg); }
+
+.ts-moon {
+  position: absolute; inset:2px; border-radius:50%;
+  background: #c4c9d4; opacity:0;
+  transform: translateX(22px) scale(.65);
+  transition: opacity .25s ease .08s, transform .4s cubic-bezier(.34,1.2,.64,1);
+  overflow: hidden;
+}
+.ts-moon::before, .ts-moon::after {
+  content:''; position:absolute; border-radius:50%; background:#9a9fb2;
+}
+.ts-moon::before { width:8px; height:8px; left:5px; top:12px; }
+.ts-moon::after { width:5px; height:5px; left:11px; top:5px; box-shadow:5px 9px 0 0 #9a9fb2; }
+.ts-btn.is-dark .ts-moon { opacity:1; transform:translateX(0) scale(1); }
+
+/* ── 内容卡片 ── */
+.card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 20px 18px;
+  margin-bottom: 14px;
+  transition: background .01s, border-color .01s;
+}
+html[data-theme="light"] .card {
+  background: rgba(255,255,255,.72);
+  border-color: rgba(148,163,184,.35);
+  box-shadow: 0 4px 16px rgba(15,23,42,.05);
+}
+.card h2 {
+  font-size: 15px; font-weight: 600; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card h2 .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #00d4ff; flex-shrink: 0;
+}
+html[data-theme="light"] .card h2 .dot { background: #0369a1; }
+.card p { font-size: 13px; line-height: 1.65; opacity: .72; }
+.card ul { list-style: none; margin-top: 8px; }
+.card li {
+  font-size: 13px; line-height: 1.7; opacity: .72;
+  padding-left: 14px; position: relative;
+}
+.card li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; opacity: .35;
+}
+
+/* ── 页脚提示 ── */
+.hint {
+  text-align: center; font-size: 12px; opacity: .4;
+  margin-top: auto; padding-top: 20px;
+}
+
+/* ── 光晕遮罩 ── */
+.theme-veil {
+  position: fixed;
+  z-index: 2147483647;
+  width: var(--veil-size, 300vmax);
+  height: var(--veil-size, 300vmax);
+  margin-left: calc(var(--veil-size, 300vmax) / -2);
+  margin-top: calc(var(--veil-size, 300vmax) / -2);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 1;
+  transform: scale(0);
+  will-change: transform, opacity;
+  transition:
+    transform .28s cubic-bezier(.22,.61,.36,1),
+    opacity .14s ease;
+}
+.theme-veil.is-active { transform: scale(1); }
+.theme-veil.is-out { opacity: 0; }
+
+/* ── 粒子容器（在光晕之上） ── */
+.theme-fx {
+  position: fixed; inset: 0;
+  z-index: 2147483648;
+  pointer-events: none;
+}
+
+/* 星星：菱形白点带光晕（动画由 Web Animations API 驱动） */
+.fx-star {
+  position: absolute;
+  background: #fff;
+  border-radius: 1px;
+  opacity: 0;
+  will-change: transform, opacity;
+  box-shadow:
+    0 0 6px 2px rgba(255,255,255,.9),
+    0 0 16px 4px rgba(200,220,255,.5),
+    0 0 32px 8px rgba(160,200,255,.25);
+}
+
+/* 白云 */
+.fx-cloud {
+  position: absolute; display: block;
+  background: rgba(255,255,255,.9);
+  border: 1px solid #aeb9c9;
+  border-radius: 999px;
+  box-shadow: 0 1px 0 rgba(255,255,255,.6), 0 1px 2px rgba(15,23,42,.1);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-veil, .theme-veil.is-active, .theme-veil.is-out {
+    transition: none !important;
+  }
+}
+
+/* 大屏适配 */
+@media (min-width: 600px) {
+  .app { max-width: 520px; padding-top: 40px; }
+  .logo { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top-bar">
+    <div class="logo">暮光切换<span>Theme Burst</span></div>
+    <div class="theme-switch">
+      <button
+        type="button"
+        class="ts-btn is-dark"
+        id="themeBtn"
+        role="switch"
+        aria-checked="true"
+        aria-label="切换主题"
+        title="切换浅色 / 深色"
+      >
+        <div class="ts-stars" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        <div class="ts-clouds" aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <div class="ts-thumb" aria-hidden="true">
+          <div class="ts-sun"></div>
+          <div class="ts-moon"></div>
+        </div>
+      </button>
+      <span class="theme-label" id="themeLabel">深色</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2><span class="dot"></span>光晕扩散</h2>
+    <p>点击右上角开关，暮色光晕会从按钮处向外扩散。深色→浅色是月光冷色渐入暖阳白昼，浅色→深色是白昼沉入暮色夜空。</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="dot"></span>粒子点缀</h2>
+    <ul>
+      <li>切暮色时，星星从按钮处放射状追向光晕各处，与光圈扩散同步出发</li>
+      <li>切浅色时，白云散布全屏，随光圈浮出并轻盈上飘消散</li>
+      <li>粒子出现时机与光圈边缘同步，营造「追光」效果</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="dot"></span>多端适配</h2>
+    <ul>
+      <li>移动端：安全区适配、触控友好、单列卡片流</li>
+      <li>桌面端：居中卡片、更宽留白</li>
+      <li>动画只走合成层（transform / opacity），不触发重排</li>
+    </ul>
+  </section>
+
+  <p class="hint">点击开关体验切换动效</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var GROW_MS = 280;
+  var FADE_MS = 140;
+  var PEAK = 0.78;
+
+  var html = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  var label = document.getElementById('themeLabel');
+
+  var theme = 'dark';
+  var animating = false;
+  var queued = null;
+
+  /* ── 渐变 ── */
+  function gradient(t) {
+    var a = PEAK;
+    if (t === 'light') {
+      return 'radial-gradient(circle closest-side,' +
+        ' rgba(232,244,255,' + a + ') 0%,' +
+        ' rgba(192,224,240,' + (a*0.92) + ') 8%,' +
+        ' rgba(220,228,210,' + (a*0.88) + ') 20%,' +
+        ' rgba(245,230,192,' + (a*0.9) + ') 38%,' +
+        ' rgba(255,245,224,' + (a*0.94) + ') 58%,' +
+        ' rgba(248,250,252,' + (a*0.9) + ') 78%,' +
+        ' rgba(238,243,249,' + (a*0.85) + ') 100%)';
+    }
+    return 'radial-gradient(circle closest-side,' +
+      ' rgba(248,250,252,' + a + ') 0%,' +
+      ' rgba(232,236,240,' + (a*0.92) + ') 12%,' +
+      ' rgba(217,74,38,' + (a*0.88) + ') 28%,' +
+      ' rgba(74,59,92,' + (a*0.9) + ') 44%,' +
+      ' rgba(26,43,76,' + (a*0.94) + ') 66%,' +
+      ' rgba(18,28,50,' + (a*0.9) + ') 86%,' +
+      ' rgba(10,14,26,' + (a*0.85) + ') 100%)';
+  }
+
+  function rand(min, max) { return min + Math.random() * (max - min); }
+
+  function coverR(ox, oy) {
+    var w = innerWidth, h = innerHeight;
+    return Math.ceil(Math.max(
+      Math.hypot(ox, oy), Math.hypot(w - ox, oy),
+      Math.hypot(ox, h - oy), Math.hypot(w - ox, h - oy)
+    )) + 8;
+  }
+
+  /* ── 粒子：星星以按钮为圆心放射闪出，云朵散布覆盖圆 ── */
+  function spawnStars(ox, oy, maxR, container) {
+    var count = innerWidth < 600 ? 16 : 22;
+    var startR = rand(2, 8);
+    for (var i = 0; i < count; i++) {
+      var el = document.createElement('span');
+      el.className = 'fx-star';
+      el.setAttribute('aria-hidden', 'true');
+      var size = rand(8, 16);
+      var half = size / 2;
+      var angle = rand(0, Math.PI * 2);
+      var dist = Math.sqrt(Math.random()) * maxR * 0.9;
+      var dx = Math.cos(angle) * dist;
+      var dy = Math.sin(angle) * dist;
+      var sx = ox + Math.cos(angle + rand(-0.1, 0.1)) * startR - half;
+      var sy = oy + Math.sin(angle + rand(-0.1, 0.1)) * startR - half;
+      el.style.cssText =
+        'width:' + size + 'px;height:' + size + 'px;' +
+        'left:' + sx + 'px;top:' + sy + 'px;';
+      container.appendChild(el);
+
+      var delay = (dist / maxR) * 50 + rand(0, 30);
+      var duration = rand(300, 450);
+      el.animate([
+        { opacity: 0, transform: 'rotate(45deg) scale(0.2)' },
+        { opacity: 1, transform: 'rotate(45deg) translate(' + (dx * 0.12) + 'px, ' + (dy * 0.12) + 'px) scale(1.6)', offset: 0.15 },
+        { opacity: 0.9, transform: 'rotate(45deg) translate(' + (dx * 0.5) + 'px, ' + (dy * 0.5) + 'px) scale(1.2)', offset: 0.5 },
+        { opacity: 0, transform: 'rotate(45deg) translate(' + dx + 'px, ' + dy + 'px) scale(0.2)' }
+      ], {
+        duration: duration,
+        delay: delay,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        fill: 'forwards'
+      });
+    }
+  }
+
+  function spawnClouds(ox, oy, maxR, container) {
+    var count = innerWidth < 600 ? 8 : 12;
+    for (var i = 0; i < count; i++) {
+      var el = document.createElement('i');
+      el.className = 'fx-cloud';
+      el.setAttribute('aria-hidden', 'true');
+      var w = rand(40, 80), h = rand(18, 32);
+      var angle = rand(0, Math.PI * 2);
+      var dist = Math.sqrt(Math.random()) * maxR * 0.85;
+      var x = ox + Math.cos(angle) * dist - w / 2;
+      var y = oy + Math.sin(angle) * dist - h / 2;
+      var dx = rand(-30, 30);
+      var dy = -rand(28, 60);
+      el.style.cssText =
+        'width:' + w + 'px;height:' + h + 'px;' +
+        'left:' + x + 'px;top:' + y + 'px;';
+      container.appendChild(el);
+
+      var delay = (dist / maxR) * 50 + rand(0, 30);
+      var duration = rand(380, 560);
+      el.animate([
+        { opacity: 0, transform: 'scale(0.5)' },
+        { opacity: 0.9, transform: 'translate(' + (dx * 0.2) + 'px, ' + (dy * 0.2) + 'px) scale(1)', offset: 0.25 },
+        { opacity: 0.6, transform: 'translate(' + (dx * 0.65) + 'px, ' + (dy * 0.65) + 'px) scale(1)', offset: 0.65 },
+        { opacity: 0, transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(0.75)' }
+      ], {
+        duration: duration,
+        delay: delay,
+        easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+        fill: 'forwards'
+      });
+    }
+  }
+
+  /* ── 提交主题 ── */
+  function commit(t) {
+    html.setAttribute('data-theme', t);
+    html.style.colorScheme = t;
+    theme = t;
+    btn.classList.toggle('is-dark', t === 'dark');
+    btn.setAttribute('aria-checked', t === 'dark' ? 'true' : 'false');
+    btn.setAttribute('aria-label', t === 'dark' ? '切换到浅色主题' : '切换到深色主题');
+    label.textContent = t === 'dark' ? '深色' : '浅色';
+    try { localStorage.setItem('theme-burst-demo', t); } catch (e) {}
+  }
+
+  /* ── 播放光晕 ── */
+  function play(t, ox, oy) {
+    if (animating) { queued = t; return; }
+    animating = true;
+
+    var maxR = coverR(ox, oy);
+    var size = maxR * 2;
+
+    // 粒子层
+    var fx = document.createElement('div');
+    fx.className = 'theme-fx';
+    fx.setAttribute('aria-hidden', 'true');
+    if (t === 'dark') spawnStars(ox, oy, maxR, fx);
+    else spawnClouds(ox, oy, maxR, fx);
+    document.body.appendChild(fx);
+
+    // 光晕层
+    var veil = document.createElement('div');
+    veil.className = 'theme-veil';
+    veil.setAttribute('aria-hidden', 'true');
+    veil.style.cssText =
+      'left:' + ox + 'px;top:' + oy + 'px;' +
+      '--veil-size:' + size + 'px;' +
+      'background:' + gradient(t) + ';';
+    document.body.appendChild(veil);
+
+    void veil.offsetHeight;
+    veil.classList.add('is-active');
+
+    // 粒子层独立存活：等所有星星/云动画播完再移除
+    setTimeout(function () { fx.remove(); }, 800);
+
+    setTimeout(function () {
+      var target = queued || t;
+      queued = null;
+      commit(target);
+      veil.style.background = gradient(target);
+      veil.classList.add('is-out');
+      setTimeout(function () {
+        veil.remove();
+        animating = false;
+        if (queued) { var n = queued; queued = null; commit(n); }
+      }, FADE_MS);
+    }, GROW_MS);
+  }
+
+  /* ── 事件 ── */
+  btn.addEventListener('click', function (e) {
+    var next = theme === 'dark' ? 'light' : 'dark';
+    var r = btn.getBoundingClientRect();
+    var ox = r.left + r.width / 2;
+    var oy = r.top + r.height / 2;
+    play(next, ox, oy);
+  });
+
+  /* ── 初始主题 ── */
+  (function init() {
+    var stored = null;
+    try { stored = localStorage.getItem('theme-burst-demo'); } catch (e) {}
+    var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    var t = stored === 'light' || stored === 'dark' ? stored : (prefersLight ? 'light' : 'dark');
+    commit(t);
+  })();
+})();
+</script>
+</body>
+</html>
