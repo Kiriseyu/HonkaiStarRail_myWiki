@@ -85,17 +85,26 @@ html[data-theme='light'] ::selection {
   min-height: 100vh;
 }
 
-/* 主题切换：日升/日落地平线光带扫过整屏 → 换主题 → 淡出（translateY，只走合成层） */
+/* 主题切换：暮色光晕从按钮处向外扩散 → 换主题 → 淡出（scale，合成层） */
 .theme-veil {
   position: fixed;
-  inset: 0;
   z-index: 2147483647;
+  width: var(--theme-veil-size, 300vmax);
+  height: var(--theme-veil-size, 300vmax);
+  margin-left: calc(var(--theme-veil-size, 300vmax) / -2);
+  margin-top: calc(var(--theme-veil-size, 300vmax) / -2);
+  border-radius: 50%;
   pointer-events: none;
   opacity: 1;
+  transform: scale(0);
   will-change: transform, opacity;
   transition:
-    transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.08s ease;
+    transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.1s ease;
+}
+
+.theme-veil.is-active {
+  transform: scale(1);
 }
 
 .theme-veil.is-out {
@@ -104,6 +113,7 @@ html[data-theme='light'] ::selection {
 
 @media (prefers-reduced-motion: reduce) {
   .theme-veil,
+  .theme-veil.is-active,
   .theme-veil.is-out {
     transition: none !important;
   }
