@@ -450,7 +450,7 @@ export function recommendTeams(
   const charMap = characterMap(characters)
   const opts = options || {}
 
-  let list = templates
+  const list = templates
     .filter((t) => (t.modes || []).includes(modeId))
     .map((t) => {
       const team = materializeTeam(t, charMap, stage, modeId)
