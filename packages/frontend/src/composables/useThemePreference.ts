@@ -26,9 +26,9 @@ const FRAME_INTERVAL_MS = 42
  * 定格虚化停留时长：帧序列播完后保留目标角色画面（浅色=白三月七，深色=黑长夜月），
  * 模糊成氛围层停留一段时间，让「变身」有落点而不是瞬间消失。
  */
-const SETTLE_MS = 1600
-/** 虚化层整体淡出时长：比普通淡出更慢，收尾更柔和 */
-const SETTLE_FADE_MS = 500
+const SETTLE_MS = 1200
+/** 虚化层整体淡出时长：与 main.css 的 1s 渐隐对齐，多留 100ms 确保淡完再销毁 */
+const SETTLE_FADE_MS = 1100
 
 function frameUrl(index: number) {
   return `/images/theme-switch/Image${index}.jpg`
@@ -57,6 +57,8 @@ function preloadThemeFrames() {
       img.src = frameUrl(i)
       // 保留引用，避免 GC 中断加载
       preloadedFrames.push(img)
+      // 提前解码：切帧时若临时同步解码，会出现一帧空白/闪动
+      void img.decode?.().catch(() => {})
     }
   }
   // requestIdleCallback 不在标准 DOM 类型里，这里做兼容探测
@@ -423,7 +425,8 @@ function playSunsetBurst(t: UiTheme, origin: { x: number; y: number }) {
     const target = queuedTheme ?? t
     queuedTheme = null
     commitDom(target)
-    veil.style.background = sunsetGradient(target)
+    // 不再改写光晕背景：满屏瞬间换色会与角色帧叠成一记闪光，
+    // 保持按下时的渐变直接淡出更平顺
     veil.classList.add('is-out')
     window.setTimeout(() => {
       veil.remove()

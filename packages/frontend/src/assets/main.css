@@ -175,10 +175,18 @@ html[data-theme='light'] ::selection {
   transition: opacity 0.5s ease;
 }
 
+/* 定格结束：必须用更高优先级覆盖 is-settling 的 0.55，
+   否则叠加后不透明度仍停在 0.55、到点直接移除，看起来就是「突然消失」 */
+.theme-frame-veil.is-settling.is-out {
+  opacity: 0;
+  /* 渐隐时长与 JS 的 SETTLE_FADE_MS 对齐，避免还没淡完就被移除 */
+  transition: opacity 1s ease;
+}
+
 /* 由清晰转模糊时同时缓慢放大，掩盖模糊后可能露出的边缘 */
 .theme-frame-veil.is-settling .theme-frame-layer {
   transition:
-    opacity 0.12s linear,
+    opacity 0.035s linear,
     filter 0.45s ease,
     transform 0.45s ease;
 }
@@ -199,7 +207,8 @@ html[data-theme='light'] ::selection {
   object-position: 50% 45%;
   transform: scale(1.14);
   opacity: 0;
-  transition: opacity 0.12s linear;
+  /* 必须短于帧间隔（42ms）：两层同时半透明会让底色透出，形成明暗闪烁 */
+  transition: opacity 0.035s linear;
   filter: saturate(1.06);
   will-change: opacity;
   -webkit-mask-image: radial-gradient(
