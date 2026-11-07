@@ -14,6 +14,134 @@ const FADE_MS = 140
  */
 const PEAK_ALPHA = 0.78
 
+/**
+ * 角色帧素材：Image1-11 为白三月七，Image12-22 为黑长夜月。
+ * 浅色→深色按 1→22 播放（白转黑），深色→浅色反向播放（黑转白），
+ * 与主题语义一致：亮色人格对应浅色主题，暗色人格对应深色主题。
+ */
+const FRAME_COUNT = 22
+/** 单帧停留时长：22 帧 ≈ 0.92s，比光晕扩散稍长，形成「变身」节奏 */
+const FRAME_INTERVAL_MS = 42
+/**
+ * 定格虚化停留时长：帧序列播完后保留目标角色画面（浅色=白三月七，深色=黑长夜月），
+ * 模糊成氛围层停留一段时间，让「变身」有落点而不是瞬间消失。
+ */
+const SETTLE_MS = 1600
+/** 虚化层整体淡出时长：比普通淡出更慢，收尾更柔和 */
+const SETTLE_FADE_MS = 500
+
+function frameUrl(index: number) {
+  return `/images/theme-switch/Image${index}.jpg`
+}
+
+let framesPreloaded = false
+/** 当前存活的角色帧层：连续切换时先移除上一层的虚化定格，避免叠加糊屏 */
+let activeFrameVeil: HTMLElement | null = null
+
+/**
+ * 预载全部帧（约 0.8MB），放在浏览器空闲时执行。
+ * 否则首次切换要逐帧请求，交叉淡入会出现空白帧。
+ */
+function preloadThemeFrames() {
+  if (framesPreloaded || typeof window === 'undefined') return
+  framesPreloaded = true
+  const run = () => {
+    for (let i = 1; i <= FRAME_COUNT; i++) {
+      const img = new Image()
+      img.decoding = 'async'
+      img.src = frameUrl(i)
+    }
+  }
+  // requestIdleCallback 不在标准 DOM 类型里，这里做兼容探测
+  const idle = (window as Window & {
+    requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
+  }).requestIdleCallback
+  if (typeof idle === 'function') idle(run, { timeout: 4000 })
+  else window.setTimeout(run, 1500)
+}
+
+/**
+ * 全屏角色帧动画：两层 <img> 交替作为前景，交叉淡入完成形态转换。
+ * 播放结束后不掉头淡出，而是定格到目标角色帧并虚化停留一段时间
+ * （浅色主题=白三月七起始帧 Image1，深色主题=黑长夜月末帧 Image22），
+ * 再缓慢淡出。只做视觉叠加（pointer-events: none），主题提交时机仍由 playSunsetBurst 控制。
+ */
+function playCharacterFrames(t: UiTheme) {
+  if (typeof document === 'undefined' || prefersReducedMotion()) return
+
+  // 上一段定格还在屏幕上时直接移除，避免新动画叠在虚化层上
+  activeFrameVeil?.remove()
+
+  const veil = document.createElement('div')
+  veil.className = 'theme-frame-veil'
+  veil.setAttribute('aria-hidden', 'true')
+  activeFrameVeil = veil
+
+  const layers = [document.createElement('img'), document.createElement('img')]
+  for (const layer of layers) {
+    layer.className = 'theme-frame-layer'
+    layer.alt = ''
+    layer.draggable = false
+  }
+  veil.append(layers[0]!, layers[1]!)
+  document.body.appendChild(veil)
+
+  /** forward=true 时按 1→22，false 时按 22→1 */
+  const forward = t === 'dark'
+  const frameAt = (step: number) => (forward ? step + 1 : FRAME_COUNT - step)
+
+  let front = 0
+  layers[0]!.src = frameUrl(frameAt(0))
+  layers[1]!.src = frameUrl(frameAt(0))
+  layers[0]!.classList.add('is-front')
+
+  // 强制回流后淡入，保证 opacity 过渡真正生效
+  void veil.offsetHeight
+  veil.classList.add('is-active')
+
+  let step = 0
+  let frozen = false
+  const timer = window.setInterval(() => {
+    step += 1
+    if (step >= FRAME_COUNT) {
+      window.clearInterval(timer)
+      return
+    }
+    const back = 1 - front
+    layers[back]!.src = frameUrl(frameAt(step))
+    // 等一帧渲染再换前景层，让新图先绘制到后台层再开始淡入
+    window.requestAnimationFrame(() => {
+      // 已进入定格阶段：忽略残余的回调，避免把手动指定的定格帧又切走
+      if (frozen) return
+      layers[front]!.classList.remove('is-front')
+      layers[back]!.classList.add('is-front')
+      front = back
+    })
+  }, FRAME_INTERVAL_MS)
+
+  /** 定格帧：正向（转深色）停在黑长夜月末帧，反向（转浅色）停在白三月七起始帧 */
+  const settleFrame = forward ? FRAME_COUNT : 1
+
+  // 播完所有帧后定格并虚化停留，最后整体淡出销毁，生命周期与光晕层解耦
+  window.setTimeout(() => {
+    frozen = true
+    // 帧调度有毫秒级误差，显式指定目标角色帧为前景，避免停在过渡帧
+    const settled = layers[front]!
+    settled.src = frameUrl(settleFrame)
+    settled.classList.add('is-front')
+    layers[1 - front]!.classList.remove('is-front')
+
+    veil.classList.add('is-settling')
+    window.setTimeout(() => {
+      veil.classList.add('is-out')
+      window.setTimeout(() => {
+        veil.remove()
+        if (activeFrameVeil === veil) activeFrameVeil = null
+      }, SETTLE_FADE_MS)
+    }, SETTLE_MS)
+  }, FRAME_COUNT * FRAME_INTERVAL_MS)
+}
+
 function isValid(value: unknown): value is UiTheme {
   return value === 'dark' || value === 'light'
 }
@@ -269,6 +397,9 @@ function playSunsetBurst(t: UiTheme, origin: { x: number; y: number }) {
   veil.style.top = `${origin.y}px`
   document.body.appendChild(veil)
 
+  // 角色帧层：与光晕同时启动，白/黑三月七逐帧交叉淡入（z-index 更高，覆盖在其上）
+  playCharacterFrames(t)
+
   // 强制回流后再触发 scale 扩散
   void veil.offsetHeight
   veil.classList.add('is-active')
@@ -315,6 +446,8 @@ function ensureBooted() {
   if (booted || typeof window === 'undefined') return
   theme.value = detectInitial()
   applyDom(theme.value)
+  // 空闲预载 22 张切换帧，避免首次切换时逐帧请求导致空白
+  preloadThemeFrames()
   watch(theme, (t) => {
     const origin = pendingOrigin ?? null
     pendingOrigin = null

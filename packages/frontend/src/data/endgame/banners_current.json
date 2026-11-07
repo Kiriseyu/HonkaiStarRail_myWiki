@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "version": "4.6 收尾 / 4.7 前瞻",
+    "updatedAt": "2026-11-07",
+    "source": "https://sr.mihoyo.com/news/166950（4.6其二）；4.7 前瞻直播（2026-10-30）",
+    "sourceText": "官方公告 / 4.7 前瞻直播 / BWIKI 历史跃迁",
+    "note": "4.6 于 2026/11/10 15:00 结束；4.7「此刻，将群星付之一笑」2026/11/11 更新后开启。4.7 阿哈池覆盖全版本，四星 UP 为艾丝妲 / 玲可 / 驭空；阿哈专属光锥中文名待官方公告确认，暂不展示。"
+  },
+  "currency": {
+    "stellarJade": 56589,
+    "specialPass": 20,
+    "standardPass": 2,
+    "note": "来自扫描器导出御星凌月.json（reliquary_archiver）"
+  },
+  "banners": [
+    {
+      "id": "4.6-pearl",
+      "name": "沧海萃珠",
+      "type": "character",
+      "phase": "4.6全版本",
+      "start": "2026/09/28 版本更新后",
+      "end": "2026/11/10 15:00",
+      "fiveStar": [
+        {
+          "id": "pearl",
+          "name": "真珠",
+          "element": "冰",
+          "path": "欢愉",
+          "rarity": 5
+        }
+      ],
+      "fourStar": [
+        { "id": "qingque", "name": "青雀", "element": "量子", "path": "智识", "rarity": 4 },
+        { "id": "xueyi", "name": "雪衣", "element": "量子", "path": "毁灭", "rarity": 4 },
+        { "id": "misha", "name": "米沙", "element": "冰", "path": "毁灭", "rarity": 4 }
+      ],
+      "lightCone": {
+        "name": "献给明日的色彩",
+        "path": "欢愉",
+        "bannerName": "流光定影"
+      }
+    },
+    {
+      "id": "4.6-mortenax",
+      "name": "我身即刃",
+      "type": "character",
+      "phase": "4.6下半",
+      "start": "2026/10/21 12:00",
+      "end": "2026/11/10 15:00",
+      "fiveStar": [
+        {
+          "id": "mortenax-blade",
+          "name": "千冶•刃",
+          "element": "火",
+          "path": "虚无",
+          "rarity": 5
+        }
+      ],
+      "fourStar": [
+        { "id": "qingque", "name": "青雀", "element": "量子", "path": "智识", "rarity": 4 },
+        { "id": "xueyi", "name": "雪衣", "element": "量子", "path": "毁灭", "rarity": 4 },
+        { "id": "misha", "name": "米沙", "element": "冰", "path": "毁灭", "rarity": 4 }
+      ],
+      "lightCone": {
+        "name": "灼尽炼狱的新骸",
+        "path": "虚无",
+        "bannerName": "溯回忆象"
+      }
+    },
+    {
+      "id": "4.7-aha",
+      "name": "星神★阿哈",
+      "type": "character",
+      "phase": "4.7全版本（11/11 开启）",
+      "start": "2026/11/11 版本更新后",
+      "end": "2026/12/22 15:00",
+      "fiveStar": [
+        {
+          "id": "aha",
+          "name": "星神★阿哈",
+          "element": "量子",
+          "path": "欢愉",
+          "rarity": 5
+        }
+      ],
+      "fourStar": [
+        { "id": "asta", "name": "艾丝妲", "element": "火", "path": "同谐", "rarity": 4 },
+        { "id": "lynx", "name": "玲可", "element": "量子", "path": "丰饶", "rarity": 4 },
+        { "id": "yukong", "name": "驭空", "element": "虚数", "path": "同谐", "rarity": 4 }
+      ]
+    },
+    {
+      "id": "4.7-phase1",
+      "name": "上半复刻",
+      "type": "character",
+      "phase": "4.7上半",
+      "start": "2026/11/11 版本更新后",
+      "end": "2026/12/02 11:59",
+      "fiveStar": [
+        {
+          "id": "silver-wolf-lv-999",
+          "name": "银狼LV.999",
+          "element": "虚数",
+          "path": "欢愉",
+          "rarity": 5
+        },
+        {
+          "id": "sparxie",
+          "name": "火花",
+          "element": "火",
+          "path": "欢愉",
+          "rarity": 5
+        },
+        {
+          "id": "yao-guang",
+          "name": "爻光",
+          "element": "物理",
+          "path": "欢愉",
+          "rarity": 5
+        }
+      ],
+      "fourStar": [
+        { "id": "asta", "name": "艾丝妲", "element": "火", "path": "同谐", "rarity": 4 },
+        { "id": "lynx", "name": "玲可", "element": "量子", "path": "丰饶", "rarity": 4 },
+        { "id": "yukong", "name": "驭空", "element": "虚数", "path": "同谐", "rarity": 4 }
+      ]
+    },
+    {
+      "id": "4.7-phase2",
+      "name": "下半复刻",
+      "type": "character",
+      "phase": "4.7下半",
+      "start": "2026/12/02 12:00",
+      "end": "2026/12/22 15:00",
+      "fiveStar": [
+        {
+          "id": "acheron",
+          "name": "黄泉",
+          "element": "雷",
+          "path": "虚无",
+          "rarity": 5
+        },
+        {
+          "id": "dan-heng-il",
+          "name": "丹恒•饮月",
+          "element": "虚数",
+          "path": "毁灭",
+          "rarity": 5
+        },
+        {
+          "id": "jing-yuan",
+          "name": "景元",
+          "element": "雷",
+          "path": "智识",
+          "rarity": 5
+        }
+      ],
+      "fourStar": [
+        { "id": "asta", "name": "艾丝妲", "element": "火", "path": "同谐", "rarity": 4 },
+        { "id": "lynx", "name": "玲可", "element": "量子", "path": "丰饶", "rarity": 4 },
+        { "id": "yukong", "name": "驭空", "element": "虚数", "path": "同谐", "rarity": 4 }
+      ]
+    }
+  ],
+  "recent": [
+    {
+      "id": "4.6-evanescia",
+      "name": "韶艾裁英",
+      "phase": "4.6上半",
+      "start": "2026/09/28 版本更新后",
+      "end": "2026/10/21 11:59",
+      "fiveStar": [{ "id": "evanescia", "name": "绯英", "element": "物理", "path": "欢愉", "rarity": 5 }],
+      "status": "已结束"
+    },
+    {
+      "id": "4.5-waveflair",
+      "name": "激浪跃金",
+      "phase": "4.5下半",
+      "start": "2026/09/12 12:00",
+      "end": "2026/09/28 03:59",
+      "fiveStar": [{ "id": "aventurine-waveflair", "name": "砂金•戏浪", "element": "量子", "path": "欢愉", "rarity": 5 }],
+      "status": "已结束"
+    },
+    {
+      "id": "4.5-undying",
+      "name": "长夜狩影",
+      "phase": "4.5下半",
+      "start": "2026/09/12 12:00",
+      "end": "2026/09/28 03:59",
+      "fiveStar": [{ "id": "ashveil", "name": "阿什薇尔", "element": "雷", "path": "虚无", "rarity": 5 }],
+      "note": "BWIKI 列名「不死途」（巡猎·雷）；站内角色表以 ashveil 阿什薇尔收录，展示时以卡池名为准",
+      "status": "已结束"
+    }
+  ]
+}

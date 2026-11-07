@@ -100,6 +100,27 @@ export function characterMap(characters: EndgameCharacter[]): Record<string, End
   return map
 }
 
+/** 用扫描器练度校正理论强度；无存档或未持有时保持原值（未持有仅轻微降权）。 */
+export function applyRosterStrength(
+  characters: EndgameCharacter[],
+  ownedById: Record<string, { eidolon: number; traceOpened: number; level: number }>,
+): EndgameCharacter[] {
+  return characters.map((c) => {
+    const owned = ownedById[c.id]
+    if (!owned) {
+      return { ...c, strength: Math.round((c.strength || 80) * 0.92 * 10) / 10 }
+    }
+    const levelPart = Math.min(1, owned.level / 80)
+    const eidolonPart = Math.min(1, owned.eidolon / 6)
+    const tracePart = Math.min(1, owned.traceOpened / 14)
+    const ready = levelPart * 0.35 + eidolonPart * 0.35 + tracePart * 0.3
+    return {
+      ...c,
+      strength: Math.round((c.strength || 80) * (0.75 + 0.25 * ready) * 10) / 10,
+    }
+  })
+}
+
 function expandTags(tags: string[] | undefined): Set<string> {
   const out = new Set<string>()
   ;(tags || []).forEach((tag) => {
@@ -238,6 +259,7 @@ function scoreMode(characters: EndgameCharacter[], modeId: EndgameModeId, templa
 
   const avgStrength =
     characters.reduce((s, c) => s + (c.strength || 80), 0) / Math.max(characters.length, 1)
+  // strength 已在 materialize 阶段按练度折扣写入；此处再压到 0–1
   const strengthPart = Math.min(1, avgStrength / 95)
 
   let systemPart = 0.75

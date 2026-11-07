@@ -146,6 +146,81 @@ html[data-theme='light'] ::selection {
   will-change: transform, opacity;
 }
 
+/* 角色帧层容器：全屏、盖在光晕与粒子之上，仅作视觉叠加不拦截交互 */
+.theme-frame-veil {
+  position: fixed;
+  inset: 0;
+  /* 高于 .theme-veil-fx（2147483648），确保变身画面是最后一次视觉覆盖 */
+  z-index: 2147483649;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.14s ease;
+}
+
+/* 峰值略低于 1：保留底层光晕的呼吸感，避免完全糊屏 */
+.theme-frame-veil.is-active {
+  opacity: 0.92;
+}
+
+.theme-frame-veil.is-out {
+  opacity: 0;
+}
+
+/* 虚化定格：帧序列播完后保留目标角色（浅色=白三月七，深色=黑长夜月），
+   整体降低不透明度并模糊成氛围层，页面内容仍可辨认 */
+.theme-frame-veil.is-settling {
+  opacity: 0.55;
+  /* 收尾比入场更慢更柔，覆盖基础 0.14s */
+  transition: opacity 0.5s ease;
+}
+
+/* 由清晰转模糊时同时缓慢放大，掩盖模糊后可能露出的边缘 */
+.theme-frame-veil.is-settling .theme-frame-layer {
+  transition:
+    opacity 0.12s linear,
+    filter 0.45s ease,
+    transform 0.45s ease;
+}
+
+.theme-frame-veil.is-settling .theme-frame-layer.is-front {
+  filter: blur(16px) saturate(1.1);
+  transform: scale(1.3);
+}
+
+/* 单帧图像：cover 铺满视口 + 轻微放大裁掉素材上下黑边；
+   径向遮罩让画面中心清晰、四周融回页面，过渡时不出现硬边 */
+.theme-frame-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  transform: scale(1.14);
+  opacity: 0;
+  transition: opacity 0.12s linear;
+  filter: saturate(1.06);
+  will-change: opacity;
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 45%,
+    #000 52%,
+    rgba(0, 0, 0, 0.72) 76%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at 50% 45%,
+    #000 52%,
+    rgba(0, 0, 0, 0.72) 76%,
+    transparent 100%
+  );
+}
+
+/* 前景帧：同一时刻只有一层不透明，交替切换即形成逐帧变身 */
+.theme-frame-layer.is-front {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-veil,
   .theme-veil.is-active,
@@ -153,7 +228,11 @@ html[data-theme='light'] ::selection {
   .theme-veil-fx,
   .theme-veil-fx.is-out,
   .theme-veil-star,
-  .theme-veil-cloud {
+  .theme-veil-cloud,
+  .theme-frame-veil,
+  .theme-frame-veil.is-active,
+  .theme-frame-veil.is-out,
+  .theme-frame-layer {
     transition: none !important;
     animation: none !important;
   }

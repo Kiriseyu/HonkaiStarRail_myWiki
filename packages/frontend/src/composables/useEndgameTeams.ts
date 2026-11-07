@@ -3,10 +3,12 @@ import charactersJson from '@/data/endgame/characters.json'
 import stagesJson from '@/data/endgame/stages_current.json'
 import teamsMetaJson from '@/data/endgame/teams_meta.json'
 import {
+  applyRosterStrength,
   characterMap,
   recommendTeams,
   scoreTeam,
 } from '@/utils/endgameScoring'
+import type { ImportedRoster } from '@/utils/scannerImport'
 import type {
   CharactersFile,
   EndgameCharacter,
@@ -21,14 +23,27 @@ const charactersFile = charactersJson as CharactersFile
 const stagesFile = stagesJson as EndgameStagesFile
 const teamsMetaFile = teamsMetaJson as TeamsMetaFile
 
-export function useEndgameTeams() {
-  const characters = charactersFile.characters
-  const charMap = characterMap(characters)
+export function useEndgameTeams(rosterRef?: { value: ImportedRoster | null }) {
   const templates = teamsMetaFile.templates
-
   const modeId = ref<EndgameModeId>('moc')
   const side = ref('')
   const teams = ref<MaterializedTeam[]>([])
+
+  function ownedIndex(roster: ImportedRoster | null) {
+    const map: Record<string, { eidolon: number; traceOpened: number; level: number }> = {}
+    if (!roster) return map
+    roster.owned.forEach((o) => {
+      map[o.slug] = { eidolon: o.eidolon, traceOpened: o.traceOpened, level: o.level }
+    })
+    return map
+  }
+
+  function currentCharacters(): EndgameCharacter[] {
+    return applyRosterStrength(charactersFile.characters, ownedIndex(rosterRef?.value || null))
+  }
+
+  let characters = currentCharacters()
+  let charMap = characterMap(characters)
 
   const meta = computed(() => stagesFile.meta)
   const currentStage = computed<EndgameModeStage>(() => stagesFile.modes[modeId.value])
@@ -43,6 +58,8 @@ export function useEndgameTeams() {
   const sideOptions = computed(() => currentStage.value.nodes.map((n) => n.side))
 
   function recompute() {
+    characters = currentCharacters()
+    charMap = characterMap(characters)
     teams.value = recommendTeams(currentStage.value, modeId.value, templates, characters, {
       side: side.value || undefined,
       limit: 8,
@@ -154,6 +171,13 @@ export function useEndgameTeams() {
   }
 
   watch([modeId, side], recompute)
+  if (rosterRef) {
+    watch(
+      () => rosterRef.value,
+      () => recompute(),
+      { deep: true },
+    )
+  }
   recompute()
 
   return {
@@ -168,5 +192,6 @@ export function useEndgameTeams() {
     onSwap,
     resetTeams,
     buildShareText,
+    refresh: recompute,
   }
 }

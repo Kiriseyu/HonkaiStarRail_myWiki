@@ -5,12 +5,17 @@ import { useThemePreference } from '@/composables/useThemePreference'
 import { useCustomRoster } from '@/composables/useCustomRoster'
 import CustomRosterDock from '@/components/CustomRosterDock.vue'
 import CharacterGuidePanel from '@/components/CharacterGuidePanel.vue'
+import BannerPanel from '@/components/BannerPanel.vue'
+import ScannerRosterPanel from '@/components/ScannerRosterPanel.vue'
 import type { EndgameModeId } from '@/utils/endgameTypes'
+import { loadRoster, type ImportedRoster } from '@/utils/scannerImport'
 import { ref, watch } from 'vue'
 import '@/assets/endgame.css'
 
 const { theme, toggleTheme } = useThemePreference()
 const { setStageContext } = useCustomRoster()
+
+const scannerRoster = ref<ImportedRoster | null>(loadRoster())
 
 const {
   meta,
@@ -24,7 +29,7 @@ const {
   onSwap,
   resetTeams,
   buildShareText,
-} = useEndgameTeams()
+} = useEndgameTeams(scannerRoster)
 
 watch(
   [modeId, currentStage],
@@ -192,6 +197,8 @@ function avatarFor(id: string) {
           </p>
         </section>
 
+        <ScannerRosterPanel v-model:roster="scannerRoster" />
+        <BannerPanel :roster="scannerRoster" />
         <CharacterGuidePanel />
       </aside>
 
