@@ -37,6 +37,11 @@ function frameUrl(index: number) {
 let framesPreloaded = false
 /** 当前存活的角色帧层：连续切换时先移除上一层的虚化定格，避免叠加糊屏 */
 let activeFrameVeil: HTMLElement | null = null
+/**
+ * 预载后的 Image 引用必须持有：没有引用的 Image 会被 GC 回收，
+ * 浏览器随之中断未完成的请求（线上表现为部分帧 ERR_ABORTED + 切换时空白）。
+ */
+const preloadedFrames: HTMLImageElement[] = []
 
 /**
  * 预载全部帧（约 0.8MB），放在浏览器空闲时执行。
@@ -50,6 +55,8 @@ function preloadThemeFrames() {
       const img = new Image()
       img.decoding = 'async'
       img.src = frameUrl(i)
+      // 保留引用，避免 GC 中断加载
+      preloadedFrames.push(img)
     }
   }
   // requestIdleCallback 不在标准 DOM 类型里，这里做兼容探测
