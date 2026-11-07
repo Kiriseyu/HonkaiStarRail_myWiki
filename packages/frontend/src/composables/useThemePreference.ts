@@ -20,7 +20,7 @@ const PEAK_ALPHA = 0.78
  * 与主题语义一致：亮色人格对应浅色主题，暗色人格对应深色主题。
  */
 const FRAME_COUNT = 22
-/** 单帧停留时长：22 帧 ≈ 0.92s，比光晕扩散稍长，形成「变身」节奏 */
+/** 单帧停留时长：22 帧 ≈ 0.92s，与素材原始帧率接近，硬切换帧才有流畅感 */
 const FRAME_INTERVAL_MS = 42
 /**
  * 定格虚化停留时长：帧序列播完后保留目标角色画面（浅色=白三月七，深色=黑长夜月），
@@ -29,126 +29,295 @@ const FRAME_INTERVAL_MS = 42
 const SETTLE_MS = 1200
 /** 虚化层整体淡出时长：与 main.css 的 1s 渐隐对齐，多留 100ms 确保淡完再销毁 */
 const SETTLE_FADE_MS = 1100
+/**
+ * 素材上下各有约 5% 的黑边：绘制时直接从源图裁掉。
+ * 之前靠 transform: scale(1.14) 放大裁切，在不同宽高比下要么露黑边、要么切到人物头部。
+ */
+const FRAME_BAR_RATIO = 0.05
+/**
+ * 竖屏适配：以「宽度铺满 + 6% 余量」放大（余量只用来消除边缘缝隙，几乎不裁内容），
+ * 同时把画面高度限制在视口的 62%，避免平板上画面过高。
+ */
+const PORTRAIT_ZOOM = 1.06
+const PORTRAIT_MAX_HEIGHT_RATIO = 0.62
+/** 边缘羽化宽度（相对画面边长的比例）：让画面融回页面，避免出现矩形硬边 */
+const FEATHER_EDGE = 0.1
 
 function frameUrl(index: number) {
   return `/images/theme-switch/Image${index}.jpg`
 }
 
 let framesPreloaded = false
-/** 当前存活的角色帧层：连续切换时先移除上一层的虚化定格，避免叠加糊屏 */
+/** 当前存活的角色帧层与其清理函数：连续切换时先彻底停掉上一段动画，避免叠加 */
 let activeFrameVeil: HTMLElement | null = null
+let activeFrameCleanup: (() => void) | null = null
 /**
  * 预载后的 Image 引用必须持有：没有引用的 Image 会被 GC 回收，
  * 浏览器随之中断未完成的请求（线上表现为部分帧 ERR_ABORTED + 切换时空白）。
+ * 数组按 1..22 的下标存放，绘制时直接按帧号取用。
  */
 const preloadedFrames: HTMLImageElement[] = []
 
 /**
- * 预载全部帧（约 0.8MB），放在浏览器空闲时执行。
- * 否则首次切换要逐帧请求，交叉淡入会出现空白帧。
+ * 预载并解码全部帧（约 780KB）。
+ * 首次切换如果要逐帧请求 + 临时解码，画面会闪白或卡顿，所以提前加载；
+ * 同时保留引用，避免 GC 回收导致请求中断。
  */
 function preloadThemeFrames() {
   if (framesPreloaded || typeof window === 'undefined') return
   framesPreloaded = true
-  const run = () => {
+  // 用 0ms 定时器而不是 requestIdleCallback：空闲窗口在低端设备上可能很晚（甚至不触发），
+  // 首次切换时就拿不到帧。图片很小，直接异步加载即可，不阻塞首屏渲染。
+  window.setTimeout(() => {
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image()
       img.decoding = 'async'
       img.src = frameUrl(i)
-      // 保留引用，避免 GC 中断加载
-      preloadedFrames.push(img)
+      preloadedFrames[i] = img
       // 提前解码：切帧时若临时同步解码，会出现一帧空白/闪动
       void img.decode?.().catch(() => {})
     }
-  }
-  // requestIdleCallback 不在标准 DOM 类型里，这里做兼容探测
-  const idle = (window as Window & {
-    requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
-  }).requestIdleCallback
-  if (typeof idle === 'function') idle(run, { timeout: 4000 })
-  else window.setTimeout(run, 1500)
+  }, 0)
 }
 
 /**
- * 全屏角色帧动画：两层 <img> 交替作为前景，交叉淡入完成形态转换。
- * 播放结束后不掉头淡出，而是定格到目标角色帧并虚化停留一段时间
- * （浅色主题=白三月七起始帧 Image1，深色主题=黑长夜月末帧 Image22），
+ * 全屏角色帧动画：用 canvas 逐帧硬切换（不做交叉淡入）。
+ * 交叉淡入时两层同时半透明，整体亮度会随帧率起伏，视觉上就是「抖动」；
+ * 素材本身是连续动画帧，硬切换才是正确的播放方式。
+ * 裁黑边、按视口宽高比适配、边缘羽化都在绘制阶段完成，桌面与手机表现一致。
+ * 播放结束后定格到目标角色帧并虚化停留（浅色=白三月七 Image1，深色=黑长夜月 Image22），
  * 再缓慢淡出。只做视觉叠加（pointer-events: none），主题提交时机仍由 playSunsetBurst 控制。
  */
 function playCharacterFrames(t: UiTheme) {
   if (typeof document === 'undefined' || prefersReducedMotion()) return
 
-  // 上一段定格还在屏幕上时直接移除，避免新动画叠在虚化层上
-  activeFrameVeil?.remove()
+  // 上一段还在播放或定格没淡完：先彻底清理，避免两层动画叠加
+  activeFrameCleanup?.()
 
   const veil = document.createElement('div')
   veil.className = 'theme-frame-veil'
   veil.setAttribute('aria-hidden', 'true')
+
+  const canvas = document.createElement('canvas')
+  canvas.className = 'theme-frame-canvas'
+  veil.appendChild(canvas)
+  document.body.appendChild(veil)
   activeFrameVeil = veil
 
-  const layers = [document.createElement('img'), document.createElement('img')]
-  for (const layer of layers) {
-    layer.className = 'theme-frame-layer'
-    layer.alt = ''
-    layer.draggable = false
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    veil.remove()
+    activeFrameVeil = null
+    return
   }
-  veil.append(layers[0]!, layers[1]!)
-  document.body.appendChild(veil)
+
+  /** 装饰层按 2 倍封顶：再高只会白耗内存与填充率，视觉上已无差别 */
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+
+  function sizeCanvas(el: HTMLCanvasElement) {
+    el.width = Math.round(window.innerWidth * dpr)
+    el.height = Math.round(window.innerHeight * dpr)
+  }
+  sizeCanvas(canvas)
+
+  type FrameRect = {
+    sx: number
+    sy: number
+    sw: number
+    sh: number
+    dx: number
+    dy: number
+    dw: number
+    dh: number
+  }
+
+  /**
+   * 计算源图裁剪区与目标绘制区。
+   * 横屏（桌面）：按高度完整展示方形素材，人物头部不会被上下裁掉，左右留空交给羽化；
+   * 竖屏（手机/平板）：以宽度为基准放大 PORTRAIT_ZOOM 倍，并把高度限制在视口的 62%。
+   */
+  function layout(img: HTMLImageElement): FrameRect {
+    const sw = img.naturalWidth || 1080
+    const sh = img.naturalHeight || 1080
+    const bar = Math.round(sh * FRAME_BAR_RATIO)
+    const srcH = sh - bar * 2
+    const vw = canvas.width
+    const vh = canvas.height
+    const scale =
+      vw >= vh
+        ? Math.min(vw / sw, vh / srcH)
+        : Math.min((vw / sw) * PORTRAIT_ZOOM, (vh * PORTRAIT_MAX_HEIGHT_RATIO) / srcH)
+    const dw = sw * scale
+    const dh = srcH * scale
+    return {
+      sx: 0,
+      sy: bar,
+      sw,
+      sh: srcH,
+      dx: (vw - dw) / 2,
+      // 视觉重心略高于正中，更贴合人像构图
+      dy: (vh - dh) * 0.44,
+      dw,
+      dh,
+    }
+  }
+
+  /**
+   * 边缘羽化：用 destination-out 把贴边像素擦淡，让画面融回页面。
+   * 只在有留白的方向做——画面正好铺满的方向不需要羽化，否则会擦掉人物头部。
+   * 相比 CSS mask，省掉全屏遮罩在每次合成时的重采样开销。
+   */
+  function feather(r: FrameRect) {
+    const vw = canvas.width
+    const vh = canvas.height
+    ctx.save()
+    ctx.globalCompositeOperation = 'destination-out'
+    if (r.dw < vw) {
+      const g = ctx.createLinearGradient(r.dx, 0, r.dx + r.dw, 0)
+      g.addColorStop(0, 'rgba(0, 0, 0, 1)')
+      g.addColorStop(FEATHER_EDGE, 'rgba(0, 0, 0, 0)')
+      g.addColorStop(1 - FEATHER_EDGE, 'rgba(0, 0, 0, 0)')
+      g.addColorStop(1, 'rgba(0, 0, 0, 1)')
+      ctx.fillStyle = g
+      ctx.fillRect(r.dx, 0, r.dw, vh)
+    }
+    if (r.dh < vh) {
+      const g = ctx.createLinearGradient(0, r.dy, 0, r.dy + r.dh)
+      g.addColorStop(0, 'rgba(0, 0, 0, 1)')
+      g.addColorStop(FEATHER_EDGE, 'rgba(0, 0, 0, 0)')
+      g.addColorStop(1 - FEATHER_EDGE, 'rgba(0, 0, 0, 0)')
+      g.addColorStop(1, 'rgba(0, 0, 0, 1)')
+      ctx.fillStyle = g
+      ctx.fillRect(0, r.dy, vw, r.dh)
+    }
+    ctx.restore()
+  }
+
+  /** 绘制单帧。素材尚未加载完成时返回 false，保留上一帧，避免闪白 */
+  function drawFrame(img: HTMLImageElement | undefined) {
+    if (!img || !img.complete || !img.naturalWidth) return false
+    const r = layout(img)
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.globalCompositeOperation = 'source-over'
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.filter = 'none'
+    ctx.drawImage(img, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.dw, r.dh)
+    feather(r)
+    return true
+  }
+
+  /**
+   * 定格快照：把当前画面模糊 + 轻微放大一次画到独立画布。
+   * blur 只算一次，之后靠不透明度交叉淡入，避免逐帧重算全屏模糊（手机端会明显掉帧）。
+   */
+  function paintBlur(target: HTMLCanvasElement) {
+    const bctx = target.getContext('2d')
+    if (!bctx) return
+    bctx.setTransform(1, 0, 0, 1, 0, 0)
+    bctx.globalCompositeOperation = 'source-over'
+    bctx.clearRect(0, 0, target.width, target.height)
+    bctx.filter = `blur(${Math.round(14 * dpr)}px) saturate(1.08)`
+    // 放大 8%：模糊后边缘不会露出空白
+    bctx.drawImage(
+      canvas,
+      -target.width * 0.04,
+      -target.height * 0.04,
+      target.width * 1.08,
+      target.height * 1.08,
+    )
+  }
 
   /** forward=true 时按 1→22，false 时按 22→1 */
   const forward = t === 'dark'
   const frameAt = (step: number) => (forward ? step + 1 : FRAME_COUNT - step)
 
-  let front = 0
-  layers[0]!.src = frameUrl(frameAt(0))
-  layers[1]!.src = frameUrl(frameAt(0))
-  layers[0]!.classList.add('is-front')
+  const timers: number[] = []
+  let currentStep = 0
+  let blurLayer: HTMLCanvasElement | null = null
+  let stepTimer = 0
+  let disposed = false
 
-  // 强制回流后淡入，保证 opacity 过渡真正生效
-  void veil.offsetHeight
-  veil.classList.add('is-active')
+  /** 清理：停定时器、移除监听与图层。连续切换时由下一次调用触发 */
+  const dispose = () => {
+    if (disposed) return
+    disposed = true
+    window.clearInterval(startTimer)
+    window.clearInterval(stepTimer)
+    for (const id of timers) window.clearTimeout(id)
+    window.removeEventListener('resize', onResize)
+    veil.remove()
+    if (activeFrameVeil === veil) activeFrameVeil = null
+    activeFrameCleanup = null
+  }
+  activeFrameCleanup = dispose
 
-  let step = 0
-  let frozen = false
-  const timer = window.setInterval(() => {
-    step += 1
-    if (step >= FRAME_COUNT) {
-      window.clearInterval(timer)
-      return
+  /** 播放中改窗口尺寸：重算画布并重绘当前帧，避免画面被拉伸变形 */
+  const onResize = () => {
+    sizeCanvas(canvas)
+    drawFrame(preloadedFrames[frameAt(currentStep)])
+    if (blurLayer) {
+      sizeCanvas(blurLayer)
+      paintBlur(blurLayer)
     }
-    const back = 1 - front
-    layers[back]!.src = frameUrl(frameAt(step))
-    // 等一帧渲染再换前景层，让新图先绘制到后台层再开始淡入
-    window.requestAnimationFrame(() => {
-      // 已进入定格阶段：忽略残余的回调，避免把手动指定的定格帧又切走
-      if (frozen) return
-      layers[front]!.classList.remove('is-front')
-      layers[back]!.classList.add('is-front')
-      front = back
-    })
-  }, FRAME_INTERVAL_MS)
+  }
+  window.addEventListener('resize', onResize)
 
   /** 定格帧：正向（转深色）停在黑长夜月末帧，反向（转浅色）停在白三月七起始帧 */
   const settleFrame = forward ? FRAME_COUNT : 1
 
-  // 播完所有帧后定格并虚化停留，最后整体淡出销毁，生命周期与光晕层解耦
-  window.setTimeout(() => {
-    frozen = true
-    // 帧调度有毫秒级误差，显式指定目标角色帧为前景，避免停在过渡帧
-    const settled = layers[front]!
-    settled.src = frameUrl(settleFrame)
-    settled.classList.add('is-front')
-    layers[1 - front]!.classList.remove('is-front')
+  const startPlay = () => {
+    stepTimer = window.setInterval(() => {
+      currentStep += 1
+      if (currentStep >= FRAME_COUNT) {
+        window.clearInterval(stepTimer)
+        return
+      }
+      drawFrame(preloadedFrames[frameAt(currentStep)])
+    }, FRAME_INTERVAL_MS)
 
-    veil.classList.add('is-settling')
-    window.setTimeout(() => {
-      veil.classList.add('is-out')
+    // 播完所有帧后定格并虚化停留，最后整体淡出销毁，生命周期与光晕层解耦
+    timers.push(
       window.setTimeout(() => {
-        veil.remove()
-        if (activeFrameVeil === veil) activeFrameVeil = null
-      }, SETTLE_FADE_MS)
-    }, SETTLE_MS)
-  }, FRAME_COUNT * FRAME_INTERVAL_MS)
+        window.clearInterval(stepTimer)
+        // 定时器有毫秒级误差：显式重绘目标角色帧，避免停在过渡帧
+        drawFrame(preloadedFrames[settleFrame])
+
+        blurLayer = document.createElement('canvas')
+        blurLayer.className = 'theme-frame-canvas theme-frame-canvas--blur'
+        sizeCanvas(blurLayer)
+        paintBlur(blurLayer)
+        veil.appendChild(blurLayer)
+
+        veil.classList.add('is-settling')
+        timers.push(
+          window.setTimeout(() => {
+            veil.classList.add('is-out')
+            timers.push(window.setTimeout(dispose, SETTLE_FADE_MS))
+          }, SETTLE_MS),
+        )
+      }, FRAME_COUNT * FRAME_INTERVAL_MS),
+    )
+  }
+
+  // 首帧可能还没加载完（刚打开页面就点切换）：最多等 300ms，
+  // 拿到首帧再播放；实在没有就只保留光晕切换，绝不在屏幕上闪一块空白
+  let waited = 0
+  const startTimer = window.setInterval(() => {
+    if (disposed) return
+    if (!drawFrame(preloadedFrames[frameAt(0)])) {
+      waited += 1
+      if (waited >= 6) {
+        window.clearInterval(startTimer)
+        dispose()
+      }
+      return
+    }
+    window.clearInterval(startTimer)
+    // 强制回流后淡入，保证 opacity 过渡真正生效
+    void veil.offsetHeight
+    veil.classList.add('is-active')
+    startPlay()
+  }, 50)
 }
 
 function isValid(value: unknown): value is UiTheme {
@@ -406,7 +575,7 @@ function playSunsetBurst(t: UiTheme, origin: { x: number; y: number }) {
   veil.style.top = `${origin.y}px`
   document.body.appendChild(veil)
 
-  // 角色帧层：与光晕同时启动，白/黑三月七逐帧交叉淡入（z-index 更高，覆盖在其上）
+  // 角色帧层：与光晕同时启动，白/黑三月七逐帧硬切换（z-index 更高，覆盖在其上）
   playCharacterFrames(t)
 
   // 强制回流后再触发 scale 扩散
